@@ -4,9 +4,11 @@ import Layout from "../../components/Layout"
 
 const Personalities = props => {
   return (
-    <Layout navItems={props.navItems}>
-      test
-    </Layout>
+    <div>
+      <Layout>
+        test
+      </Layout>
+    </div>
   )
 }
 

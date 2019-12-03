@@ -3,7 +3,7 @@ import Header from "./Header"
 
 const Layout = props => (
   <div>
-    <Header navItems={props.navItems}/>
+    <Header/>
     <div className='contents'>
       { props.children }
     </div>

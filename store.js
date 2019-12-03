@@ -2,16 +2,14 @@ import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from "redux-devtools-extension"
 
 const initialState = {
-  lastUpdate: 0,
+  navItems: null,
 }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'TICK':
+    case 'GET_NAV_ITEMS':
       return {
-        ...state,
-        lastUpdate: action.lastUpdate,
-        light: !!action.light
+        navItems: action.data,
       }
     default:
       return state

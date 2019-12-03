@@ -5,7 +5,7 @@ import fetch from 'isomorphic-unfetch'
 import Link from "next/link"
 import Header from "../components/Header"
 import Layout from "../components/Layout"
-import { withRedux } from "../lib/redux"
+import SlideShow from "../components/SlideShow"
 
 const Home = props => {
   return (
@@ -15,6 +15,7 @@ const Home = props => {
         <link rel='icon' href='/favicon.ico'/>
       </Head>
       <Layout>
+        <SlideShow slideInfo={ props.slideInfo }/>
         {props.blogs.map(blog => {
           return (
             <li key={blog.id}>
@@ -95,4 +96,4 @@ Home.getInitialProps = async ({req}) => {
   }
 }
 
-export default withRedux( Home )
+export default Home
