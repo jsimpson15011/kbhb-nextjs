@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="homeslice dev">
+    <serverData>
+      <paths name="homeslice dev">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/kat2019.homesliceweb.com" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="/Projects/kat-radio-nextjs/node_modules" />
+            <excludedPath path="/kat2019.homesliceweb.com/node_modules" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

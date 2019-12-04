@@ -3,25 +3,26 @@ import MaxWidthWrapper from "./MaxWidthWrapper"
 import Link from "next/link"
 import Nav from "./Nav"
 
-const SocialContainer = () => (
-  <div className='social-container'>
-    <Link href="/">
-      <a>
-        <img alt='KAT 98.7' src='/img/logo.png'/>
-      </a>
-    </Link>
-    <div className='social-icons'>
-      <a href='https://www.facebook.com/katcountry987/'>
-        <img alt='facebook' src='/img/icons/facebook.png' />
-      </a>
-      <a href='https://www.instagram.com/katcountry987/'>
-        <img alt='instagram' src='/img/icons/instagram.png' />
-      </a>
-      <a href='https://twitter.com/Katradio'>
-        <img alt='twitter' src='/img/icons/twitter.png' />
-      </a>
-    </div>
-    <style jsx>{`
+const SocialContainer = () => {
+  return (
+    <div className='social-container'>
+      <Link href="/">
+        <a>
+          <img alt='KAT 98.7' src='/img/logo.png'/>
+        </a>
+      </Link>
+      <div className='social-icons'>
+        <a href='https://www.facebook.com/katcountry987/'>
+          <img alt='facebook' src='/img/icons/facebook.png'/>
+        </a>
+        <a href='https://www.instagram.com/katcountry987/'>
+          <img alt='instagram' src='/img/icons/instagram.png'/>
+        </a>
+        <a href='https://twitter.com/Katradio'>
+          <img alt='twitter' src='/img/icons/twitter.png'/>
+        </a>
+      </div>
+      <style jsx>{`
       .social-container {
         display: flex;
         align-items: center;
@@ -35,25 +36,27 @@ const SocialContainer = () => (
         margin-right: 5px;
       }
     `}</style>
-  </div>
-)
+    </div>
+  )
+}
 
-const Header = ({ navItems }) => (
-  <div className='main-header'>
-    <MaxWidthWrapper>
-      <SocialContainer/>
-    </MaxWidthWrapper>
-    <Nav navItems = { navItems }/>
-    <style jsx>
-      {`
+const Header = ({navItems}) => {
+  return (
+    <div className='main-header'>
+      <MaxWidthWrapper>
+        <SocialContainer/>
+      </MaxWidthWrapper>
+      <Nav navItems={navItems}/>
+      <style jsx>
+        {`
         .main-header {
           background: url("/img/concert.png");
           padding: 15px 0;
         }
       `}
-    </style>
-    <style jsx global>
-      {`
+      </style>
+      <style jsx global>
+        {`
                 /* http://meyerweb.com/eric/tools/css/reset/ 
            v2.0 | 20110126
            License: none (public domain)
@@ -107,8 +110,9 @@ const Header = ({ navItems }) => (
           max-width: 100%;
         }
       `}
-    </style>
-  </div>
-)
+      </style>
+    </div>
+  )
+}
 
 export default Header

@@ -6,8 +6,25 @@ import Link from "next/link"
 import Header from "../components/Header"
 import Layout from "../components/Layout"
 import SlideShow from "../components/SlideShow"
+import {Waypoint} from "react-waypoint"
+import anime from "animejs"
 
 const Home = props => {
+  console.log(props.slides)
+  const handleFloatUpReveal = className => {
+    anime.set(`.${className}`, {
+      opacity: 0,
+      translateY: 14
+    })
+    anime({
+      targets: `.${className}`,
+      opacity: 1,
+      translateY: 0,
+      duration: 250,
+      delay: anime.stagger(50, {start: 250}),
+      easing: 'easeInOutSine'
+    })
+  }
   return (
     <div>
       <Head>
@@ -15,7 +32,8 @@ const Home = props => {
         <link rel='icon' href='/favicon.ico'/>
       </Head>
       <Layout>
-        <SlideShow slideInfo={ props.slideInfo }/>
+        <Waypoint onEnter = {() => handleFloatUpReveal('slide-show')}/>
+        <SlideShow slides = { props.slides }/>
         {props.blogs.map(blog => {
           return (
             <li key={blog.id}>
@@ -27,7 +45,6 @@ const Home = props => {
           return (
             <li key={personality.id}>
               <h2>{personality.title.rendered}</h2>
-
               <img src={personality._embedded['wp:featuredmedia']["0"].media_details.sizes.full.source_url} alt=''/>
             </li>
           )
@@ -90,9 +107,26 @@ Home.getInitialProps = async ({req}) => {
   const personalityRes = await fetch('https://katcms.homesliceweb.com/wp-json/wp/v2/personality?_embed')
   const personalityData = await personalityRes.json()
 
+  const promotionRes = await fetch('https://katcms.homesliceweb.com/wp-json/wp/v2/promotions?_embed')
+  const promotionData = await promotionRes.json()
+
+  const slides = promotionData.filter(
+    promotion => {
+      return promotion._embedded
+    })
+    .map(promotion => {
+      return (
+        {
+          image: promotion._embedded['wp:featuredmedia']["0"].media_details.sizes.full.source_url,
+          slug: `/${promotion.type.replace('_', '-')}/${promotion.slug}`
+        }
+      )
+    })
+
   return {
     blogs: blogData.map(blog => blog),
-    personalities: personalityData.map(personality => personality)
+    personalities: personalityData.map(personality => personality),
+    slides
   }
 }
 
