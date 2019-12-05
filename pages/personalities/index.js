@@ -13,9 +13,6 @@ const Personalities = props => {
 }
 
 Personalities.getInitialProps = async ({req}) => {
-  const blogRes = await fetch('https://katcms.homesliceweb.com/wp-json/wp/v2/posts')
-  const blogData = await blogRes.json()
-
   const personalityRes = await fetch('https://katcms.homesliceweb.com/wp-json/wp/v2/personality?_embed')
   const personalityData = await personalityRes.json()
 

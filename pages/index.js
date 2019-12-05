@@ -1,16 +1,16 @@
 import React from 'react'
 import Head from 'next/head'
-import Nav from '../components/Nav'
 import fetch from 'isomorphic-unfetch'
-import Link from "next/link"
-import Header from "../components/Header"
 import Layout from "../components/Layout"
 import SlideShow from "../components/SlideShow"
 import {Waypoint} from "react-waypoint"
 import anime from "animejs"
+import Parser from 'rss-parser'
+import MaxWidthWrapper from "../components/MaxWidthWrapper"
+import mainTheme from "../styles/katTheme"
 
 const Home = props => {
-  console.log(props.slides)
+  console.log(props.kbhbNewsArticles)
   const handleFloatUpReveal = className => {
     anime({
       targets: `.${className}`,
@@ -21,6 +21,7 @@ const Home = props => {
       easing: 'easeInOutSine'
     })
   }
+
   return (
     <div>
       <Head>
@@ -28,68 +29,81 @@ const Home = props => {
         <link rel='icon' href='/favicon.ico'/>
       </Head>
       <Layout>
-        <Waypoint onEnter = {() => handleFloatUpReveal('slide-show')}/>
-        <SlideShow slides = { props.slides }/>
-        {props.blogs.map(blog => {
-          return (
-            <li key={blog.id}>
-              <Link href="blog/[slug]" as={`blog/${blog.slug}`}><a>{blog.title.rendered}</a></Link>
-            </li>
-          )
-        })}
-        {props.personalities.map(personality => {
-          return (
-            <li key={personality.id}>
-              <h2>{personality.title.rendered}</h2>
-              <img src={personality._embedded['wp:featuredmedia']["0"].media_details.sizes.full.source_url} alt=''/>
-            </li>
-          )
-        })}
+        <Waypoint onEnter={() => handleFloatUpReveal('slide-show')}/>
+        <SlideShow slides={props.slides}/>
+        <MaxWidthWrapper>
+          <div className="news-section">
+            <section className='country-news'>
+              <h2>Kat Country News</h2>
+            </section>
+            <section className='local-news'>
+              <h2>Local News</h2>
+              <hr className='thin-hr'/>
+              {props.kbhbNewsArticles.map(article => {
+                let newsArticle =
+                  <article key={ article.title } className='local-article'>
+                    <img src={ article.image.url } alt=''/>
+                    <div className='local-article-content'>
+                      <a href={ article.link }>
+                        <h3>{ article.title }</h3>
+                      <p>{ article.content }</p>
+                      <p className='pub-date'>{ article.pubDate }</p>
+                      </a>
+                    </div>
+                    <hr className='thin-hr'/>
+                  </article>
+                return (
+                  newsArticle
+                )
+              })}
+            </section>
+          </div>
+        </MaxWidthWrapper>
       </Layout>
       <style jsx>{`
       .hero {
         width: 100%;
         color: #333;
       }
-      .title {
-        margin: 0;
-        width: 100%;
-        padding-top: 80px;
-        line-height: 1.15;
-        font-size: 48px;
+      .news-section {
+        width: 644px;
+        max-width: 100%;
       }
-      .title,
-      .description {
-        text-align: center;
+      .local-news h2{
+        font-size: 2em;
+        margin-bottom: .5em;
+        text-transform: uppercase;
       }
-      .row {
-        max-width: 880px;
-        margin: 80px auto 40px;
+      .local-article{
         display: flex;
-        flex-direction: row;
+        flex-wrap: wrap;
         justify-content: space-around;
+        align-items: center;
       }
-      .card {
-        padding: 18px 18px 24px;
-        width: 220px;
-        text-align: left;
+      .local-article img{
+        width: 120px;
+      }
+      .local-article .pub-date{
+        font-style: italic;
+        margin: .5em 0;
+      }
+      .local-article-content{
+        min-width: 75%;
+        width: 400px;
+        max-width: 100%;
+      }
+      .local-article hr{
+        width: 100%;
+      }
+      .local-article a{
+        color: white;
         text-decoration: none;
-        color: #434343;
-        border: 1px solid #9b9b9b;
       }
-      .card:hover {
-        border-color: #067df7;
-      }
-      .card h3 {
-        margin: 0;
-        color: #067df7;
-        font-size: 18px;
-      }
-      .card p {
-        margin: 0;
-        padding: 12px 0 0;
-        font-size: 13px;
-        color: #333;
+      .local-article h3{
+        color: ${ mainTheme.brand };
+        font-size: 1.25em;
+        margin-bottom: .5em;
+        text-transform: uppercase;
       }
     `}</style>
     </div>
@@ -97,14 +111,21 @@ const Home = props => {
 }
 
 Home.getInitialProps = async ({req}) => {
-  const blogRes = await fetch('https://katcms.homesliceweb.com/wp-json/wp/v2/posts')
-  const blogData = await blogRes.json()
-
-  const personalityRes = await fetch('https://katcms.homesliceweb.com/wp-json/wp/v2/personality?_embed')
-  const personalityData = await personalityRes.json()
-
   const promotionRes = await fetch('https://katcms.homesliceweb.com/wp-json/wp/v2/promotions?_embed')
   const promotionData = await promotionRes.json()
+
+  const parser = new Parser({
+    customFields: {
+      item: [
+        ['image', 'image']
+      ]
+      ,
+    }
+  })
+
+  const kbhbFeed = await parser.parseURL('https://kbhbradio.com/rss.php')
+
+  kbhbFeed.items.length = 3
 
   const slides = promotionData.filter(
     promotion => {
@@ -115,7 +136,7 @@ Home.getInitialProps = async ({req}) => {
         image: promotion._embedded['wp:featuredmedia']["0"].media_details.sizes.full.source_url,
         slug: `/${promotion.type.replace('_', '-')}/${promotion.slug}`
       }
-      if (promotion.meta_box.event_external_link){
+      if (promotion.meta_box.event_external_link) {
         promotionInfo = {
           image: promotion._embedded['wp:featuredmedia']["0"].media_details.sizes.full.source_url,
           externalLink: promotion.meta_box.event_external_link
@@ -127,9 +148,8 @@ Home.getInitialProps = async ({req}) => {
     })
 
   return {
-    blogs: blogData.map(blog => blog),
-    personalities: personalityData.map(personality => personality),
-    slides
+    slides,
+    kbhbNewsArticles: kbhbFeed.items.map(article => article)
   }
 }
 
