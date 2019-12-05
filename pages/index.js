@@ -12,15 +12,11 @@ import anime from "animejs"
 const Home = props => {
   console.log(props.slides)
   const handleFloatUpReveal = className => {
-    anime.set(`.${className}`, {
-      opacity: 0,
-      translateY: 14
-    })
     anime({
       targets: `.${className}`,
       opacity: 1,
       translateY: 0,
-      duration: 250,
+      duration: 350,
       delay: anime.stagger(50, {start: 250}),
       easing: 'easeInOutSine'
     })
@@ -115,11 +111,18 @@ Home.getInitialProps = async ({req}) => {
       return promotion._embedded
     })
     .map(promotion => {
-      return (
-        {
+      let promotionInfo = {
+        image: promotion._embedded['wp:featuredmedia']["0"].media_details.sizes.full.source_url,
+        slug: `/${promotion.type.replace('_', '-')}/${promotion.slug}`
+      }
+/*      if (promotion.metabox.externalLink){
+        promotionInfo = {
           image: promotion._embedded['wp:featuredmedia']["0"].media_details.sizes.full.source_url,
-          slug: `/${promotion.type.replace('_', '-')}/${promotion.slug}`
+          externalLink: promotion.metabox.externalLink
         }
+      }*/
+      return (
+        promotionInfo
       )
     })
 

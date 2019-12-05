@@ -1,8 +1,9 @@
 import React from 'react'
 import mainTheme from "../styles/katTheme"
-import TouchCarousel from 'react-touch-carousel'
-import NonPassiveTouchTarget from './NonPassiveTouchTarget'
-import touchWithMouseHOC from 'react-touch-carousel/lib/touchWithMouseHOC'
+import Slider from 'react-slick'
+import "slick-carousel/slick/slick.css"
+import '../styles/slick-theme.css'
+import Link from "next/link"
 
 const BelowSlideShow = () => {
   return (
@@ -48,50 +49,53 @@ const BelowSlideShow = () => {
   )
 }
 
-const CarouselContainer = (props) => {
-  const {cursor, carouselState, ...rest} = props
-  return (
-    <NonPassiveTouchTarget className='carousel-container'>
-      <NonPassiveTouchTarget
-        className='carousel-track'
-        data-cursor={cursor}
-        {...rest}
-      />
-    </NonPassiveTouchTarget>
-  )
-}
-const Container = touchWithMouseHOC(CarouselContainer)
-
-
 const SlideShow = ({slides}) => {
-  //const slideImages = slides.map(slide => slide.image)
 
-  const renderSlide = (index, modIndex, cursor) => {
-    cursor = -cursor
-    const item = slides[modIndex]
-    return (
-      <div
-        key={index}
-        className='carousel-card'
-        data-index={index}
-        data-modIndex={modIndex}
-      >
-        <img src={item.image} />
-      </div>
-    )
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 8000
   }
+
   return (
     <div className='slide-show'>
-      <TouchCarousel
-        component={Container}
-        cardCount={slides.length}
-        renderCard={renderSlide}
-        cardSize={2}
-        cardPadCount={1}
-        loop
-        autoplay={3000}
-      />
+      <Slider {...settings}>
+        {slides.map(slide => {
+          if (slide.externalLink) {
+            return (
+              <a key={slide.image} href={slide.externalLink}>
+                <img src={slide.image}/>
+              </a>
+            )
+          }
+          return (
+            <Link key={slide.image} href={slide.slug}>
+              <a>
+                <img src={slide.image}/>
+              </a>
+            </Link>
+          )
+        })}
+      </Slider>
       <BelowSlideShow/>
+      <style jsx>{`
+        .slide-show img{
+          display: block;
+          width: 100%;
+          height: auto;
+        }
+        .slide-show{
+          opacity: 0;
+          transform: translateY(-50%);
+          max-width: 2000px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+      `}</style>
     </div>
   )
 }
