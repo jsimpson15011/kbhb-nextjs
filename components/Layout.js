@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from "./Header"
+import mainTheme from "../styles/katTheme"
 
 const Layout = props => (
   <div>
@@ -7,8 +8,14 @@ const Layout = props => (
     <div className='contents'>
       { props.children }
     </div>
-    <style jsx >{`
-
+    <style jsx global>{`
+      .contents{
+        background: ${ mainTheme.background };
+        color: white;
+      }
+      .content li{
+        color: white;
+      }
 `}</style>
   </div>
 )

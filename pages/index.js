@@ -115,12 +115,12 @@ Home.getInitialProps = async ({req}) => {
         image: promotion._embedded['wp:featuredmedia']["0"].media_details.sizes.full.source_url,
         slug: `/${promotion.type.replace('_', '-')}/${promotion.slug}`
       }
-/*      if (promotion.metabox.externalLink){
+      if (promotion.meta_box.event_external_link){
         promotionInfo = {
           image: promotion._embedded['wp:featuredmedia']["0"].media_details.sizes.full.source_url,
-          externalLink: promotion.metabox.externalLink
+          externalLink: promotion.meta_box.event_external_link
         }
-      }*/
+      }
       return (
         promotionInfo
       )

@@ -67,17 +67,21 @@ const SlideShow = ({slides}) => {
         {slides.map(slide => {
           if (slide.externalLink) {
             return (
-              <a key={slide.image} href={slide.externalLink}>
-                <img src={slide.image}/>
-              </a>
+              <div className='slide-container' key={slide.image}>
+                <a  href={slide.externalLink}>
+                  <img src={slide.image}/>
+                </a>
+              </div>
             )
           }
           return (
-            <Link key={slide.image} href={slide.slug}>
-              <a>
-                <img src={slide.image}/>
-              </a>
-            </Link>
+            <div className='slide-container' key={ slide.image } >
+              <Link href={slide.slug}>
+                <a>
+                  <img src={slide.image}/>
+                </a>
+              </Link>
+            </div>
           )
         })}
       </Slider>
@@ -94,6 +98,9 @@ const SlideShow = ({slides}) => {
           max-width: 2000px;
           margin-left: auto;
           margin-right: auto;
+        }
+        .slide-container{
+          display: block;
         }
       `}</style>
     </div>
