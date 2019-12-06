@@ -109,6 +109,9 @@ const Header = ({navItems}) => {
           display: block;
           max-width: 100%;
         }
+        body {
+          line-height: 1.4;
+        }
       `}
       </style>
     </div>
