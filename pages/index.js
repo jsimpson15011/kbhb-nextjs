@@ -1,16 +1,18 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import Head from 'next/head'
 import fetch from 'isomorphic-unfetch'
 import Layout from "../components/Layout"
+import Link from "next/link"
 import SlideShow from "../components/SlideShow"
 import {Waypoint} from "react-waypoint"
 import anime from "animejs"
 import Parser from 'rss-parser'
 import MaxWidthWrapper from "../components/MaxWidthWrapper"
 import mainTheme from "../styles/katTheme"
+import { getNavItems } from "../reducers/navReducer"
+import { withRedux } from "../lib/redux"
 
 const Home = props => {
-  console.log(props.kbhbNewsArticles)
   const handleFloatUpReveal = className => {
     anime({
       targets: `.${className}`,
@@ -110,9 +112,11 @@ const Home = props => {
   )
 }
 
-Home.getInitialProps = async ({req}) => {
+Home.getInitialProps = async ({ reduxStore }) => {
   const promotionRes = await fetch('https://katcms.homesliceweb.com/wp-json/wp/v2/promotions?_embed')
   const promotionData = await promotionRes.json()
+
+  await getNavItems(reduxStore)
 
   const parser = new Parser({
     customFields: {
@@ -153,4 +157,6 @@ Home.getInitialProps = async ({req}) => {
   }
 }
 
-export default Home
+
+
+export default withRedux(Home)

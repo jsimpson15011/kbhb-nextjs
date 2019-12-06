@@ -1,36 +1,13 @@
 import React, {useEffect, useCallback} from 'react'
 import Link from '../utils/ActiveLink'
-import unfetch from "isomorphic-unfetch"
+import fetch from "isomorphic-unfetch"
 import mainTheme from '../styles/katTheme'
 import {useSelector, useDispatch} from "react-redux"
 import {withRedux} from "../lib/redux"
 import MaxWidthWrapper from "./MaxWidthWrapper"
 
 const Nav = () => {
-  const dispatch = useDispatch()
-  const getNavItems = useCallback(
-    (navItems) => dispatch({
-      type: 'GET_NAV_ITEMS',
-      data: navItems
-    })
-  )
   const navItems = useSelector(state => state.navItems)
-  useEffect(() => {
-    async function getNavigationItems() {
-      const initialLinks = [{
-        slug: '',
-        url: '/',
-        title: 'Home',
-        type: 'initial'
-      }]
-      const navItemsRes = await fetch('https://katcms.homesliceweb.com/wp-json/menus/v1/menus/main-navigation')
-      const navItemsData = await navItemsRes.json()
-
-      getNavItems(initialLinks.concat(navItemsData.items))
-    }
-
-    getNavigationItems()
-  }, [])
 
   if (navItems === null) {
     return <nav>
@@ -66,7 +43,7 @@ const Nav = () => {
     </nav>
   }
 
-  const links = navItems.map(navItem => {
+  const links = navItems.navItems.map(navItem => {
       let navItemInfo
       if (navItem.type === 'custom') {
         navItemInfo = {
