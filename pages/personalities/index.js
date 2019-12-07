@@ -1,6 +1,8 @@
 import React from 'react'
 import fetch from "isomorphic-unfetch"
 import Layout from "../../components/Layout"
+import { withRedux } from "../../lib/redux"
+import {getNavItems} from "../../reducers/navReducer"
 
 const Personalities = props => {
   return (
@@ -12,7 +14,9 @@ const Personalities = props => {
   )
 }
 
-Personalities.getInitialProps = async ({req}) => {
+Personalities.getInitialProps = async ({reduxStore}) => {
+  await getNavItems(reduxStore)
+
   const personalityRes = await fetch('https://katcms.homesliceweb.com/wp-json/wp/v2/personality?_embed')
   const personalityData = await personalityRes.json()
 
@@ -20,10 +24,9 @@ Personalities.getInitialProps = async ({req}) => {
   const navItemsData = await navItemsRes.json()
 
   return {
-    blogs: blogData.map(blog => blog),
     navItems: navItemsData.items.map(item => item),
     personalities: personalityData.map(personality => personality)
   }
 }
 
-export default Personalities
+export default withRedux(Personalities)

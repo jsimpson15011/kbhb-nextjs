@@ -1,16 +1,19 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import Head from 'next/head'
 import fetch from 'isomorphic-unfetch'
 import Layout from "../components/Layout"
+import Link from "next/link"
 import SlideShow from "../components/SlideShow"
 import {Waypoint} from "react-waypoint"
 import anime from "animejs"
 import Parser from 'rss-parser'
 import MaxWidthWrapper from "../components/MaxWidthWrapper"
 import mainTheme from "../styles/katTheme"
+import { getNavItems } from "../reducers/navReducer"
+import { withRedux } from "../lib/redux"
+import NewsFeedContainer from "../components/NewsFeedContainer"
 
 const Home = props => {
-  console.log(props.kbhbNewsArticles)
   const handleFloatUpReveal = className => {
     anime({
       targets: `.${className}`,
@@ -36,7 +39,8 @@ const Home = props => {
             <section className='country-news'>
               <h2>Kat Country News</h2>
             </section>
-            <section className='local-news'>
+            <NewsFeedContainer/>
+            {/*<section className='local-news'>
               <h2>Local News</h2>
               <hr className='thin-hr'/>
               {props.kbhbNewsArticles.map(article => {
@@ -56,7 +60,7 @@ const Home = props => {
                   newsArticle
                 )
               })}
-            </section>
+            </section>*/}
           </div>
         </MaxWidthWrapper>
       </Layout>
@@ -69,63 +73,16 @@ const Home = props => {
         width: 644px;
         max-width: 100%;
       }
-      .local-news h2{
-        font-size: 2em;
-        margin-bottom: .5em;
-        text-transform: uppercase;
-      }
-      .local-article{
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        align-items: center;
-      }
-      .local-article img{
-        width: 120px;
-      }
-      .local-article .pub-date{
-        font-style: italic;
-        margin: .5em 0;
-      }
-      .local-article-content{
-        min-width: 75%;
-        width: 400px;
-        max-width: 100%;
-      }
-      .local-article hr{
-        width: 100%;
-      }
-      .local-article a{
-        color: white;
-        text-decoration: none;
-      }
-      .local-article h3{
-        color: ${ mainTheme.brand };
-        font-size: 1.25em;
-        margin-bottom: .5em;
-        text-transform: uppercase;
-      }
     `}</style>
     </div>
   )
 }
 
-Home.getInitialProps = async ({req}) => {
+Home.getInitialProps = async ({ reduxStore }) => {
   const promotionRes = await fetch('https://katcms.homesliceweb.com/wp-json/wp/v2/promotions?_embed')
   const promotionData = await promotionRes.json()
 
-  const parser = new Parser({
-    customFields: {
-      item: [
-        ['image', 'image']
-      ]
-      ,
-    }
-  })
-
-  const kbhbFeed = await parser.parseURL('https://kbhbradio.com/rss.php')
-
-  kbhbFeed.items.length = 3
+  await getNavItems(reduxStore)
 
   const slides = promotionData.filter(
     promotion => {
@@ -133,12 +90,12 @@ Home.getInitialProps = async ({req}) => {
     })
     .map(promotion => {
       let promotionInfo = {
-        image: promotion._embedded['wp:featuredmedia']["0"].media_details.sizes.full.source_url,
+        image: promotion._embedded['wp:featuredmedia']["0"].media_details.sizes.large.source_url,
         slug: `/${promotion.type.replace('_', '-')}/${promotion.slug}`
       }
       if (promotion.meta_box.event_external_link) {
         promotionInfo = {
-          image: promotion._embedded['wp:featuredmedia']["0"].media_details.sizes.full.source_url,
+          image: promotion._embedded['wp:featuredmedia']["0"].media_details.sizes.large.source_url,
           externalLink: promotion.meta_box.event_external_link
         }
       }
@@ -148,9 +105,9 @@ Home.getInitialProps = async ({req}) => {
     })
 
   return {
-    slides,
-    kbhbNewsArticles: kbhbFeed.items.map(article => article)
+    slides
   }
 }
 
-export default Home
+
+export default withRedux(Home)
