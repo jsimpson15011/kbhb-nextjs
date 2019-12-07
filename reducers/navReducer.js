@@ -1,5 +1,3 @@
-import {useDispatch} from "react-redux"
-import {useCallback} from "react"
 import fetch from "isomorphic-unfetch"
 
 const initialState = {

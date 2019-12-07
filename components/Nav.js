@@ -1,8 +1,7 @@
-import React, {useEffect, useCallback} from 'react'
+import React from 'react'
 import Link from '../utils/ActiveLink'
-import fetch from "isomorphic-unfetch"
 import mainTheme from '../styles/katTheme'
-import {useSelector, useDispatch} from "react-redux"
+import { useSelector } from "react-redux"
 import {withRedux} from "../lib/redux"
 import MaxWidthWrapper from "./MaxWidthWrapper"
 
