@@ -2,7 +2,6 @@ import React from 'react'
 import mainTheme from "../styles/katTheme"
 
 const NewsFeed = props => {
-  console.log(props)
   if (props.items === null){
     return (
       <h2>Loading</h2>

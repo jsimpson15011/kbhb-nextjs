@@ -1,13 +1,21 @@
-import App from "next/app";
-import React from "react";
+import React from "react"
+import { withRedux } from "../lib/redux"
+import App from 'next/app'
 
-import "../styles/blank.css";
+import "../styles/blank.css"
+import { getNavItems } from "../reducers/navReducer"
 
-export default class MyApp extends App {
-  render() {
-    const { Component, pageProps } = this.props;
-    return (
-        <Component {...pageProps} />
-    );
-  }
+function MyApp({Component, pageProps}) {
+  return <Component {...pageProps} />
 }
+
+MyApp.getInitialProps = async ({reduxStore, Component, ctx}) => {
+  await getNavItems(reduxStore)
+  const pageProps = Component.getInitialProps
+    ? await Component.getInitialProps(ctx)
+    : {};
+
+  return {pageProps}
+}
+
+export default withRedux(MyApp)

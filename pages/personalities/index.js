@@ -14,9 +14,7 @@ const Personalities = props => {
   )
 }
 
-Personalities.getInitialProps = async ({reduxStore}) => {
-  await getNavItems(reduxStore)
-
+Personalities.getInitialProps = async () => {
   const personalityRes = await fetch('https://katcms.homesliceweb.com/wp-json/wp/v2/personality?_embed')
   const personalityData = await personalityRes.json()
 

@@ -78,11 +78,9 @@ const Home = props => {
   )
 }
 
-Home.getInitialProps = async ({ reduxStore }) => {
-  const [navItems, promotionRes] = await Promise.all([
-    getNavItems(reduxStore),
-    fetch('https://katcms.homesliceweb.com/wp-json/wp/v2/promotions?_embed')
-    ])
+Home.getInitialProps = async () => {
+  const promotionRes = await fetch('https://katcms.homesliceweb.com/wp-json/wp/v2/promotions?_embed')
+
   const promotionData = await promotionRes.json()
 
   const slides = promotionData.filter(

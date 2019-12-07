@@ -61,6 +61,14 @@ const SlideShow = ({slides}) => {
     autoplaySpeed: 8000
   }
 
+  if(!slides){
+    return (
+      <div>
+        Loading
+      </div>
+    )
+  }
+
   return (
     <div className='slide-show'>
       <Slider {...settings}>
