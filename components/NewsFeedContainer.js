@@ -2,6 +2,8 @@ import React, {useCallback, useEffect} from 'react'
 import fetch from 'isomorphic-unfetch'
 import {useSelector, useDispatch} from "react-redux"
 import {withRedux} from "../lib/redux"
+import Parser from "rss-parser"
+import NewsFeed from "./NewsFeed"
 
 const NewsFeedContainer = props => {
   const dispatch = useDispatch()
@@ -14,27 +16,38 @@ const NewsFeedContainer = props => {
     data: newsItems
   }))
   useEffect(() => {
-    async function getNavigationItems() {
-      const initialLinks = [{
-        slug: '',
-        url: '/',
-        title: 'Home',
-        type: 'initial'
-      }]
-      const navItemsRes = await fetch('https://katcms.homesliceweb.com/wp-json/menus/v1/menus/main-navigation')
-      const navItemsData = await navItemsRes.json()
+    async function getLocalItems() {
+      const parser = new Parser({
+        customFields: {
+          item: [
+            ['image', 'image']
+          ]
+          ,
+        }
+      })
 
-      getNavItems(initialLinks.concat(navItemsData.items))
+      const kbhbFeed = await parser.parseURL('https://kbhbradio.com/rss.php')
+
+      kbhbFeed.items.length = 3
+
+      addLocalItems(kbhbFeed)
     }
 
-    getNavigationItems()
+    getLocalItems()
   }, [])
 
   const newsItems = useSelector(state => state.newsItems)
+  if(newsItems.localNews === null){
+    return (
+      <h2>
+        Loading
+      </h2>
+    )
+  }
 
   return (
-    <div>
-
-    </div>
+    <NewsFeed items={newsItems.localNews.items}/>
   )
 }
+
+export default NewsFeedContainer
