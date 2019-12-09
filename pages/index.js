@@ -1,16 +1,12 @@
-import React, {useCallback} from 'react'
+import React from 'react'
 import Head from 'next/head'
 import fetch from 'isomorphic-unfetch'
 import Layout from "../components/Layout"
-import Link from "next/link"
 import SlideShow from "../components/SlideShow"
 import {Waypoint} from "react-waypoint"
 import anime from "animejs"
-import Parser from 'rss-parser'
 import MaxWidthWrapper from "../components/MaxWidthWrapper"
-import mainTheme from "../styles/katTheme"
-import { getNavItems } from "../reducers/navReducer"
-import { withRedux } from "../lib/redux"
+import {withRedux} from "../lib/redux"
 import NewsFeedContainer from "../components/NewsFeedContainer"
 
 const Home = props => {
@@ -30,6 +26,8 @@ const Home = props => {
       <Head>
         <title>Home</title>
         <link rel='icon' href='/favicon.ico'/>
+        <meta name="description"
+              content="KOUT “KAT COUNTRY”, The Black Hills’ Favorite Country station playing a mix of the best of popular country artists in an upbeat, contemporary style"/>
       </Head>
       <Layout>
         <Waypoint onEnter={() => handleFloatUpReveal('slide-show')}/>
@@ -85,17 +83,19 @@ Home.getInitialProps = async () => {
 
   const slides = promotionData.filter(
     promotion => {
-      return promotion._embedded
+      return promotion.meta_box.event_home_slide[0]
     })
     .map(promotion => {
       let promotionInfo = {
-        image: promotion._embedded['wp:featuredmedia']["0"].media_details.sizes.large.source_url,
-        slug: `/${promotion.type.replace('_', '-')}/${promotion.slug}`
+        image: promotion.meta_box.event_home_slide[0].full_url,
+        slug: `/${promotion.type.replace('_', '-')}/${promotion.slug}`,
+        alt: promotion.title.rendered
       }
       if (promotion.meta_box.event_external_link) {
         promotionInfo = {
-          image: promotion._embedded['wp:featuredmedia']["0"].media_details.sizes.large.source_url,
-          externalLink: promotion.meta_box.event_external_link
+          image: promotion.meta_box.event_home_slide[0].full_url,
+          externalLink: promotion.meta_box.event_external_link,
+          alt: promotion.title.rendered
         }
       }
       return (

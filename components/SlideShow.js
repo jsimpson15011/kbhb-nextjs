@@ -77,7 +77,7 @@ const SlideShow = ({slides}) => {
             return (
               <div className='slide-container' key={slide.image}>
                 <a  href={slide.externalLink}>
-                  <img src={slide.image}/>
+                  <img alt={slide.alt} src={slide.image}/>
                 </a>
               </div>
             )
