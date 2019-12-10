@@ -102,7 +102,7 @@ const Nav = () => {
       }
       @media all and (min-width: ${ mainTheme.menuBreakPoint }){
         nav{
-        display: block;
+          display: block;
         }
       }
       ul {

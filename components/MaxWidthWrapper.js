@@ -6,6 +6,8 @@ const MaxWidthWrapper = props => (
     <style jsx>{`
       .max-width-wrapper{
         display: ${props.display ? props.display : 'flex'};
+        justify-content: space-between;
+        flex-wrap: wrap;
         max-width: 1000px;
         margin-left: auto;
         margin-right: auto;

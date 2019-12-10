@@ -3,10 +3,10 @@ import Head from 'next/head'
 import fetch from 'isomorphic-unfetch'
 import Layout from "../components/Layout"
 import SlideShow from "../components/SlideShow"
-import {Waypoint} from "react-waypoint"
+import { Waypoint } from "react-waypoint"
 import anime from "animejs"
 import MaxWidthWrapper from "../components/MaxWidthWrapper"
-import {withRedux} from "../lib/redux"
+import { withRedux } from "../lib/redux"
 import NewsFeedContainer from "../components/NewsFeedContainer"
 
 const Home = props => {
