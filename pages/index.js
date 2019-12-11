@@ -28,6 +28,7 @@ const Home = props => {
         <link rel='icon' href='/favicon.ico'/>
         <meta name="description"
               content="KOUT “KAT COUNTRY”, The Black Hills’ Favorite Country station playing a mix of the best of popular country artists in an upbeat, contemporary style"/>
+        <script src="http://mpl.tunegenie.com/js/loader.min.js?Math.random()"/>
       </Head>
       <Layout>
         <Waypoint onEnter={() => handleFloatUpReveal('slide-show')}/>
@@ -59,6 +60,12 @@ const Home = props => {
                 )
               })}
             </section>*/}
+          </div>
+          <div className='tune-genie-player'>
+            <iframe name="onair" frameBorder="0" align="top,left" marginHeight="0" marginWidth="0" scrolling="no"
+                    width="300"
+                    height="480"
+                    src="http://kout.tunegenie.com/plugins/onair/?searchbar=on&streamfooter=on&newwindow=on"/>
           </div>
         </MaxWidthWrapper>
       </Layout>

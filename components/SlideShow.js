@@ -106,6 +106,7 @@ const SlideShow = ({slides}) => {
           max-width: 2000px;
           margin-left: auto;
           margin-right: auto;
+          margin-bottom: 40px;
         }
         .slide-container{
           display: block;

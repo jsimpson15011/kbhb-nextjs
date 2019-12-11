@@ -2,11 +2,18 @@ import React from 'react'
 import fetch from "isomorphic-unfetch"
 import Layout from "../../components/Layout"
 import { withRedux } from "../../lib/redux"
-import {getNavItems} from "../../reducers/navReducer"
+import Head from "next/head"
 
 const Personalities = props => {
   return (
     <div>
+      <Head>
+        <title>Personalities</title>
+        <link rel='icon' href='/favicon.ico'/>
+        <meta name="description"
+              content="KOUT “KAT COUNTRY”, The Black Hills’ Favorite Country station playing a mix of the best of popular country artists in an upbeat, contemporary style"/>
+        <script src="http://mpl.tunegenie.com/js/loader.min.js?Math.random()"/>
+      </Head>
       <Layout>
         test
       </Layout>
