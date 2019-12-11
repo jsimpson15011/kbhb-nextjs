@@ -4,21 +4,6 @@ import mainTheme from "../styles/katTheme"
 import Link from "next/link"
 
 const Footer = () => {
-  useEffect(() => {
-      window.tgmplibs = "media2bar"
-      top.tgmp ? top.tgmp.onload() : window.tgmp = new TuneGenieMediaPlayer("playerbar", {
-        brand: "kout",
-        theme: ["#000000"],
-        position: "bottom",
-        autostart: false,
-        infoTrayOnLoad: false,
-        frame: true
-      })
-      /*    var tgmp_rc = top.tgmp_rc || new TuneGenieRC(tgmp)
-          tgmp_rc.recentSongWidget(document.getElementById('tgrecent'), {})
-          tgmp_rc.nowPlayingWidget(document.getElementById('tgnowplaying'), {})*/
-    }, []
-  )
   return (
     <div id='footer' className='footer'>
       <MaxWidthWrapper display='flex' className='max-width-wrapper'>

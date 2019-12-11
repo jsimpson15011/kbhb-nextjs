@@ -12,7 +12,6 @@ const Personalities = props => {
         <link rel='icon' href='/favicon.ico'/>
         <meta name="description"
               content="KOUT “KAT COUNTRY”, The Black Hills’ Favorite Country station playing a mix of the best of popular country artists in an upbeat, contemporary style"/>
-        <script src="http://mpl.tunegenie.com/js/loader.min.js?Math.random()"/>
       </Head>
       <Layout>
         test

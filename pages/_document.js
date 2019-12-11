@@ -15,6 +15,8 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+         <script src="http://mpl.tunegenie.com/js/loader.min.js?Math.random()"/>
+          <script src="/scripts/tune-genie.js" defer/>
         </Head>
         <body>
         <Main/>
