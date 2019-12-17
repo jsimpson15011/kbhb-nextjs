@@ -1,6 +1,8 @@
 import React from 'react'
+import dynamic from "next/dynamic"
 import mainTheme from "../styles/katTheme"
-import Slider from 'react-slick'
+const LazyLoad = dynamic(() => import('react-lazyload'))
+const Slider = dynamic(() => import('react-slick'))
 import "slick-carousel/slick/slick.css"
 import '../styles/slick-theme.css'
 import Link from "next/link"
@@ -77,7 +79,9 @@ const SlideShow = ({slides}) => {
             return (
               <div className='slide-container' key={slide.image}>
                 <a  href={slide.externalLink}>
-                  <img alt={slide.alt} src={slide.image}/>
+                  <LazyLoad>
+                    <img alt={slide.alt} src={slide.image}/>
+                  </LazyLoad>
                 </a>
               </div>
             )

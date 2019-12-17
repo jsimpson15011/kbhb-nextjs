@@ -1,3 +1,4 @@
+/*
 window.addEventListener('load', function () {
   jQuery = ''
   window.tgmplibs = "media2bar"
@@ -9,4 +10,4 @@ window.addEventListener('load', function () {
     infoTrayOnLoad: false,
     frame: true
   })
-})
+})*/

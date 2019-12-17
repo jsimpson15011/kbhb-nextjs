@@ -1,25 +1,30 @@
 import React from 'react'
 import mainTheme from "../styles/katTheme"
+import dynamic from "next/dynamic"
+
+const LazyLoad = dynamic(() => import('react-lazyload'))
 
 const NewsFeed = props => {
-  if (props.items === null){
+  if (props.items === null) {
     return (
       <h2>Loading</h2>
     )
   }
-  return(
+  return (
     <section className='news-feed'>
       <h2>Local News</h2>
       <hr className='thin-hr'/>
       {props.items.map(article => {
         let newsArticle =
-          <article key={ article.title } className='article'>
-            <img src={ article.image.url } alt=''/>
+          <article key={article.title} className='article'>
+            <LazyLoad>
+              <img src={article.image.url} alt=''/>
+            </LazyLoad>
             <div className='article-content'>
-              <a href={ article.link }>
-                <h3>{ article.title }</h3>
-                <p>{ article.content }</p>
-                <p className='pub-date'>{ article.pubDate }</p>
+              <a href={article.link}>
+                <h3>{article.title}</h3>
+                <p>{article.content}</p>
+                <p className='pub-date'>{article.pubDate}</p>
               </a>
             </div>
             <hr className='thin-hr'/>
@@ -60,7 +65,7 @@ const NewsFeed = props => {
         text-decoration: none;
       }
       .article h3{
-        color: ${ mainTheme.brand };
+        color: ${mainTheme.brand};
         font-size: 1.25em;
         margin-bottom: .5em;
         text-transform: uppercase;

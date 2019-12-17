@@ -1,8 +1,12 @@
-const withCSS = require('@zeit/next-css')
+const css = require('@zeit/next-css')
+const withPlugins = require('next-compose-plugins')
+const bundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
 
-module.exports = withCSS({
-  webpack: function (config) {
-    config.module.rules.push({
+module.exports = withPlugins([
+    bundleAnalyzer,
+    [css, {
       test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
       use: {
         loader: 'url-loader',
@@ -11,7 +15,6 @@ module.exports = withCSS({
           name: '[name].[ext]'
         }
       }
-    })
-    return config
-  }
-})
+    }]
+  ])
+

@@ -3,10 +3,10 @@ import Head from 'next/head'
 import fetch from 'isomorphic-unfetch'
 import Layout from "../components/Layout"
 import SlideShow from "../components/SlideShow"
-import { Waypoint } from "react-waypoint"
+import {Waypoint} from "react-waypoint"
 import anime from "animejs"
 import MaxWidthWrapper from "../components/MaxWidthWrapper"
-import { withRedux } from "../lib/redux"
+import {withRedux} from "../lib/redux"
 import NewsFeedContainer from "../components/NewsFeedContainer"
 
 const Home = props => {
@@ -28,7 +28,6 @@ const Home = props => {
         <link rel='icon' href='/favicon.ico'/>
         <meta name="description"
               content="KOUT “KAT COUNTRY”, The Black Hills’ Favorite Country station playing a mix of the best of popular country artists in an upbeat, contemporary style"/>
-        <script src="http://mpl.tunegenie.com/js/loader.min.js?Math.random()"/>
       </Head>
       <Layout>
         <Waypoint onEnter={() => handleFloatUpReveal('slide-show')}/>
@@ -90,7 +89,18 @@ Home.getInitialProps = async () => {
 
   const slides = promotionData.filter(
     promotion => {
-      return promotion.meta_box.event_home_slide[0]
+      const displayStartTime = !parseInt(promotion.meta_box.event_display_start) ? // If start time isn't defined always show until end time has passed
+        0
+        : promotion.meta_box.event_display_start
+      const displayEndTime = !parseInt(promotion.meta_box.event_display_end) ?// If end time isn't defined always show when start date has passed
+        2147483647
+        : promotion.meta_box.event_display_end
+      const timeNow = Math.round(Date.now() / 1000)
+
+      if (timeNow < displayStartTime || timeNow > displayEndTime){
+        return false
+      }
+        return promotion.meta_box.event_home_slide[0]
     })
     .map(promotion => {
       let promotionInfo = {
