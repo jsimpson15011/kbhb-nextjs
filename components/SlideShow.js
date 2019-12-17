@@ -1,6 +1,6 @@
 import React from 'react'
-import dynamic from "next/dynamic"
 import mainTheme from "../styles/katTheme"
+import dynamic from "next/dynamic"
 const LazyLoad = dynamic(() => import('react-lazyload'))
 const Slider = dynamic(() => import('react-slick'))
 import "slick-carousel/slick/slick.css"

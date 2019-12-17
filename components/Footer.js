@@ -1,6 +1,9 @@
 import React, {useEffect} from 'react'
 import MaxWidthWrapper from "./MaxWidthWrapper"
 import mainTheme from "../styles/katTheme"
+import dynamic from "next/dynamic"
+
+const LazyLoad = dynamic(() => import('react-lazyload'))
 import Link from "next/link"
 
 const Footer = () => {
@@ -17,11 +20,15 @@ const Footer = () => {
         <div className='logos'>
           <Link href='/'>
             <a>
-              <img src='/img/logo.png' alt='KAT 98.7'/>
+              <LazyLoad>
+                <img src='/img/logo.png' alt='KAT 98.7'/>
+              </LazyLoad>
             </a>
           </Link>
           <a href='https://thehomeslicegroup.com'>
-            <img src='/img/homeslice-logo.png' alt='HomeSlice Media Group'/>
+            <LazyLoad>
+              <img src='/img/homeslice-logo.png' alt='HomeSlice Media Group'/>
+            </LazyLoad>
           </a>
         </div>
       </MaxWidthWrapper>
