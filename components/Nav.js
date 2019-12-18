@@ -46,7 +46,7 @@ const Nav = () => {
       let navItemInfo
       if (navItem.type === 'custom') {
         navItemInfo = {
-          key: navItem.slug,
+          key: navItem.url,
           href: navItem.url,
           label: navItem.title,
           type: navItem.type
