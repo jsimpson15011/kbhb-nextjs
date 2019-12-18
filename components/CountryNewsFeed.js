@@ -1,12 +1,10 @@
 import React from 'react'
-import mainTheme from "../styles/katTheme"
 import ReactHtmlParser from 'react-html-parser'
 import dynamic from "next/dynamic"
 
 const LazyLoad = dynamic(() => import('react-lazyload'))
 
 const LocalNewsFeed = props => {
-  console.log(props.items[2])
   if (props.items === null) {
     return (
       <h2>Loading</h2>
@@ -31,14 +29,14 @@ const LocalNewsFeed = props => {
           <article key={article.title} className='article'>
             <div className='article-content'>
               <LazyLoad>
-                <div className="img-container">
+                <aside className="img-container">
                   <img src={imgSrc} alt=''/>
                   <p>{imgCredit}</p>
-                </div>
+                </aside>
               </LazyLoad>
               <div>
                 <h3>{ReactHtmlParser(article.title)}</h3>
-                <p>{ReactHtmlParser(article.content)}</p>
+                {ReactHtmlParser(article.content)}
                 {mp3 ? mp3.map(mp3 => {
                   const source = mp3["media:content"][0]["$"].url
                   return ReactHtmlParser(`<audio controls>

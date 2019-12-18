@@ -9,6 +9,7 @@ import MaxWidthWrapper from "../components/MaxWidthWrapper"
 import {withRedux} from "../lib/redux"
 
 import dynamic from "next/dynamic"
+
 const NewsFeedContainer = dynamic(import('../components/NewsFeedContainer'))
 
 const Home = props => {
@@ -22,7 +23,7 @@ const Home = props => {
       easing: 'easeInOutSine'
     })
   }
-
+  console.log(props)
   return (
     <div>
       <Head>
@@ -39,7 +40,8 @@ const Home = props => {
             <NewsFeedContainer/>
           </div>
           <div className='tune-genie-player'>
-            <iframe name="onair" frameBorder="0" align="top,left" marginHeight="0" marginWidth="0" scrolling="no"
+            <iframe title="listen live" name="onair" frameBorder="0" align="top,left" marginHeight="0" marginWidth="0"
+                    scrolling="no"
                     width="300"
                     height="480"
                     src="http://kout.tunegenie.com/plugins/onair/?searchbar=on&streamfooter=on&newwindow=on"/>
@@ -75,24 +77,30 @@ Home.getInitialProps = async () => {
         : promotion.meta_box.event_display_end
       const timeNow = Math.round(Date.now() / 1000)
 
-      if (timeNow < displayStartTime || timeNow > displayEndTime){
+      if (timeNow < displayStartTime || timeNow > displayEndTime) {
         return false
       }
-        return promotion.meta_box.event_home_slide[0]
+
+      return promotion
     })
     .map(promotion => {
+      console.log(promotion)
       let promotionInfo = {
-        image: promotion.meta_box.event_home_slide[0].full_url,
         slug: `/${promotion.type.replace('_', '-')}/${promotion.slug}`,
         alt: promotion.title.rendered
       }
       if (promotion.meta_box.event_external_link) {
-        promotionInfo = {
-          image: promotion.meta_box.event_home_slide[0].full_url,
-          externalLink: promotion.meta_box.event_external_link,
-          alt: promotion.title.rendered
-        }
+        promotionInfo.externalLink = promotion.meta_box.event_external_link
       }
+
+      if (promotion.meta_box.event_home_slide[0]) {
+        promotionInfo.image = promotion.meta_box.event_home_slide[0].full_url
+      }
+
+      if (promotion.meta_box.event_square_image) {
+        promotionInfo.smallImage = promotion.meta_box.event_square_image[0].full_url
+      }
+
       return (
         promotionInfo
       )

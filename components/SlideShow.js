@@ -77,7 +77,7 @@ const SlideShow = ({slides}) => {
       <LazyLoad>
         <Slider {...settings}>
           {slides.map(slide => {
-            if (slide.externalLink) {
+            if (slide.externalLink && slide.image) {
               return (
                 <div className='slide-container' key={slide.image}>
                   <a href={slide.externalLink}>
@@ -85,20 +85,21 @@ const SlideShow = ({slides}) => {
                   </a>
                 </div>
               )
+            } else if (slide.image) {
+              return (
+                <div className='slide-container' key={slide.image}>
+                  <Link href={slide.slug}>
+                    <a>
+                      <img alt={slide.alt} src={slide.image}/>
+                    </a>
+                  </Link>
+                </div>
+              )
             }
-            return (
-              <div className='slide-container' key={slide.image}>
-                <Link href={slide.slug}>
-                  <a>
-                    <img src={slide.image}/>
-                  </a>
-                </Link>
-              </div>
-            )
           })}
         </Slider>
       </LazyLoad>
-      <BelowSlideShow/>
+      <BelowSlideShow slides={slides}/>
       <style jsx>{`
         .slide-show img{
           display: block;
