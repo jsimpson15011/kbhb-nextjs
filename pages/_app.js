@@ -1,6 +1,5 @@
 import React from "react"
 import { withRedux } from "../lib/redux"
-import App from 'next/app'
 
 import "../styles/blank.css"
 import { getNavItems } from "../reducers/navReducer"

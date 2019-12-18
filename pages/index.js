@@ -7,7 +7,9 @@ import {Waypoint} from "react-waypoint"
 import anime from "animejs"
 import MaxWidthWrapper from "../components/MaxWidthWrapper"
 import {withRedux} from "../lib/redux"
-import NewsFeedContainer from "../components/NewsFeedContainer"
+
+import dynamic from "next/dynamic"
+const NewsFeedContainer = dynamic(import('../components/NewsFeedContainer'))
 
 const Home = props => {
   const handleFloatUpReveal = className => {
