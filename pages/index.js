@@ -62,51 +62,72 @@ const Home = props => {
 }
 
 Home.getInitialProps = async () => {
-  const promotionRes = await fetch('https://katcms.homesliceweb.com/wp-json/wp/v2/promotions?_embed')
+  try {
+    const [promoRes, concertRes, remoteRes] = await Promise.all([
+      fetch("https://katcms.homesliceweb.com/wp-json/wp/v2/promotions?_embed"),
+      fetch("https://katcms.homesliceweb.com/wp-json/wp/v2/concerts?_embed"),
+      fetch("https://katcms.homesliceweb.com/wp-json/wp/v2/remote_events?_embed")
+    ])
+    const [promoData, concertData, remoteData] = await Promise.all([
+      promoRes.json(),
+      concertRes.json(),
+      remoteRes.json()
+    ])
+    const combinedEventsData = [].concat(promoData, concertData, remoteData)
 
-  const promotionData = await promotionRes.json()
-
-  const slides = promotionData.filter(
-    promotion => {
-      const displayStartTime = !parseInt(promotion.meta_box.event_display_start) ? // If start time isn't defined always show until end time has passed
-        0
-        : promotion.meta_box.event_display_start
-      const displayEndTime = !parseInt(promotion.meta_box.event_display_end) ?// If end time isn't defined always show when start date has passed
-        2147483647
-        : promotion.meta_box.event_display_end
-      const timeNow = Math.round(Date.now() / 1000)
-
-      if (timeNow < displayStartTime || timeNow > displayEndTime) {
-        return false
-      }
-
-      return promotion
-    })
-    .map(promotion => {
-      console.log(promotion)
-      let promotionInfo = {
-        slug: `/${promotion.type.replace('_', '-')}/${promotion.slug}`,
-        alt: promotion.title.rendered
-      }
-      if (promotion.meta_box.event_external_link) {
-        promotionInfo.externalLink = promotion.meta_box.event_external_link
-      }
-
-      if (promotion.meta_box.event_home_slide[0]) {
-        promotionInfo.image = promotion.meta_box.event_home_slide[0].full_url
-      }
-
-      if (promotion.meta_box.event_square_image) {
-        promotionInfo.smallImage = promotion.meta_box.event_square_image[0].full_url
-      }
-
-      return (
-        promotionInfo
-      )
+    const eventsSortedByPublishDate = combinedEventsData.sort((a,b) => {
+      const timeA = new Date(a.date).getTime()
+      const timeB = new Date(b.date).getTime()
+      return timeB - timeA
     })
 
-  return {
-    slides
+    const sortedEventsData = eventsSortedByPublishDate.sort((a, b) => {
+      return a.meta_box.event_priority - b.meta_box.event_priority
+    })
+
+    const slides = sortedEventsData.filter(
+      promotion => {
+        const displayStartTime = !parseInt(promotion.meta_box.event_display_start) ? // If start time isn't defined always show until end time has passed
+          0
+          : promotion.meta_box.event_display_start
+        const displayEndTime = !parseInt(promotion.meta_box.event_display_end) ?// If end time isn't defined always show when start date has passed
+          2147483647
+          : promotion.meta_box.event_display_end
+        const timeNow = Math.round(Date.now() / 1000)
+
+        if (timeNow < displayStartTime || timeNow > displayEndTime) {
+          return false
+        }
+
+        return promotion
+      })
+      .map(promotion => {
+        let promotionInfo = {
+          slug: `/${promotion.type.replace('_', '-')}/${promotion.slug}`,
+          alt: promotion.title.rendered
+        }
+        if (promotion.meta_box.event_external_link) {
+          promotionInfo.externalLink = promotion.meta_box.event_external_link
+        }
+
+        if (promotion.meta_box.event_home_slide[0]) {
+          promotionInfo.image = promotion.meta_box.event_home_slide[0].full_url
+        }
+
+        if (promotion.meta_box.event_square_image) {
+          promotionInfo.smallImage = promotion.meta_box.event_square_image[0].full_url
+        }
+
+        return (
+          promotionInfo
+        )
+      })
+
+    return {
+      slides
+    }
+  } catch (e) {
+    console.log(e)
   }
 }
 
