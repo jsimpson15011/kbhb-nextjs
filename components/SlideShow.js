@@ -7,6 +7,7 @@ const Slider = dynamic(() => import('react-slick'))
 import "slick-carousel/slick/slick.css"
 import '../styles/slick-theme.css'
 import Link from "next/link"
+import MaxWidthWrapper from "./MaxWidthWrapper"
 
 const BelowSlideShow = () => {
   return (
@@ -24,6 +25,7 @@ const BelowSlideShow = () => {
           align-items: center;
           font-weight: bold;
           letter-spacing: 2px;
+          margin-bottom: 14px;
         }
         a:hover, a:focus{
           background: ${mainTheme.accent};
@@ -49,6 +51,62 @@ const BelowSlideShow = () => {
         }
     `}</style>
     </div>
+  )
+}
+
+const SmallImages = ({slides}) => {
+  const images = slides.map(slide => {
+    if (slide.externalLink && slide.smallImage) {
+      return (
+        <div className='slide-container' key={slide.smallImage}>
+          <a href={slide.externalLink}>
+            <img alt={slide.alt} src={slide.smallImage}/>
+          </a>
+          <style jsx>
+            {`
+              .slide-container{
+                width: 235px;
+              }
+            `}
+          </style>
+        </div>
+      )
+    } else if (slide.smallImage) {
+      return (
+        <div className='slide-container' key={slide.smallImage}>
+          <Link href={slide.slug}>
+            <a>
+              <img alt={slide.alt} src={slide.smallImage}/>
+            </a>
+          </Link>
+          <style jsx>
+            {`
+              .slide-container{
+                width: 235px;
+              }
+            `}
+          </style>
+        </div>
+      )
+    }
+  })
+
+  return (
+    <MaxWidthWrapper>
+      <div className="image-container">
+        {images}
+      </div>
+      <style jsx>
+        {`
+            .image-container{
+              width: 100%;
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: space-around;
+            }
+          `}
+      </style>
+    </MaxWidthWrapper>
   )
 }
 
@@ -99,7 +157,10 @@ const SlideShow = ({slides}) => {
           })}
         </Slider>
       </LazyLoad>
-      <BelowSlideShow slides={slides}/>
+      <BelowSlideShow/>
+      <LazyLoad>
+        <SmallImages slides={slides}/>
+      </LazyLoad>
       <style jsx>{`
         .slide-show img{
           display: block;
@@ -112,7 +173,7 @@ const SlideShow = ({slides}) => {
           max-width: 2000px;
           margin-left: auto;
           margin-right: auto;
-          margin-bottom: 40px;
+          margin-bottom: 14px;
         }
         .slide-container{
           display: block;

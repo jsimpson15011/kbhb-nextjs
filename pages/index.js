@@ -23,7 +23,6 @@ const Home = props => {
       easing: 'easeInOutSine'
     })
   }
-  console.log(props)
   return (
     <div>
       <Head>
