@@ -4,7 +4,7 @@ import dynamic from "next/dynamic"
 
 const LazyLoad = dynamic(() => import('react-lazyload'))
 
-const NewsFeed = props => {
+const LocalNewsFeed = props => {
   if (props.items === null) {
     return (
       <h2>Loading</h2>
@@ -76,4 +76,4 @@ const NewsFeed = props => {
   )
 }
 
-export default NewsFeed
+export default LocalNewsFeed

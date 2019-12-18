@@ -18,6 +18,12 @@ const Layout = props => (
       .content li{
         color: white;
       }
+      b, strong{
+        font-weight: bold;
+      }
+      p{
+        margin-bottom: 14px;
+      }
 `}</style>
   </div>
 )

@@ -7,10 +7,12 @@ const newsReducer = (state= initialState, action) => {
   switch (action.type) {
     case 'ADD_LOCAL_NEWS':
       return {
-        localNews: action.data
+        localNews: action.data,
+        countryNews: state.countryNews
       }
     case 'ADD_COUNTRY_NEWS':
       return {
+        localNews: state.localNews,
         countryNews: action.data
       }
     default:

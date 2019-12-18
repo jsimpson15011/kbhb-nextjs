@@ -36,31 +36,7 @@ const Home = props => {
         <SlideShow slides={props.slides}/>
         <MaxWidthWrapper>
           <div className="news-section">
-            <section className='country-news'>
-              <h2>Kat Country News</h2>
-            </section>
             <NewsFeedContainer/>
-            {/*<section className='local-news'>
-              <h2>Local News</h2>
-              <hr className='thin-hr'/>
-              {props.kbhbNewsArticles.map(article => {
-                let newsArticle =
-                  <article key={ article.title } className='local-article'>
-                    <img src={ article.image.url } alt=''/>
-                    <div className='local-article-content'>
-                      <a href={ article.link }>
-                        <h3>{ article.title }</h3>
-                      <p>{ article.content }</p>
-                      <p className='pub-date'>{ article.pubDate }</p>
-                      </a>
-                    </div>
-                    <hr className='thin-hr'/>
-                  </article>
-                return (
-                  newsArticle
-                )
-              })}
-            </section>*/}
           </div>
           <div className='tune-genie-player'>
             <iframe name="onair" frameBorder="0" align="top,left" marginHeight="0" marginWidth="0" scrolling="no"

@@ -1,0 +1,108 @@
+import React from 'react'
+import mainTheme from "../styles/katTheme"
+import ReactHtmlParser from 'react-html-parser'
+import dynamic from "next/dynamic"
+
+const LazyLoad = dynamic(() => import('react-lazyload'))
+
+const LocalNewsFeed = props => {
+  console.log(props.items[2])
+  if (props.items === null) {
+    return (
+      <h2>Loading</h2>
+    )
+  }
+  return (
+    <section className='news-feed'>
+      <h2>Kat Country News</h2>
+      <hr className='thin-hr'/>
+      {props.items.map(article => {
+        const image = article["media:group"].filter(media => {
+          return media["media:content"][0]["$"].type.includes('image')
+        })[0]
+
+        const mp3 = article["media:group"].filter(media => {
+          return media["media:content"][0]["$"].type.includes('audio')
+        })
+
+        const imgSrc = image["media:content"][0]["$"].url
+        const imgCredit = image["media:credit"][0]["_"]
+        const newsArticle =
+          <article key={article.title} className='article'>
+            <div className='article-content'>
+              <LazyLoad>
+                <div className="img-container">
+                  <img src={imgSrc} alt=''/>
+                  <p>{imgCredit}</p>
+                </div>
+              </LazyLoad>
+              <div>
+                <h3>{ReactHtmlParser(article.title)}</h3>
+                <p>{ReactHtmlParser(article.content)}</p>
+                {mp3 ? mp3.map(mp3 => {
+                  const source = mp3["media:content"][0]["$"].url
+                  return ReactHtmlParser(`<audio controls>
+                        <source src="${source}"/>
+                    </audio>`)
+                }) : ''}
+              </div>
+            </div>
+            <hr className='thin-hr'/>
+          </article>
+        return (
+          newsArticle
+        )
+      })}
+      <style jsx>{`
+      .news-feed{
+        margin-bottom: 84px; 
+      }
+      .news-feed h2{
+        font-size: 2em;
+        margin-bottom: .5em;
+        text-transform: uppercase;
+      }
+      .article{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+      }
+      .article img{
+        width: 100%;
+      }
+      .article .img-container{
+        font-style: italic;
+        float: left;
+        font-size: .9em;
+        text-align: center;
+        width: 150px;
+        margin-right: 14px;
+      }
+      .article .pub-date{
+        font-style: italic;
+        margin: .5em 0;
+      }
+      .article-content{
+        width: 100%;
+      }
+      .article hr{
+        width: 100%;
+      }
+      .article a{
+        color: white;
+        text-decoration: none;
+      }
+      .article h3{
+        color: #ff1616;
+        font-size: 1em;
+        margin-bottom: .5em;
+        text-transform: uppercase;
+      }
+`}
+      </style>
+    </section>
+  )
+}
+
+export default LocalNewsFeed
