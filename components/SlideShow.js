@@ -1,6 +1,7 @@
 import React from 'react'
 import mainTheme from "../styles/katTheme"
 import dynamic from "next/dynamic"
+
 const LazyLoad = dynamic(() => import('react-lazyload'))
 const Slider = dynamic(() => import('react-slick'))
 import "slick-carousel/slick/slick.css"
@@ -63,7 +64,7 @@ const SlideShow = ({slides}) => {
     autoplaySpeed: 8000
   }
 
-  if(!slides){
+  if (!slides) {
     return (
       <div>
         Loading
@@ -73,30 +74,30 @@ const SlideShow = ({slides}) => {
 
   return (
     <div className='slide-show'>
-      <Slider {...settings}>
-        {slides.map(slide => {
-          if (slide.externalLink) {
+      <LazyLoad>
+        <Slider {...settings}>
+          {slides.map(slide => {
+            if (slide.externalLink) {
+              return (
+                <div className='slide-container' key={slide.image}>
+                  <a href={slide.externalLink}>
+                    <img alt={slide.alt} src={slide.image}/>
+                  </a>
+                </div>
+              )
+            }
             return (
               <div className='slide-container' key={slide.image}>
-                <a  href={slide.externalLink}>
-                  <LazyLoad>
-                    <img alt={slide.alt} src={slide.image}/>
-                  </LazyLoad>
-                </a>
+                <Link href={slide.slug}>
+                  <a>
+                    <img src={slide.image}/>
+                  </a>
+                </Link>
               </div>
             )
-          }
-          return (
-            <div className='slide-container' key={ slide.image } >
-              <Link href={slide.slug}>
-                <a>
-                  <img src={slide.image}/>
-                </a>
-              </Link>
-            </div>
-          )
-        })}
-      </Slider>
+          })}
+        </Slider>
+      </LazyLoad>
       <BelowSlideShow/>
       <style jsx>{`
         .slide-show img{
