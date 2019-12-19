@@ -4,7 +4,7 @@ import MainLayout from "../../components/MainLayout"
 import Head from "next/dist/next-server/lib/head"
 import DynamicContent from "../../components/DynamicContent"
 
-const Personality = props => {
+const Promotion = props => {
   return (
     <MainLayout>
       <Head>
@@ -16,9 +16,9 @@ const Personality = props => {
   )
 }
 
-Personality.getInitialProps = async context => {
+Promotion.getInitialProps = async context => {
   const {slug} = context.query
-  const res = await fetch('https://katcms.homesliceweb.com/wp-json/wp/v2/personality?slug=' + slug + '&_embed')
+  const res = await fetch('https://katcms.homesliceweb.com/wp-json/wp/v2/promotions?slug=' + slug + '&_embed')
   const data = await res.json()
 
   return {
@@ -26,4 +26,4 @@ Personality.getInitialProps = async context => {
   }
 }
 
-export default Personality
+export default Promotion
