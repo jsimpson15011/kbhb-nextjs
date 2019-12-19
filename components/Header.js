@@ -1,4 +1,5 @@
 import React from 'react'
+import mainTheme from "../styles/katTheme"
 import MaxWidthWrapper from "./MaxWidthWrapper"
 import Link from "next/link"
 import Nav from "./Nav"
@@ -112,6 +113,30 @@ const Header = ({navItems}) => {
         body {
           line-height: 1.4;
         }
+        
+        .contents{
+        background: ${mainTheme.background};
+        color: white;
+      }
+      .content li{
+        color: white;
+      }
+      b, strong{
+        font-weight: bold;
+      }
+      p{
+        margin-bottom: 14px;
+      }
+      h2{
+        font-size: 2em;
+        margin-bottom: .5em;
+        text-transform: uppercase;
+      }
+      h3{
+        font-size: 1.5em;
+        margin-bottom: .5em;
+      }
+      
       `}
       </style>
     </div>

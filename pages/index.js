@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import fetch from 'isomorphic-unfetch'
-import Layout from "../components/Layout"
+import HomeLayout from "../components/HomeLayout"
 import SlideShow from "../components/SlideShow"
 import {Waypoint} from "react-waypoint"
 import anime from "animejs"
@@ -31,7 +31,7 @@ const Home = props => {
         <meta name="description"
               content="KOUT “KAT COUNTRY”, The Black Hills’ Favorite Country station playing a mix of the best of popular country artists in an upbeat, contemporary style"/>
       </Head>
-      <Layout>
+      <HomeLayout>
         <Waypoint onEnter={() => handleFloatUpReveal('slide-show')}/>
         <SlideShow slides={props.slides}/>
         <MaxWidthWrapper>
@@ -46,7 +46,7 @@ const Home = props => {
                     src="http://kout.tunegenie.com/plugins/onair/?searchbar=on&streamfooter=on&newwindow=on"/>
           </div>
         </MaxWidthWrapper>
-      </Layout>
+      </HomeLayout>
       <style jsx>{`
       .hero {
         width: 100%;

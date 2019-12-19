@@ -55,11 +55,6 @@ const LocalNewsFeed = props => {
       .news-feed{
         margin-bottom: 84px; 
       }
-      .news-feed h2{
-        font-size: 2em;
-        margin-bottom: .5em;
-        text-transform: uppercase;
-      }
       .article{
         display: flex;
         flex-wrap: wrap;

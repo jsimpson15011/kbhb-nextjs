@@ -34,6 +34,8 @@ const BelowSlideShow = () => {
         h2{
           margin-left: auto;
           margin-right: 3em;
+          margin-bottom: 0;
+          font-size: 1em;
         }
         .listen-online{
           background: black;

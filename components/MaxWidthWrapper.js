@@ -1,22 +1,32 @@
 import React from 'react'
 
-const MaxWidthWrapper = props => (
-  <div className='max-width-wrapper'>
-    { props.children }
-    <style jsx>{`
+const MaxWidthWrapper = props => {
+  const theme = props.theme === 'dark' ?
+    {
+      background: '#131111',
+      color: '#f3f4ef'
+    } :
+    null
+  return (
+    <div className='max-width-wrapper'>
+      { props.children }
+      <style jsx>{`
       .max-width-wrapper{
         display: ${props.display ? props.display : 'flex'};
+        background: ${theme ? theme.background : 'none'};
+        color: ${theme ? theme.color : ''};
         justify-content: space-between;
         flex-wrap: wrap;
-        max-width: 1000px;
+        max-width: 1030px;
         margin-left: auto;
         margin-right: auto;
-        padding: 5px;
+        padding: 7px;
         box-sizing: border-box;
       }
 `}
-    </style>
-  </div>
-)
+      </style>
+    </div>
+  )
+}
 
 export default MaxWidthWrapper
