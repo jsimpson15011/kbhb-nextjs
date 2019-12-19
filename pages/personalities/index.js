@@ -8,7 +8,7 @@ import Link from "next/link"
 const Personalities = props => {
   const personalityLinks = props.personalities.map(personality => {
     return(
-      <div>
+      <div key={personality.slug}>
         <Link href={ '/personalities/' + personality.slug}>
           <a>
             {personality.title.rendered}
