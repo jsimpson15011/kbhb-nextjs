@@ -2,19 +2,33 @@ import React from 'react'
 import fetch from "isomorphic-unfetch"
 import ReactHtmlParser from 'react-html-parser'
 import MainLayout from "../../components/MainLayout"
-import { withRedux } from "../../lib/redux"
+import {withRedux} from "../../lib/redux"
 import Head from "next/head"
 import Link from "next/link"
+import mainTheme from "../../styles/katTheme"
 
 const Personalities = props => {
-  const personalityLinks = props.personalities.map(personality => {
-    return(
-      <div key={personality.slug}>
-        <Link href={ '/promotions/' + personality.slug}>
-          <a>
-            {ReactHtmlParser(personality.title.rendered)}
-          </a>
-        </Link>
+  const eventLinks = props.events.map(event => {
+    const externalLink = event.meta_box.event_external_link
+
+    return (
+      <div className="event-container" key={event.slug}>
+        {
+          event.meta_box.event_square_image[0] ?
+            <img src={event.meta_box.event_square_image[0].full_url} alt=""/>
+            : ''
+        }
+        {
+          externalLink ?
+            <a href={externalLink}>
+              {ReactHtmlParser(event.title.rendered)}
+            </a>
+            : <Link href={'/promotions/' + event.slug}>
+              <a>
+                {ReactHtmlParser(event.title.rendered)}
+              </a>
+            </Link>
+        }
         <style jsx>
           {`
             a{
@@ -31,9 +45,16 @@ const Personalities = props => {
             a:active{
               box-shadow: #303030 0 0 2px;
             }
-            div{
+            .event-container{
+              box-sizing: border-box;
               margin-bottom: 14px;
               margin-top: 14px;
+              background: #e2e2e2;
+              padding: 14px;
+              display: flex;
+              align-items: center;
+              width: 100%;
+              justify-content: space-around;
             }
           `}
         </style>
@@ -51,7 +72,7 @@ const Personalities = props => {
       <MainLayout>
         <h2>Promotions</h2>
         <nav>
-          {personalityLinks}
+          {eventLinks}
         </nav>
       </MainLayout>
       <style jsx>
@@ -61,7 +82,7 @@ const Personalities = props => {
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
-            background: white;
+            flex-direction: column;
           }
         `}
       </style>
@@ -70,12 +91,12 @@ const Personalities = props => {
 }
 
 Personalities.getInitialProps = async () => {
-  const personalityRes = await fetch('https://katcms.homesliceweb.com/wp-json/wp/v2/promotions')
-  const personalityData = await personalityRes.json()
+  const eventRes = await fetch('https://katcms.homesliceweb.com/wp-json/wp/v2/promotions')
+  const eventData = await eventRes.json()
 
 
   return {
-    personalities: personalityData.map(personality => personality)
+    events: eventData.map(event => event)
   }
 }
 
