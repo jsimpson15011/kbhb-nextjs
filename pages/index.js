@@ -100,7 +100,7 @@ Home.getInitialProps = async () => {
           promotionInfo.image = promotion.meta_box.event_home_slide[0].full_url
         }
 
-        if (promotion.meta_box.event_square_image) {
+        if (promotion.meta_box.event_square_image[0]) {
           promotionInfo.smallImage = promotion.meta_box.event_square_image[0].full_url
         }
 

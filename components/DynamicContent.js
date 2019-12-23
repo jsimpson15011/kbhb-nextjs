@@ -43,6 +43,12 @@ const DynamicContent = props => {
             color: black;
             font-weight: bold;
           }
+          .content .contact-container{
+            margin-bottom: 14px;
+            background: white;
+            padding: 7px;
+            box-sizing: border-box;
+          }
         `}
       </style>
       <style jsx>
@@ -63,6 +69,7 @@ const DynamicContent = props => {
             color: #160303;
             padding: 14px;
             box-sizing: border-box;
+            width: 100%;
           }
         `}
       </style>
