@@ -13,13 +13,14 @@ const DynamicContent = props => {
     : ''
 
   return (
-    <div>
+    <>
       {
         squareImage && !featuredImage && !slideImage ?
           <img className="square-image"
                src={squareImage} alt=""/>
           : ''
       }
+
       <h2>
         {ReactHtmlParser(props.content.title.rendered)}
       </h2>
@@ -29,11 +30,13 @@ const DynamicContent = props => {
           <img className="banner" src={featuredImage} alt=""/>
           : ''
       }
+
       {
         slideImage && !featuredImage ?
           <img className="banner" src={slideImage} alt=""/>
           : ''
       }
+
       <div className="content">
         {ReactHtmlParser(props.content.content.rendered)}
       </div>
@@ -73,7 +76,7 @@ const DynamicContent = props => {
           }
         `}
       </style>
-    </div>
+    </>
   )
 }
 
