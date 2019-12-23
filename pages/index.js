@@ -7,6 +7,7 @@ import {Waypoint} from "react-waypoint"
 import anime from "animejs"
 import MaxWidthWrapper from "../components/MaxWidthWrapper"
 import {withRedux} from "../lib/redux"
+import {activeItemsOnly} from "../utils/eventHelpers"
 
 import dynamic from "next/dynamic"
 
@@ -75,7 +76,7 @@ Home.getInitialProps = async () => {
     ])
     const combinedEventsData = [].concat(promoData, concertData, remoteData)
 
-    const eventsSortedByPublishDate = combinedEventsData.sort((a,b) => {
+    const eventsSortedByPublishDate = combinedEventsData.sort((a, b) => {
       const timeA = new Date(a.date).getTime()
       const timeB = new Date(b.date).getTime()
       return timeB - timeA
@@ -85,22 +86,7 @@ Home.getInitialProps = async () => {
       return a.meta_box.event_priority - b.meta_box.event_priority
     })
 
-    const slides = sortedEventsData.filter(
-      promotion => {
-        const displayStartTime = !parseInt(promotion.meta_box.event_display_start) ? // If start time isn't defined always show until end time has passed
-          0
-          : promotion.meta_box.event_display_start
-        const displayEndTime = !parseInt(promotion.meta_box.event_display_end) ?// If end time isn't defined always show when start date has passed
-          2147483647
-          : promotion.meta_box.event_display_end
-        const timeNow = Math.round(Date.now() / 1000)
-
-        if (timeNow < displayStartTime || timeNow > displayEndTime) {
-          return false
-        }
-
-        return promotion
-      })
+    const slides = activeItemsOnly(sortedEventsData)
       .map(promotion => {
         let promotionInfo = {
           slug: `/${promotion.type.replace('_', '-')}/${promotion.slug}`,

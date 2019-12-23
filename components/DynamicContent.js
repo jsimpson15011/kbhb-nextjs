@@ -17,7 +17,7 @@ const DynamicContent = props => {
       {
         squareImage && !featuredImage && !slideImage ?
           <img className="square-image"
-               src="https://katcms.homesliceweb.com/wp-content/uploads/2019/12/roaring-300x250kat.jpg" alt=""/>
+               src={squareImage} alt=""/>
           : ''
       }
       <h2>
