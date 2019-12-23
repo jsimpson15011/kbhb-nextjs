@@ -5,7 +5,6 @@ import MainLayout from "../../components/MainLayout"
 import {withRedux} from "../../lib/redux"
 import Head from "next/head"
 import Link from "next/link"
-import mainTheme from "../../styles/katTheme"
 
 const Personalities = props => {
   const eventLinks = props.events.map(event => {
@@ -33,11 +32,17 @@ const Personalities = props => {
           {`
             a{
               font-size: 1.5em;
-              color: black;
-              background: #f8f8f8;
+              color: #dddddd;
+              background: #231F20;
               text-decoration: none;
               padding: 7px;
-              box-shadow: #303030 2px 2px 2px;
+              box-shadow: #303030 3px 3px 3px;
+              margin-left: 7px;
+              width: 100%;
+              text-align: center;
+            }
+            img{
+              margin-bottom: 14px;
             }
             a:focus, a:hover{
               box-shadow: #303030 1px 1px 2px;
@@ -49,10 +54,11 @@ const Personalities = props => {
               box-sizing: border-box;
               margin-bottom: 14px;
               margin-top: 14px;
-              background: #e2e2e2;
+              background: #f4f4f4;
               padding: 14px;
               display: flex;
-              align-items: center;
+              flex-wrap: wrap;
+              align-items: flex-start;
               width: 100%;
               justify-content: space-around;
             }

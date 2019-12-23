@@ -18,8 +18,7 @@ const MaxWidthWrapper = props => {
         justify-content: space-between;
         flex-wrap: wrap;
         max-width: 1030px;
-        margin-left: auto;
-        margin-right: auto;
+        margin: 0 auto;
         padding: 7px;
         box-sizing: border-box;
       }

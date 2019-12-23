@@ -117,6 +117,7 @@ const Header = ({navItems}) => {
         .contents{
         background: ${mainTheme.background};
         color: white;
+        padding: 1px;
       }
       .content li{
         color: white;
