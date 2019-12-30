@@ -87,6 +87,7 @@ Home.getInitialProps = async () => {
     })
 
     const slides = activeItemsOnly(sortedEventsData)
+      .filter(item => parseInt(item.meta_box.event_show_on_home_page))
       .map(promotion => {
         let promotionInfo = {
           slug: `/${promotion.type.replace('_', '-')}/${promotion.slug}`,
