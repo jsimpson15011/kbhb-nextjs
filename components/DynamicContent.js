@@ -53,7 +53,7 @@ const DynamicContent = props => {
             padding: 14px;
             box-sizing: border-box;
             border-left: ${mainTheme.brand} solid 7px;
-            box-shadow: #d6d1d3 2px 2px 2px
+            box-shadow: #d6d1d3 2px 2px 2px;
           }
         `}
       </style>
@@ -76,6 +76,7 @@ const DynamicContent = props => {
             padding: 14px;
             box-sizing: border-box;
             width: 100%;
+            border-left: ${mainTheme.brand} solid 7px;
           }
         `}
       </style>
