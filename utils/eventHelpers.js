@@ -22,3 +22,15 @@ export const activeItemsOnly = items => {
       return item
     })
 }
+
+export const sortItems = items => {
+  const eventsSortedByPublishDate = items.sort((a, b) => {
+    const timeA = new Date(a.date).getTime()
+    const timeB = new Date(b.date).getTime()
+    return timeB - timeA
+  })
+
+  return eventsSortedByPublishDate.sort((a, b) => {
+    return a.meta_box.event_priority - b.meta_box.event_priority
+  })
+}

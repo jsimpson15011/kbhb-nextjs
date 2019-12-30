@@ -3,13 +3,14 @@ import ReactHtmlParser from "react-html-parser"
 import mainTheme from "../styles/katTheme"
 
 const DynamicContent = props => {
+  console.log(props.content)
   const featuredImage = props.content.featured_media ?
     props.content._embedded['wp:featuredmedia'][0].source_url
     : ''
-  const squareImage = props.content.meta_box.event_square_image ?
-    props.content.meta_box.event_home_slide[0].full_url
+  const squareImage = props.content.meta_box.event_square_image[0] ?
+    props.content.meta_box.event_square_image[0].full_url
     : ''
-  const slideImage = props.content.meta_box.event_home_slide ?
+  const slideImage = props.content.meta_box.event_home_slide[0] ?
     props.content.meta_box.event_home_slide[0].full_url
     : ''
 

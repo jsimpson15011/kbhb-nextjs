@@ -6,11 +6,24 @@ const EventList = props => {
   const eventLinks = props.events.map(event => {
     const externalLink = event.meta_box.event_external_link
 
+    const squareImage = event.meta_box.event_square_image[0] ?
+      event.meta_box.event_square_image[0].full_url
+      : ''
+    const slideImage = event.meta_box.event_home_slide[0] ?
+      event.meta_box.event_home_slide[0].full_url
+      : ''
+
     return (
       <div className="event-container" key={event.slug}>
+
         {
-          event.meta_box.event_square_image[0] ?
-            <img src={event.meta_box.event_square_image[0].full_url} alt=""/>
+          squareImage && !slideImage ?
+            <img src={squareImage} alt=""/>
+            : ''
+        }
+        {
+          slideImage ?
+            <img src={slideImage} alt=""/>
             : ''
         }
         {

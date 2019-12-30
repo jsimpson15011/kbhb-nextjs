@@ -3,7 +3,7 @@ import fetch from "isomorphic-unfetch"
 import Head from "next/head"
 import EventList from "../../components/EventList"
 import MainLayout from "../../components/MainLayout"
-import {activeItemsOnly} from "../../utils/eventHelpers"
+import {activeItemsOnly, sortItems} from "../../utils/eventHelpers"
 
 const Promotions = props => {
 
@@ -28,10 +28,10 @@ Promotions.getInitialProps = async () => {
   const eventData = await eventRes.json()
 
   const filteredEvents = activeItemsOnly(eventData)
-
+  const sortedItems = sortItems(filteredEvents)
 
   return {
-    events: filteredEvents.map(event => event)
+    events: sortedItems.map(event => event)
   }
 }
 
