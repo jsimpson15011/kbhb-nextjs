@@ -1,5 +1,6 @@
 import React from "react"
 import ReactHtmlParser from "react-html-parser"
+import mainTheme from "../styles/katTheme"
 
 const DynamicContent = props => {
   const featuredImage = props.content.featured_media ?
@@ -49,8 +50,10 @@ const DynamicContent = props => {
           .content .contact-container{
             margin-bottom: 14px;
             background: white;
-            padding: 7px;
+            padding: 14px;
             box-sizing: border-box;
+            border-left: ${mainTheme.brand} solid 7px;
+            box-shadow: #d6d1d3 2px 2px 2px
           }
         `}
       </style>
