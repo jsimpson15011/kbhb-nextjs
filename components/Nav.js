@@ -167,12 +167,12 @@ const Nav = () => {
         color: black;
         text-decoration: none;
         text-transform: uppercase;
+        padding: 0 7px;
+        box-sizing: border-box;
       }
-      a:hover, a:focus {
-        border-bottom: black solid 2px;
-      }
-      .active-link {
-        border-bottom: black solid 2px;
+      a:hover, a:focus, .active-link {
+        background: ${mainTheme.accent};
+        color: white;
       }
       .top-level-menu li:hover .sub-menu, .top-level-menu li:focus-within .sub-menu{
         display: block;

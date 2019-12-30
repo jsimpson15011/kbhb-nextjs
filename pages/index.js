@@ -27,7 +27,7 @@ const Home = props => {
   return (
     <div>
       <Head>
-        <title>Home</title>
+        <title>Home - Kat 98.7</title>
         <link rel='icon' href='/favicon.ico'/>
         <meta name="description"
               content="KOUT “KAT COUNTRY”, The Black Hills’ Favorite Country station playing a mix of the best of popular country artists in an upbeat, contemporary style"/>
