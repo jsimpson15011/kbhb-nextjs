@@ -3,6 +3,7 @@ import mainTheme from "../styles/katTheme"
 import MaxWidthWrapper from "./MaxWidthWrapper"
 import Link from "next/link"
 import Nav from "./Nav"
+import LiveSchedule from "./LiveSchedule"
 
 const SocialContainer = () => {
   return (
@@ -46,6 +47,7 @@ const Header = ({navItems}) => {
     <div className='main-header'>
       <MaxWidthWrapper>
         <SocialContainer/>
+        <LiveSchedule/>
       </MaxWidthWrapper>
       <Nav navItems={navItems}/>
       <style jsx>

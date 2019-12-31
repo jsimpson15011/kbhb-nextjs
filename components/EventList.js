@@ -1,6 +1,7 @@
 import React from "react"
 import ReactHtmlParser from "react-html-parser"
 import Link from "next/link"
+import mainTheme from "../styles/katTheme"
 
 const EventList = props => {
   const eventLinks = props.events.map(event => {
@@ -54,15 +55,16 @@ const EventList = props => {
               margin-bottom: 14px;
             }
             a:focus, a:hover{
-              box-shadow: #303030 1px 1px 2px;
+              box-shadow: #575757 1px 1px 2px;
             }
             a:active{
-              box-shadow: #303030 0 0 2px;
+              box-shadow: #575757 0 0 2px;
             }
             .event-container{
               box-sizing: border-box;
-              margin-bottom: 14px;
+              margin-bottom: 21px;
               background: #f4f4f4;
+              border-left: ${mainTheme.brand} solid 10.5px;
               padding: 14px;
               display: flex;
               flex-wrap: wrap;
