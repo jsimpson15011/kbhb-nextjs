@@ -53,7 +53,7 @@ export const getSchedule = async (reduxStore) => {
     const convertTo24 = time => {
       return time.slice(-2) === 'am'
         ? parseFloat(time.slice(0, -2)).toFixed(2)
-        : parseFloat(time.slice(0, -2)).toFixed(2) + 12
+        : Number(parseFloat(time.slice(0, -2)).toFixed(2)) + 12
     }
 
     const startTime24 = convertTo24(startTime)
