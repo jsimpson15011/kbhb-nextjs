@@ -1,19 +1,30 @@
 import React from "react"
 import mainTheme from "../styles/katTheme"
+import {useSelector} from "react-redux"
+import {withRedux} from "../lib/redux"
 
-const LiveSchedule = props => {
+const LiveSchedule = () => {
+  const scheduleData = useSelector(state => state.schedule)
+
+  if (scheduleData === null || !scheduleData.schedule[0]){
+    return (
+      <></>
+    )
+  }
   return (
     <div className="listen-live">
-      <div className="top">
-        <img alt='' src='/img/sound-wave.png'/>
+      <a href="http://kout.tunegenie.com/#listenlive" className="top">
+        <img alt='' src={scheduleData.schedule[0].meta_box.schedule_square_image[0].full_url}/>
         <div className="sound-img-and-text">
           <img alt='' src='/img/sound-wave.png'/>
           <div>
             <h3>Listen Live</h3>
-            <p><b>Test</b> 2:00pm - 7:00pm</p>
+            <p>
+              <b>{scheduleData.schedule[0].title.rendered}</b> {scheduleData.schedule[0].meta_box.schedule_start_time} - {scheduleData.schedule[0].meta_box.schedule_end_time}
+            </p>
           </div>
         </div>
-      </div>
+      </a>
       <div className="bottom">
         <p>Request: text or call 605-348-3939</p>
       </div>
@@ -25,11 +36,24 @@ const LiveSchedule = props => {
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            border-left: ${mainTheme.accent} solid 3.5px;
+            justify-content: flex-end;
+          }
+          .listen-live a{
+            color: ${mainTheme.accent};
+            text-decoration: none;
+          }
+          h3{
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 7px;
+          }
+          p{
+            margin-bottom: 7px;
           }
           .sound-img-and-text{
             display: flex;
             justify-content: space-between;
+            align-items: center;
           }
           .sound-img-and-text img{
             margin: 0 14px;
@@ -37,7 +61,9 @@ const LiveSchedule = props => {
           .top{
             padding: 0 14px 0 0;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
+            height: 100%;
+            flex-wrap: wrap;
           }
           .bottom{
             background: #1f1f1f;
@@ -54,4 +80,4 @@ const LiveSchedule = props => {
   )
 }
 
-export default LiveSchedule
+export default withRedux(LiveSchedule)

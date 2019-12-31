@@ -14,6 +14,7 @@ import dynamic from "next/dynamic"
 const NewsFeedContainer = dynamic(import('../components/NewsFeedContainer'))
 
 const Home = props => {
+
   const handleFloatUpReveal = className => {
     anime({
       targets: `.${className}`,

@@ -42,14 +42,14 @@ const SocialContainer = () => {
   )
 }
 
-const Header = ({navItems}) => {
+const Header = () => {
   return (
     <div className='main-header'>
       <MaxWidthWrapper>
         <SocialContainer/>
         <LiveSchedule/>
       </MaxWidthWrapper>
-      <Nav navItems={navItems}/>
+      <Nav />
       <style jsx>
         {`
         .main-header {
