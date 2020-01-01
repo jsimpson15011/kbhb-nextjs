@@ -4,6 +4,7 @@ import MainLayout from "../../components/MainLayout"
 import { withRedux } from "../../lib/redux"
 import Head from "next/head"
 import Link from "next/link"
+import {baseUrl, siteTitle} from "../../site-settings"
 
 const Personalities = props => {
   const personalityLinks = props.personalities.map(personality => {
@@ -42,7 +43,7 @@ const Personalities = props => {
   return (
     <div>
       <Head>
-        <title>Personalities</title>
+        <title>{siteTitle} - Personalities</title>
         <link rel='icon' href='/favicon.ico'/>
         <meta name="description"
               content="KOUT “KAT COUNTRY”, The Black Hills’ Favorite Country station playing a mix of the best of popular country artists in an upbeat, contemporary style"/>
@@ -69,7 +70,7 @@ const Personalities = props => {
 }
 
 Personalities.getInitialProps = async () => {
-  const personalityRes = await fetch('https://katcms.homesliceweb.com/wp-json/wp/v2/personality')
+  const personalityRes = await fetch(`${baseUrl}/wp-json/wp/v2/personality`)
   const personalityData = await personalityRes.json()
 
 

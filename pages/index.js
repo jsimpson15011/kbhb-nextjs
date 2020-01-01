@@ -10,6 +10,7 @@ import {withRedux} from "../lib/redux"
 import {activeItemsOnly} from "../utils/eventHelpers"
 
 import dynamic from "next/dynamic"
+import {baseUrl, siteTitle} from "../site-settings"
 
 const NewsFeedContainer = dynamic(import('../components/NewsFeedContainer'))
 
@@ -28,7 +29,7 @@ const Home = props => {
   return (
     <div>
       <Head>
-        <title>Home - Kat 98.7</title>
+        <title>{siteTitle} - Home</title>
         <link rel='icon' href='/favicon.ico'/>
         <meta name="description"
               content="KOUT “KAT COUNTRY”, The Black Hills’ Favorite Country station playing a mix of the best of popular country artists in an upbeat, contemporary style"/>
@@ -66,9 +67,9 @@ const Home = props => {
 Home.getInitialProps = async () => {
   try {
     const [promoRes, concertRes, remoteRes] = await Promise.all([
-      fetch("https://katcms.homesliceweb.com/wp-json/wp/v2/promotions?_embed"),
-      fetch("https://katcms.homesliceweb.com/wp-json/wp/v2/concerts?_embed"),
-      fetch("https://katcms.homesliceweb.com/wp-json/wp/v2/remote_events?_embed")
+      fetch(`${baseUrl}/wp-json/wp/v2/promotions?_embed`),
+      fetch(`${baseUrl}/wp-json/wp/v2/concerts?_embed`),
+      fetch(`${baseUrl}/wp-json/wp/v2/remote_events?_embed`)
     ])
     const [promoData, concertData, remoteData] = await Promise.all([
       promoRes.json(),

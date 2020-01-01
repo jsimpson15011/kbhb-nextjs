@@ -1,9 +1,10 @@
 import fetch from "isomorphic-unfetch"
+import {baseUrl} from '../site-settings'
 
 export const getSchedule = async (reduxStore) => {
   const {dispatch} = reduxStore
 
-  const scheduleRes = await fetch('https://katcms.homesliceweb.com/wp-json/wp/v2/listenliveschedule')
+  const scheduleRes = await fetch(`${baseUrl}/wp-json/wp/v2/listenliveschedule`)
   const scheduleData = await scheduleRes.json()
 
   const currentSchedule = scheduleData.filter(item => {

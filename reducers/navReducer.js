@@ -1,4 +1,5 @@
 import fetch from "isomorphic-unfetch"
+import {baseUrl} from "../site-settings"
 
 const initialState = {
   navItems: null,
@@ -15,7 +16,7 @@ export const getNavItems = async (reduxStore) => {
       title: 'Home',
       type: 'initial'
     }]
-    const navItemsRes = await fetch('https://katcms.homesliceweb.com/wp-json/menus/v1/menus/main-navigation')
+    const navItemsRes = await fetch(`${baseUrl}/wp-json/menus/v1/menus/main-navigation`)
     const newNavData = await navItemsRes.json()
     const newNavItems = initialLinks.concat(newNavData.items)
     dispatch({
