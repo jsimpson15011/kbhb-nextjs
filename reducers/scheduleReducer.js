@@ -62,7 +62,7 @@ export const getSchedule = async (reduxStore) => {
     const endTime24 = convertTo24(endTime)
     const currentTime24 = convertTo24(localeString)
 
-    return (currentTime24 >= startTime24 && currentTime24 >= endTime24)
+    return (currentTime24 >= startTime24 && currentTime24 <= endTime24)
   })
 
   dispatch({
