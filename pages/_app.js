@@ -1,7 +1,7 @@
 import React from "react"
 import { withRedux } from "../lib/redux"
 
-import "../styles/blank.css"
+import "../styles/hamburger.css"
 import { getNavItems } from "../reducers/navReducer"
 import {getSchedule} from "../reducers/scheduleReducer"
 
@@ -17,8 +17,7 @@ MyApp.getInitialProps = async ({reduxStore, Component, ctx}) => {
     : {};
 
   return {
-    pageProps,
-    test: 'test'
+    pageProps
   }
 }
 
