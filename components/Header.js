@@ -4,6 +4,8 @@ import MaxWidthWrapper from "./MaxWidthWrapper"
 import Link from "next/link"
 import Nav from "./Nav"
 import LiveSchedule from "./LiveSchedule"
+import HamburgerMenu from "./HamburgerMenu"
+import {useSelector} from "react-redux"
 
 const SocialContainer = () => {
   return (
@@ -43,13 +45,16 @@ const SocialContainer = () => {
 }
 
 const Header = () => {
+  const navItems = useSelector(state => state.navItems)
+
   return (
     <div className='main-header'>
       <MaxWidthWrapper>
         <SocialContainer/>
         <LiveSchedule/>
       </MaxWidthWrapper>
-      <Nav />
+      <Nav navItems={navItems}/>
+      <HamburgerMenu navItems={navItems}/>
       <style jsx>
         {`
         .main-header {
