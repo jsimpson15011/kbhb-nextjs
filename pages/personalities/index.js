@@ -70,7 +70,7 @@ const Personalities = props => {
 }
 
 Personalities.getInitialProps = async () => {
-  const personalityRes = await fetch(`${baseUrl}/wp-json/wp/v2/personality`)
+  const personalityRes = await fetch(`${baseUrl}/wp-json/wp/v2/personality?per_page=100`)
   const personalityData = await personalityRes.json()
 
 

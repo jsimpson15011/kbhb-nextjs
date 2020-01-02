@@ -25,7 +25,7 @@ const Promotions = props => {
 }
 
 Promotions.getInitialProps = async () => {
-  const eventRes = await fetch(`${baseUrl}/wp-json/wp/v2/promotions`)
+  const eventRes = await fetch(`${baseUrl}/wp-json/wp/v2/promotions?per_page=100`)
   const eventData = await eventRes.json()
 
   const filteredEvents = activeItemsOnly(eventData)

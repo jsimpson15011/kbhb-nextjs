@@ -27,7 +27,7 @@ const Concerts = props => {
 }
 
 Concerts.getInitialProps = async () => {
-  const eventRes = await fetch(`${baseUrl}/wp-json/wp/v2/concerts`)
+  const eventRes = await fetch(`${baseUrl}/wp-json/wp/v2/concerts?per_page=100`)
   const eventData = await eventRes.json()
 
   const filteredEvents = activeItemsOnly(eventData)
