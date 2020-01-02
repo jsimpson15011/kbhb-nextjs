@@ -14,7 +14,7 @@ const LiveSchedule = () => {
   return (
     <div className="listen-live">
       <a href="http://kout.tunegenie.com/#listenlive" className="top">
-        <img alt='' src={scheduleData.schedule[0].meta_box.schedule_square_image[0].full_url}/>
+        <img className='personality-image' alt='' src={scheduleData.schedule[0].meta_box.schedule_square_image[0].full_url}/>
         <div className="sound-img-and-text">
           <img alt='' src='/img/sound-wave.png'/>
           <div>
@@ -42,6 +42,9 @@ const LiveSchedule = () => {
             color: ${mainTheme.accent};
             text-decoration: none;
           }
+          .personality-image{
+            width: 100px;
+          }
           h3{
             text-transform: uppercase;
             font-weight: bold;
@@ -66,8 +69,9 @@ const LiveSchedule = () => {
             flex-wrap: wrap;
           }
           .bottom{
-            background: #1f1f1f;
-            color: white;
+            background: #333333;
+            color: #f3f3f3;
+            font-weight: bold;
             margin-top: auto;
             text-align: center;
           }
