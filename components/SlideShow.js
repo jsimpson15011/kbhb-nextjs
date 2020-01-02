@@ -26,6 +26,7 @@ const BelowSlideShow = () => {
           font-weight: bold;
           letter-spacing: 2px;
           margin-bottom: 14px;
+          margin-top: -6px;
         }
         a:hover, a:focus{
           background: ${mainTheme.accent};
