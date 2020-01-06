@@ -8,6 +8,7 @@ import anime from "animejs"
 import MaxWidthWrapper from "../components/MaxWidthWrapper"
 import {withRedux} from "../lib/redux"
 import {activeItemsOnly} from "../utils/eventHelpers"
+import SmallImages from "../components/SmallImages"
 
 import dynamic from "next/dynamic"
 import {baseUrl, siteTitle} from "../site-settings"
@@ -37,6 +38,7 @@ const Home = props => {
       <HomeLayout>
         <Waypoint onEnter={() => handleFloatUpReveal('slide-show')}/>
         <SlideShow slides={props.slides}/>
+        <SmallImages blocks={props.slides}/>
         <MaxWidthWrapper>
           <div className="news-section">
             <NewsFeedContainer/>
