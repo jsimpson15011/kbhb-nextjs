@@ -22,6 +22,9 @@ const SmallImages = ({blocks}) => {
                 width: 235px;
                 height: 235px;
                 transition: transform .5s;
+              margin-left: auto;
+              margin-right: auto;
+              margin-bottom: 7px;
               }
               .slide-container:hover{
                 transform: translateY(-5%);
@@ -55,6 +58,9 @@ const SmallImages = ({blocks}) => {
                 width: 235px;
                 height: 235px;
                 transition: transform .5s;
+              margin-left: auto;
+              margin-right: auto;
+              margin-bottom: 7px;
               }
               .slide-container:hover{
                 transform: translateY(-5%);
@@ -92,6 +98,13 @@ const SmallImages = ({blocks}) => {
               display: flex;
               flex-wrap: wrap;
               justify-content: space-around;
+              margin-left: auto;
+              margin-right: auto;
+            }
+            .see-all-box{
+              margin-left: auto;
+              margin-right: auto;
+              margin-bottom: 7px;
             }
             .see-all-box a{
               display: flex;

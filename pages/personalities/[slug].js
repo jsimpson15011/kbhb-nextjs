@@ -13,6 +13,7 @@ const Personality = props => {
         <link rel='icon' href='/favicon.ico'/>
       </Head>
       <DynamicContent content={props.content}/>
+      <script type="text/javascript" src="//post.futurimedia.com/futuri-post-widget.js" defer/>
     </MainLayout>
   )
 }

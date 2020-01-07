@@ -120,6 +120,7 @@ const HamburgerMenu = ({navItems}) => {
             padding: 7px;
             padding-top: 14px;
             padding-bottom: 78px;
+            font-size: .8em;
           }
           a{
             text-decoration: none;
@@ -140,6 +141,7 @@ const HamburgerMenu = ({navItems}) => {
           }
           .sub-menu{
             margin-bottom: 14px;
+            font-size: .9em;
           }
           .sub-menu li{
             margin-left: 14px;
