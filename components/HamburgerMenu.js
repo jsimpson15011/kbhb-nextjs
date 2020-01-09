@@ -24,12 +24,17 @@ const HamburgerMenu = ({navItems}) => {
 
   return (
     <>
-      <button onClick={toggleMenu} className={menuIsExpanded ? expandedClasses : collapsedClasses} type="button">
+      <button
+        aria-label="toggle menu expansion"
+        aria-expanded={menuIsExpanded}
+        aria-controls="hamburger-menu"
+        onClick={toggleMenu}
+        className={menuIsExpanded ? expandedClasses : collapsedClasses} type="button">
         <span className="hamburger-box">
           <span className="hamburger-inner"/>
         </span>
       </button>
-      <div className="hamburger-menu">
+      <div className="hamburger-menu" id="hamburger-menu">
         <ul className="hamburger-menu-list">
           {links.map(({key, href, label, type, childItems}) => {
               const subMenu = childItems ?
