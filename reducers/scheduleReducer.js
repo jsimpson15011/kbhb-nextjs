@@ -44,25 +44,25 @@ export const getSchedule = async (reduxStore) => {
       }
     }
 
-    const startTime = item.meta_box.schedule_start_time.replace(':', '.')
-    const endTime = item.meta_box.schedule_end_time.replace(':', '.')
+    const startTime = item.meta_box.schedule_start_time.replace(':', '')
+    const endTime = item.meta_box.schedule_end_time.replace(':', '')
     const localeString = (new Date).toLocaleString('en-US', {
       hour: '2-digit',
       minute: '2-digit',
       timeZone: 'America/Denver'
-    }).toLowerCase().replace(':', '.')
+    }).toLowerCase().replace(':', '')
 
     const convertTo24 = time => {
       return time.slice(-2) === 'am'
-        ? parseFloat(time.slice(0, -2)).toFixed(2)
-        : Number(parseFloat(time.slice(0, -2)).toFixed(2)) + 12
+        ? parseInt(time.slice(0, -2))
+        : Number(parseInt(time.slice(0, -2))) + 1200
     }
 
     const startTime24 = convertTo24(startTime)
     const endTime24 = convertTo24(endTime)
     const currentTime24 = convertTo24(localeString)
 
-    return (currentTime24 >= startTime24 && currentTime24 <= endTime24)
+    return (startTime24 <= currentTime24   && currentTime24 <= endTime24)
   })
 
   dispatch({
