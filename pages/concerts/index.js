@@ -4,7 +4,7 @@ import Head from "next/head"
 import EventList from "../../components/EventList"
 import MainLayout from "../../components/MainLayout"
 import {activeItemsOnly, sortItems} from "../../utils/eventHelpers"
-import {baseUrl, siteTitle} from "../../site-settings"
+import {baseUrl, metaDescription, siteTitle} from "../../site-settings"
 
 const Concerts = props => {
 
@@ -14,7 +14,7 @@ const Concerts = props => {
         <title>{siteTitle} - Concerts</title>
         <link rel='icon' href='/favicon.ico'/>
         <meta name="description"
-              content="KOUT “KAT COUNTRY”, The Black Hills’ Favorite Country station playing a mix of the best of popular country artists in an upbeat, contemporary style"/>
+              content={`${metaDescription}`}/>
       </Head>
       <MainLayout>
         <h2>Concerts</h2>

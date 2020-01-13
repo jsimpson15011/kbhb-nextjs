@@ -11,7 +11,7 @@ import {activeItemsOnly} from "../utils/eventHelpers"
 import SmallImages from "../components/SmallImages"
 
 import dynamic from "next/dynamic"
-import {baseUrl, siteTitle} from "../site-settings"
+import {baseUrl, listenLiveUrl, metaDescription, siteTitle} from "../site-settings"
 
 const NewsFeedContainer = dynamic(import('../components/NewsFeedContainer'))
 
@@ -33,7 +33,7 @@ const Home = props => {
         <title>{siteTitle} - Home</title>
         <link rel='icon' href='/favicon.ico'/>
         <meta name="description"
-              content="KOUT “KAT COUNTRY”, The Black Hills’ Favorite Country station playing a mix of the best of popular country artists in an upbeat, contemporary style"/>
+              content={`${metaDescription}`}/>
       </Head>
       <HomeLayout>
         <Waypoint onEnter={() => handleFloatUpReveal('slide-show')}/>
@@ -48,7 +48,7 @@ const Home = props => {
                     scrolling="no"
                     width="300"
                     height="480"
-                    src="https://kout.tunegenie.com/plugins/onair/?searchbar=on&streamfooter=on&newwindow=on"/>
+                    src={`${listenLiveUrl}/plugins/onair/?searchbar=on&streamfooter=on&newwindow=on`}/>
           </div>
         </MaxWidthWrapper>
       </HomeLayout>
