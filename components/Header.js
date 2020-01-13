@@ -6,25 +6,38 @@ import Nav from "./Nav"
 import LiveSchedule from "./LiveSchedule"
 import HamburgerMenu from "./HamburgerMenu"
 import {useSelector} from "react-redux"
+import {facebookUrl, instagramUrl, siteTitle, twitterUrl} from "../site-settings"
 
 const SocialContainer = () => {
   return (
     <div className='social-container'>
       <Link href="/">
         <a>
-          <img alt='KAT 98.7' src='/img/logo.png'/>
+          <img alt={`${siteTitle}`} src='/img/logo.png'/>
         </a>
       </Link>
       <div className='social-icons'>
-        <a href='https://www.facebook.com/katcountry987/'>
-          <img alt='facebook' src='/img/icons/facebook.png'/>
-        </a>
-        <a href='https://www.instagram.com/katcountry987/'>
-          <img alt='instagram' src='/img/icons/instagram.png'/>
-        </a>
-        <a href='https://twitter.com/Katradio'>
-          <img alt='twitter' src='/img/icons/twitter.png'/>
-        </a>
+        {
+          facebookUrl ?
+            <a href={`${facebookUrl}`}>
+              <img alt='facebook' src='/img/icons/facebook.png'/>
+            </a>
+            : ''
+        }
+        {
+          instagramUrl ?
+            <a href={`${instagramUrl}`}>
+              <img alt='instagram' src='/img/icons/instagram.png'/>
+            </a>
+            : ''
+        }
+        {
+          twitterUrl ?
+            <a href={`${twitterUrl}`}>
+              <img alt='twitter' src='/img/icons/twitter.png'/>
+            </a>
+            : ''
+        }
       </div>
       <style jsx>{`
       .social-container {
