@@ -12,7 +12,7 @@ const SocialContainer = () => {
   return (
     <div className='social-container'>
       <Link href="/">
-        <a>
+        <a className='logo'>
           <img alt={`${siteTitle}`} src='/img/logo.png'/>
         </a>
       </Link>
@@ -51,6 +51,9 @@ const SocialContainer = () => {
       }
       .social-icons a{
         margin-right: 5px;
+      }
+      .logo{
+        margin-right: 14px;
       }
     `}</style>
     </div>
