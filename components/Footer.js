@@ -1,19 +1,19 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import MaxWidthWrapper from "./MaxWidthWrapper"
 import mainTheme from "../styles/katTheme"
 import dynamic from "next/dynamic"
 
 const LazyLoad = dynamic(() => import('react-lazyload'))
 import Link from "next/link"
+import {email, phone, siteTitle} from "../site-settings"
 
 const Footer = () => {
   return (
     <div id='footer' className='footer'>
       <MaxWidthWrapper display='flex' className='max-width-wrapper'>
         <div className='contact'>
-          <p>katradio.com</p>
-          <p>Phone number: <a href='tel:605-348-3939'>605-348-3939</a></p>
-          <p>E-Mail: <a href='mailto:houston@katradio.com'>houston@katradio.com</a></p>
+          <p>Phone number: <a href={`tel:${phone}`}>{phone}</a></p>
+          <p>E-Mail: <a href={`${email}`}>{email}</a></p>
           <p>Address: 660 Florman STE 100</p>
           <p>Rapid City, SD 57701</p>
         </div>
@@ -21,7 +21,7 @@ const Footer = () => {
           <Link href='/'>
             <a>
               <LazyLoad>
-                <img src='/img/logo.png' alt='KAT 98.7'/>
+                <img src='/img/logo.png' alt={`${siteTitle}`}/>
               </LazyLoad>
             </a>
           </Link>
