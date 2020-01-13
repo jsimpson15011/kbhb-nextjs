@@ -14,7 +14,7 @@ const LiveSchedule = () => {
   }
   return (
     <div className="listen-live">
-      <a href={listenLiveUrl} className="top">
+      <a href={`${listenLiveUrl}/#listen-live`} className="top">
         <img className='personality-image' alt='' src={scheduleData.schedule[0].meta_box.schedule_square_image[0].full_url}/>
         <div className="sound-img-and-text">
           <img alt='' src='/img/sound-wave.png'/>
