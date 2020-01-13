@@ -7,8 +7,8 @@ import mainTheme from "../styles/katTheme"
 const LazyLoad = dynamic(() => import('react-lazyload'))
 
 const SmallImages = ({blocks}) => {
-  const shuffledBlocks = shuffle([].concat(blocks.filter(block => block.smallImage)))
-  shuffledBlocks.length = 3
+  const shuffledBlocks = shuffle([].concat(blocks.filter(block => (block.smallImage && block.showBelowSlider))))
+  shuffledBlocks.length > 3 ? shuffledBlocks.length = 3 : shuffledBlocks.length
   const images = shuffledBlocks.map(block => {
     if (block.externalLink && block.smallImage) {
       return (

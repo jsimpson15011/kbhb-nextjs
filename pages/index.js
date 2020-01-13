@@ -91,7 +91,6 @@ Home.getInitialProps = async () => {
     })
 
     const slides = activeItemsOnly(sortedEventsData)
-      .filter(item => parseInt(item.meta_box.event_show_on_home_page))
       .map(promotion => {
         let promotionInfo = {
           slug: `/${promotion.type.replace('_', '-')}/${promotion.slug}`,
@@ -107,6 +106,17 @@ Home.getInitialProps = async () => {
 
         if (promotion.meta_box.event_square_image[0]) {
           promotionInfo.smallImage = promotion.meta_box.event_square_image[0].full_url
+        }
+
+        if(parseInt(promotion.meta_box.event_show_on_home_page)){
+          promotionInfo.showOnSlider = true;
+        } else {
+          promotionInfo.showOnSlider = false;
+        }
+        if(parseInt(promotion.meta_box.event_show_below_slider)){
+          promotionInfo.showBelowSlider = true;
+        } else {
+          promotionInfo.showBelowSlider = false;
         }
 
         return (

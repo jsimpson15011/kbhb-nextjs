@@ -81,7 +81,9 @@ const SlideShow = ({slides}) => {
     <div className='slide-show'>
       <LazyLoad>
         <Slider {...settings}>
-          {slides.map(slide => {
+          {slides
+            .filter(item => item.showOnSlider)
+            .map(slide => {
             if (slide.externalLink && slide.image) {
               return (
                 <div className='slide-container' key={slide.image}>
