@@ -7,12 +7,13 @@ const Slider = dynamic(() => import('react-slick'))
 import "slick-carousel/slick/slick.css"
 import '../styles/slick-theme.css'
 import Link from "next/link"
+import {listenLiveUrl} from "../site-settings"
 
 const BelowSlideShow = () => {
   return (
     <div>
       <h2>The Black Hills' Favorite Country Station</h2>
-      <a href="http://kout.tunegenie.com/#listenlive" className='listen-online'>Listen Online Now</a>
+      <a href={listenLiveUrl} className='listen-online'>Listen Online Now</a>
       <a href="https://thehomeslicegroup.com/" className='homeslice-media'>Homeslice Media Group</a>
       <style jsx>{`
         div{
