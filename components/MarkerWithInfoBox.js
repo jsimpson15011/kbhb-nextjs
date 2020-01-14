@@ -4,6 +4,7 @@ import React, {useState} from "react"
 
 const MarkerWithInfoBox = (props) => {
   const [open, toggleOpen] = useState(false)
+  console.log(props)
   return (
     <Marker icon="/img/map-icon.png"
             position={{lat: props.lat, lng: props.lng}}
@@ -15,10 +16,10 @@ const MarkerWithInfoBox = (props) => {
         defaultPosition={new google.maps.LatLng(props.lat, props.lng)}
         options={{closeBoxURL: ``, enableEventPropagation: true}}
       >
-        <div style={{background: '#f1f1f1', color: '#101010', padding: '7px'}}>
+        <div style={{background: '#f8f8f8', color: '#212121', padding: '7px'}}>
           <h2>{props.title}</h2>
-          <p>{props.address1}</p>
-          <p>{props.address2}</p>
+          <h3>{props.time}</h3>
+          <h4>{props.address}</h4>
         </div>
       </InfoBox>
       }

@@ -2,6 +2,7 @@ import React from "react"
 import ReactHtmlParser from "react-html-parser"
 import Link from "next/link"
 import mainTheme from "../styles/katTheme"
+import {formatDate} from "../utils/eventHelpers"
 
 const EventList = props => {
   const eventLinks = props.events.map(event => {
@@ -31,10 +32,12 @@ const EventList = props => {
           externalLink ?
             <a href={externalLink}>
               {ReactHtmlParser(event.title.rendered)}
+              {formatDate(event.meta_box.event_event_date_time)}
             </a>
             : <Link href={`/${props.category}/${event.slug}`}>
               <a>
                 {ReactHtmlParser(event.title.rendered)}
+                {formatDate(event.meta_box.event_event_date_time)}
               </a>
             </Link>
         }

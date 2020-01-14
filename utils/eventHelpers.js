@@ -1,7 +1,14 @@
+import moment from "moment"
+
 const timestamp = (date = null) => {
   return  date ?
     Math.round((new Date(date).getTime() /1000))
     : Math.round((new Date().getTime() /1000))
+}
+
+export const formatDate = (date = null) => {
+  if (!date){return}
+  return(' - '+ moment(date).format("dddd, MMMM Do, h:mm a"))
 }
 
 export const activeItemsOnly = items => {

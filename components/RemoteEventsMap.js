@@ -19,9 +19,9 @@ const RemoteEventsMap = withScriptjs(withGoogleMap((props) => {
                 key={marker.lat + marker.lng}
                 lat={marker.lat}
                 lng={marker.lng}
-                title="test"
-                address1="test"
-                address2="test"
+                title={marker.title}
+                address={marker.address}
+                time={marker.time}
               />
             )
           }
