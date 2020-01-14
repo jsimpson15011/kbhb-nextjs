@@ -2,7 +2,8 @@ import React, {useCallback, useEffect} from 'react'
 import {useSelector, useDispatch} from "react-redux"
 import Parser from "rss-parser"
 import LocalNewsFeed from "./LocalNewsFeed"
-import CountryNewsFeed from "./CountryNewsFeed"
+import MusicNewsFeed from "./MusicNewsFeed"
+import {newsUrl} from "../site-settings"
 
 const NewsFeedContainer = props => {
   const CORS_PROXY = "https://cors-anywhere.herokuapp.com/"
@@ -16,8 +17,8 @@ const NewsFeedContainer = props => {
     data: newsItems
   }))
 
-  const addCountryItems = useCallback(newsItems => dispatch({
-    type: 'ADD_COUNTRY_NEWS',
+  const addMusicItems = useCallback(newsItems => dispatch({
+    type: 'ADD_MUSIC_NEWS',
     data: newsItems
   }))
   useEffect(() => {
@@ -41,21 +42,21 @@ const NewsFeedContainer = props => {
 
       const kbhbFeed = await kbhbParser.parseURL('https://kbhbradio.com/rss.php')
 
-      const countryFeed = await countryParser.parseURL(CORS_PROXY + 'https://rss.pulsewebcontent.com/pulsewebfeedultra.asp?calls=kout-fm&passcode=yacht6&fmt=cw')
+      const countryFeed = await countryParser.parseURL(CORS_PROXY + newsUrl)
 
       countryFeed.items.length = 3
 
       kbhbFeed.items.length = 3
 
       addLocalItems(kbhbFeed)
-      addCountryItems(countryFeed)
+      addMusicItems(countryFeed)
     }
 
     getNewsItems()
   }, [])
 
   const newsItems = useSelector(state => state.newsItems)
-  if (newsItems.localNews === null || newsItems.countryNews === null) {
+  if (newsItems.localNews === null || newsItems.musicNews === null) {
     return (
       <h2>
         Loading
@@ -65,7 +66,7 @@ const NewsFeedContainer = props => {
 
   return (
     <>
-      <CountryNewsFeed items={newsItems.countryNews.items}/>
+      <MusicNewsFeed items={newsItems.musicNews.items}/>
       <LocalNewsFeed items={newsItems.localNews.items}/>
     </>
   )

@@ -1,10 +1,11 @@
 import React from 'react'
 import ReactHtmlParser from 'react-html-parser'
 import dynamic from "next/dynamic"
+import {newsTitle} from "../site-settings"
 
 const LazyLoad = dynamic(() => import('react-lazyload'))
 
-const LocalNewsFeed = props => {
+const MusicNewsFeed = props => {
   if (props.items === null) {
     return (
       <h2>Loading</h2>
@@ -12,7 +13,7 @@ const LocalNewsFeed = props => {
   }
   return (
     <section className='news-feed'>
-      <h2>Kat Country News</h2>
+      <h2>{newsTitle}</h2>
       <hr className='thin-hr'/>
       {props.items.map(article => {
         const image = article["media:group"].filter(media => {
@@ -98,4 +99,4 @@ const LocalNewsFeed = props => {
   )
 }
 
-export default LocalNewsFeed
+export default MusicNewsFeed
