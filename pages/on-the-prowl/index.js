@@ -29,10 +29,10 @@ const RemoteEvents = props => {
   const markersArray = props.events.map(event => {
     return (
       {
-        lat: parseFloat(event.meta_box.event_lat),
-        lng: parseFloat(event.meta_box.event_lng),
+        lat: parseFloat(event.meta_box.lat),
+        lng: parseFloat(event.meta_box.lng),
         title: event.title.rendered,
-        address: event.meta_box.event_address,
+        address: event.meta_box.address,
         time: formatDate(event.meta_box.event_event_date_time)
       }
       )
