@@ -3,6 +3,7 @@ import mainTheme from "../styles/katTheme"
 import {useSelector} from "react-redux"
 import {withRedux} from "../lib/redux"
 import {listenLiveUrl} from "../site-settings"
+import ReactHtmlParser from "react-html-parser"
 
 const LiveSchedule = () => {
   const scheduleData = useSelector(state => state.schedule)
@@ -21,7 +22,7 @@ const LiveSchedule = () => {
           <div>
             <h3>Listen Live</h3>
             <p>
-              <b>{scheduleData.schedule[0].title.rendered}</b> {scheduleData.schedule[0].meta_box.schedule_start_time} - {scheduleData.schedule[0].meta_box.schedule_end_time}
+              <b>{ReactHtmlParser(scheduleData.schedule[0].title.rendered)}</b> {scheduleData.schedule[0].meta_box.schedule_start_time} - {scheduleData.schedule[0].meta_box.schedule_end_time}
             </p>
           </div>
         </div>
