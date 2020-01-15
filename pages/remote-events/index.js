@@ -60,7 +60,7 @@ const RemoteEvents = props => {
                            />
                          }
         />
-        <EventList category={'on-the-prowl'} events={props.events}/>
+        <EventList category={'remote-events'} events={props.events}/>
       </MainLayout>
     </div>
   )
