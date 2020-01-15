@@ -85,26 +85,32 @@ const SlideShow = ({slides}) => {
           {slides
             .filter(item => item.showOnSlider)
             .map(slide => {
-            if (slide.externalLink && slide.image) {
-              return (
-                <div className='slide-container' key={slide.image}>
-                  <a href={slide.externalLink}>
-                    <img alt={slide.alt} src={slide.image}/>
-                  </a>
-                </div>
-              )
-            } else if (slide.image) {
-              return (
-                <div className='slide-container' key={slide.image}>
-                  <Link href={slide.slug}>
-                    <a>
+              if (slide.externalLink && slide.image) {
+                return (
+                  <div className='slide-container' key={slide.image}>
+                    <a href={slide.externalLink}>
                       <img alt={slide.alt} src={slide.image}/>
                     </a>
-                  </Link>
-                </div>
-              )
-            }
-          })}
+                  </div>
+                )
+              } else if (slide.image && !slide.slideIsImageOnly) {
+                return (
+                  <div className='slide-container' key={slide.image}>
+                    <Link href={slide.slug}>
+                      <a>
+                        <img alt={slide.alt} src={slide.image}/>
+                      </a>
+                    </Link>
+                  </div>
+                )
+              } else if (slide.image) {
+                return (
+                  <div className='slide-container' key={slide.image}>
+                    <img alt={slide.alt} src={slide.image}/>
+                  </div>
+                )
+              }
+            })}
         </Slider>
       </LazyLoad>
       <BelowSlideShow/>

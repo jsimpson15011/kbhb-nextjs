@@ -68,17 +68,19 @@ const Home = props => {
 
 Home.getInitialProps = async () => {
   try {
-    const [promoRes, concertRes, remoteRes] = await Promise.all([
+    const [promoRes, concertRes, remoteRes, slideRes] = await Promise.all([
       fetch(`${baseUrl}/wp-json/wp/v2/promotions?_embed`),
       fetch(`${baseUrl}/wp-json/wp/v2/concerts?_embed`),
-      fetch(`${baseUrl}/wp-json/wp/v2/remote_events?_embed`)
+      fetch(`${baseUrl}/wp-json/wp/v2/remote_events?_embed`),
+      fetch(`${baseUrl}/wp-json/wp/v2/slideshowimageonly?_embed`)
     ])
-    const [promoData, concertData, remoteData] = await Promise.all([
+    const [promoData, concertData, remoteData, slideData] = await Promise.all([
       promoRes.json(),
       concertRes.json(),
-      remoteRes.json()
+      remoteRes.json(),
+      slideRes.json()
     ])
-    const combinedEventsData = [].concat(promoData, concertData, remoteData)
+    const combinedEventsData = [].concat(promoData, concertData, remoteData, slideData)
 
     const eventsSortedByPublishDate = combinedEventsData.sort((a, b) => {
       const timeA = new Date(a.date).getTime()
@@ -117,6 +119,9 @@ Home.getInitialProps = async () => {
           promotionInfo.showBelowSlider = true;
         } else {
           promotionInfo.showBelowSlider = false;
+        }
+        if (promotion.type === 'slideshowimageonly'){
+          promotionInfo.slideIsImageOnly = true
         }
 
         return (
