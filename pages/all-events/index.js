@@ -7,7 +7,6 @@ import {activeItemsOnly, sortItems} from "../../utils/eventHelpers"
 import {baseUrl, metaDescription, siteTitle} from "../../site-settings"
 
 const Concerts = props => {
-
   return (
     <div>
       <Head>
@@ -28,9 +27,9 @@ const Concerts = props => {
 
 Concerts.getInitialProps = async () => {
   const [promoRes, concertRes, remoteRes] = await Promise.all([
-    fetch(`${baseUrl}/wp-json/wp/v2/promotions?_embed`),
-    fetch(`${baseUrl}/wp-json/wp/v2/concerts?_embed`),
-    fetch(`${baseUrl}/wp-json/wp/v2/remote_events?_embed`)
+    fetch(`${baseUrl}/wp-json/wp/v2/promotions?_embed&per_page=100`),
+    fetch(`${baseUrl}/wp-json/wp/v2/concerts?_embed&per_page=100`),
+    fetch(`${baseUrl}/wp-json/wp/v2/remote_events?_embed&per_page=100`)
   ])
   const [promoData, concertData, remoteData] = await Promise.all([
     promoRes.json(),
