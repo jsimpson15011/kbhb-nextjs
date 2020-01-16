@@ -34,7 +34,7 @@ const EventList = props => {
               {ReactHtmlParser(event.title.rendered)}
               {formatDate(event.meta_box.event_event_date_time)}
             </a>
-            : <Link href={`/${props.category}/${event.slug}`}>
+            : <Link href={`/${event.type}/${event.slug}`}>
               <a>
                 {ReactHtmlParser(event.title.rendered)}
                 {formatDate(event.meta_box.event_event_date_time)}
