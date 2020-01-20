@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/katradio/web-app
+    - export DEPLOYPATH=/home/katradio/public_html/web-app
     - /bin/cp -R components $DEPLOYPATH
     - /bin/cp -R lib $DEPLOYPATH
     - /bin/cp -R pages $DEPLOYPATH
