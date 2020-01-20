@@ -1,4 +1,18 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/homesliceweb/kat2019.homesliceweb.com/
+    - export DEPLOYPATH=/home/homesliceweb/katdev.homesliceweb.com
+    - /bin/cp -R components $DEPLOYPATH
+    - /bin/cp -R lib $DEPLOYPATH
+    - /bin/cp -R pages $DEPLOYPATH
+    - /bin/cp -R public $DEPLOYPATH
+    - /bin/cp -R reducers $DEPLOYPATH
+    - /bin/cp -R styles $DEPLOYPATH
+    - /bin/cp -R utils $DEPLOYPATH
+    - /bin/cp next.config.js $DEPLOYPATH
+    - /bin/cp package.json $DEPLOYPATH
+    - /bin/cp package-lock.json $DEPLOYPATH
+    - /bin/cp site-settings.js $DEPLOYPATH
+    - /bin/cp store.js $DEPLOYPATH
+    - cd $DEPLOYPATH
+    - npm install
