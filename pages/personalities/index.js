@@ -1,16 +1,16 @@
 import React from 'react'
 import fetch from "isomorphic-unfetch"
 import MainLayout from "../../components/MainLayout"
-import { withRedux } from "../../lib/redux"
+import {withRedux} from "../../lib/redux"
 import Head from "next/head"
 import Link from "next/link"
-import {baseUrl, siteTitle} from "../../site-settings"
+import {baseUrl, metaDescription, siteTitle} from "../../site-settings"
 
 const Personalities = props => {
   const personalityLinks = props.personalities.map(personality => {
-    return(
+    return (
       <div key={personality.slug}>
-        <Link href={ '/personalities/' + personality.slug}>
+        <Link href={'/personalities/' + personality.slug}>
           <a>
             {personality.title.rendered}
           </a>
@@ -46,7 +46,7 @@ const Personalities = props => {
         <title>{siteTitle} - Personalities</title>
         <link rel='icon' href='/favicon.ico'/>
         <meta name="description"
-              content="KOUT “KAT COUNTRY”, The Black Hills’ Favorite Country station playing a mix of the best of popular country artists in an upbeat, contemporary style"/>
+              content={`${metaDescription}`}/>
       </Head>
       <MainLayout>
         <h2>Personalities</h2>

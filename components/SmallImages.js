@@ -7,8 +7,8 @@ import mainTheme from "../styles/katTheme"
 const LazyLoad = dynamic(() => import('react-lazyload'))
 
 const SmallImages = ({blocks}) => {
-  const shuffledBlocks = shuffle([].concat(blocks.filter(block => block.smallImage)))
-  shuffledBlocks.length = 3
+  const shuffledBlocks = shuffle([].concat(blocks.filter(block => (block.smallImage && block.showBelowSlider))))
+  shuffledBlocks.length > 3 ? shuffledBlocks.length = 3 : shuffledBlocks.length
   const images = shuffledBlocks.map(block => {
     if (block.externalLink && block.smallImage) {
       return (
@@ -19,9 +19,8 @@ const SmallImages = ({blocks}) => {
           <style jsx>
             {`
               .slide-container{
-                width: 235px;
-                height: 235px;
                 transition: transform .5s;
+                width: 235px;
               margin-left: auto;
               margin-right: auto;
               margin-bottom: 7px;
@@ -56,7 +55,6 @@ const SmallImages = ({blocks}) => {
             {`
               .slide-container{
                 width: 235px;
-                height: 235px;
                 transition: transform .5s;
               margin-left: auto;
               margin-right: auto;
@@ -97,6 +95,7 @@ const SmallImages = ({blocks}) => {
               width: 100%;
               display: flex;
               flex-wrap: wrap;
+              align-items: flex-start;
               justify-content: space-around;
               margin-left: auto;
               margin-right: auto;
@@ -105,6 +104,7 @@ const SmallImages = ({blocks}) => {
               margin-left: auto;
               margin-right: auto;
               margin-bottom: 7px;
+              align-self: stretch;
             }
             .see-all-box a{
               display: flex;
@@ -112,18 +112,20 @@ const SmallImages = ({blocks}) => {
               justify-content: center;
               background: white;
               color: ${mainTheme.accent};
-              height: 235px;
               width: 235px;
+              height: 100%;
               box-sizing: border-box;
-              font-size: 2em;
-              padding: 0 7px;
+              font-size: 1.5em;
+              padding: 7px;
               text-decoration: none;
               font-weight: bold;
               text-align: center;
               text-transform: uppercase;
+              box-shadow: inset 0 0 0 6px ${mainTheme.accent};
             }
             .see-all-box a:hover, .see-all-box a:focus{
               background: ${mainTheme.accent};
+              box-shadow: inset 0 0 0 6px white;
               color: white;
             }
           `}

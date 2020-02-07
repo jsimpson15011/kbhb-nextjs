@@ -11,7 +11,7 @@ import {activeItemsOnly} from "../utils/eventHelpers"
 import SmallImages from "../components/SmallImages"
 
 import dynamic from "next/dynamic"
-import {baseUrl, siteTitle} from "../site-settings"
+import {baseUrl, listenLiveUrl, metaDescription, siteTitle} from "../site-settings"
 
 const NewsFeedContainer = dynamic(import('../components/NewsFeedContainer'))
 
@@ -33,7 +33,7 @@ const Home = props => {
         <title>{siteTitle} - Home</title>
         <link rel='icon' href='/favicon.ico'/>
         <meta name="description"
-              content="KOUT “KAT COUNTRY”, The Black Hills’ Favorite Country station playing a mix of the best of popular country artists in an upbeat, contemporary style"/>
+              content={`${metaDescription}`}/>
       </Head>
       <HomeLayout>
         <Waypoint onEnter={() => handleFloatUpReveal('slide-show')}/>
@@ -48,7 +48,7 @@ const Home = props => {
                     scrolling="no"
                     width="300"
                     height="480"
-                    src="https://kout.tunegenie.com/plugins/onair/?searchbar=on&streamfooter=on&newwindow=on"/>
+                    src={`${listenLiveUrl}/plugins/onair/?searchbar=on&streamfooter=on&newwindow=on`}/>
           </div>
         </MaxWidthWrapper>
       </HomeLayout>
@@ -68,17 +68,19 @@ const Home = props => {
 
 Home.getInitialProps = async () => {
   try {
-    const [promoRes, concertRes, remoteRes] = await Promise.all([
-      fetch(`${baseUrl}/wp-json/wp/v2/promotions?_embed`),
-      fetch(`${baseUrl}/wp-json/wp/v2/concerts?_embed`),
-      fetch(`${baseUrl}/wp-json/wp/v2/remote_events?_embed`)
+    const [promoRes, concertRes, remoteRes, slideRes] = await Promise.all([
+      fetch(`${baseUrl}/wp-json/wp/v2/promotions?_embed&per_page=100`),
+      fetch(`${baseUrl}/wp-json/wp/v2/concerts?_embed&per_page=100`),
+      fetch(`${baseUrl}/wp-json/wp/v2/remote_events?_embed&per_page=100`),
+      fetch(`${baseUrl}/wp-json/wp/v2/slideshowimageonly?_embed&per_page=100`)
     ])
-    const [promoData, concertData, remoteData] = await Promise.all([
+    const [promoData, concertData, remoteData, slideData] = await Promise.all([
       promoRes.json(),
       concertRes.json(),
-      remoteRes.json()
+      remoteRes.json(),
+      slideRes.json()
     ])
-    const combinedEventsData = [].concat(promoData, concertData, remoteData)
+    const combinedEventsData = [].concat(promoData, concertData, remoteData, slideData)
 
     const eventsSortedByPublishDate = combinedEventsData.sort((a, b) => {
       const timeA = new Date(a.date).getTime()
@@ -91,7 +93,6 @@ Home.getInitialProps = async () => {
     })
 
     const slides = activeItemsOnly(sortedEventsData)
-      .filter(item => parseInt(item.meta_box.event_show_on_home_page))
       .map(promotion => {
         let promotionInfo = {
           slug: `/${promotion.type.replace('_', '-')}/${promotion.slug}`,
@@ -107,6 +108,20 @@ Home.getInitialProps = async () => {
 
         if (promotion.meta_box.event_square_image[0]) {
           promotionInfo.smallImage = promotion.meta_box.event_square_image[0].full_url
+        }
+
+        if(parseInt(promotion.meta_box.event_show_on_home_page)){
+          promotionInfo.showOnSlider = true;
+        } else {
+          promotionInfo.showOnSlider = false;
+        }
+        if(parseInt(promotion.meta_box.event_show_below_slider)){
+          promotionInfo.showBelowSlider = true;
+        } else {
+          promotionInfo.showBelowSlider = false;
+        }
+        if (promotion.type === 'slideshowimageonly'){
+          promotionInfo.slideIsImageOnly = true
         }
 
         return (

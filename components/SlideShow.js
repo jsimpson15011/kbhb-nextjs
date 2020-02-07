@@ -7,12 +7,13 @@ const Slider = dynamic(() => import('react-slick'))
 import "slick-carousel/slick/slick.css"
 import '../styles/slick-theme.css'
 import Link from "next/link"
+import {listenLiveUrl} from "../site-settings"
 
 const BelowSlideShow = () => {
   return (
     <div>
       <h2>The Black Hills' Favorite Country Station</h2>
-      <a href="http://kout.tunegenie.com/#listenlive" className='listen-online'>Listen Online Now</a>
+      <a href={listenLiveUrl} className='listen-online'>Listen Online Now</a>
       <a href="https://thehomeslicegroup.com/" className='homeslice-media'>Homeslice Media Group</a>
       <style jsx>{`
         div{
@@ -81,27 +82,35 @@ const SlideShow = ({slides}) => {
     <div className='slide-show'>
       <LazyLoad>
         <Slider {...settings}>
-          {slides.map(slide => {
-            if (slide.externalLink && slide.image) {
-              return (
-                <div className='slide-container' key={slide.image}>
-                  <a href={slide.externalLink}>
-                    <img alt={slide.alt} src={slide.image}/>
-                  </a>
-                </div>
-              )
-            } else if (slide.image) {
-              return (
-                <div className='slide-container' key={slide.image}>
-                  <Link href={slide.slug}>
-                    <a>
+          {slides
+            .filter(item => item.showOnSlider)
+            .map(slide => {
+              if (slide.externalLink && slide.image) {
+                return (
+                  <div className='slide-container' key={slide.image}>
+                    <a href={slide.externalLink}>
                       <img alt={slide.alt} src={slide.image}/>
                     </a>
-                  </Link>
-                </div>
-              )
-            }
-          })}
+                  </div>
+                )
+              } else if (slide.image && !slide.slideIsImageOnly) {
+                return (
+                  <div className='slide-container' key={slide.image}>
+                    <Link href={slide.slug}>
+                      <a>
+                        <img alt={slide.alt} src={slide.image}/>
+                      </a>
+                    </Link>
+                  </div>
+                )
+              } else if (slide.image) {
+                return (
+                  <div className='slide-container' key={slide.image}>
+                    <img alt={slide.alt} src={slide.image}/>
+                  </div>
+                )
+              }
+            })}
         </Slider>
       </LazyLoad>
       <BelowSlideShow/>

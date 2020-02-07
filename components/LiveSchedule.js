@@ -2,6 +2,8 @@ import React from "react"
 import mainTheme from "../styles/katTheme"
 import {useSelector} from "react-redux"
 import {withRedux} from "../lib/redux"
+import {listenLiveUrl} from "../site-settings"
+import ReactHtmlParser from "react-html-parser"
 
 const LiveSchedule = () => {
   const scheduleData = useSelector(state => state.schedule)
@@ -13,14 +15,14 @@ const LiveSchedule = () => {
   }
   return (
     <div className="listen-live">
-      <a href="http://kout.tunegenie.com/#listenlive" className="top">
+      <a href={`${listenLiveUrl}/#listen-live`} className="top">
         <img className='personality-image' alt='' src={scheduleData.schedule[0].meta_box.schedule_square_image[0].full_url}/>
         <div className="sound-img-and-text">
           <img alt='' src='/img/sound-wave.png'/>
           <div>
             <h3>Listen Live</h3>
             <p>
-              <b>{scheduleData.schedule[0].title.rendered}</b> {scheduleData.schedule[0].meta_box.schedule_start_time} - {scheduleData.schedule[0].meta_box.schedule_end_time}
+              <b>{ReactHtmlParser(scheduleData.schedule[0].title.rendered)}</b> {scheduleData.schedule[0].meta_box.schedule_start_time} - {scheduleData.schedule[0].meta_box.schedule_end_time}
             </p>
           </div>
         </div>

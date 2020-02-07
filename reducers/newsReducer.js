@@ -1,6 +1,6 @@
 const initialState = {
   localNews: null,
-  countryNews: null
+  musicNews: null
 }
 
 const newsReducer = (state= initialState, action) => {
@@ -8,12 +8,12 @@ const newsReducer = (state= initialState, action) => {
     case 'ADD_LOCAL_NEWS':
       return {
         localNews: action.data,
-        countryNews: state.countryNews
+        musicNews: state.musicNews
       }
-    case 'ADD_COUNTRY_NEWS':
+    case 'ADD_MUSIC_NEWS':
       return {
         localNews: state.localNews,
-        countryNews: action.data
+        musicNews: action.data
       }
     default:
       return state
