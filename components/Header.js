@@ -7,6 +7,7 @@ import LiveSchedule from "./LiveSchedule"
 import HamburgerMenu from "./HamburgerMenu"
 import {useSelector} from "react-redux"
 import {facebookUrl, instagramUrl, siteTitle, twitterUrl} from "../site-settings"
+import Announcements from "./Announcements"
 
 const SocialContainer = () => {
   return (
@@ -70,6 +71,7 @@ const Header = () => {
         <LiveSchedule/>
       </MaxWidthWrapper>
       <Nav navItems={navItems}/>
+      <Announcements />
       <HamburgerMenu navItems={navItems}/>
       <style jsx>
         {`
