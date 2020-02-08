@@ -29,12 +29,21 @@ const Announcements = () => {
 
   return (
     <div className="outer-wrapper">
-      <Link href={`announcement`}>
-        <a>Announcements</a>
-      </Link>
-      <Link href={'cancellations'}>
-        <a>Closings and Delays</a>
-      </Link>
+      {
+        announcementItems.announcements.length ?
+          <Link href={`announcement`}>
+            <a>Announcements</a>
+          </Link> :
+          ''
+      }
+      {
+        announcementItems.closures.length ?
+          <Link href={'cancellations'}>
+            <a>Closings and Delays</a>
+          </Link> :
+          ''
+      }
+
       <style jsx>
         {`            
             .outer-wrapper{
