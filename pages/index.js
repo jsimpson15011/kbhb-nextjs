@@ -53,10 +53,10 @@ const Home = props => {
                     src={`${listenLiveUrl}/plugins/onair/?searchbar=on&streamfooter=on&newwindow=on`}/>
                     <div className="futuri-container">
                       <h3>What you missed on The Roadhouse</h3>
-                      <div className="futuri-widget" data-config="station=kout&zone=5&next=popup&theme=light&limit=3"/>
+                      <div className="futuri-widget" data-config="station=kout&zone=5&next=popup&theme=light&limit=1"/>
 
                       <h3>What you missed with Mark Houston</h3>
-                      <div className="futuri-widget" data-config="station=kout&zone=8&next=popup&theme=light&limit=3"/>
+                      <div className="futuri-widget" data-config="station=kout&zone=8&next=popup&theme=light&limit=1"/>
                     </div>
 
           </div>
