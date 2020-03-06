@@ -13,7 +13,7 @@ const Footer = () => {
       <MaxWidthWrapper display='flex' className='max-width-wrapper'>
         <div className='contact'>
           <p>Phone number: <a href={`tel:${phone}`}>{phone}</a></p>
-          <p>E-Mail: <a href={`${email}`}>{email}</a></p>
+          <p>E-Mail: <a href={`mailto:${email}`}>{email}</a></p>
           <p>Address: 660 Florman STE 100</p>
           <p>Rapid City, SD 57701</p>
         </div>
@@ -37,7 +37,7 @@ const Footer = () => {
           .footer{
             background: ${mainTheme.brand};
             box-sizing: border-box;
-            padding: 70px 15px;
+            padding: 40px 15px;
           }
           .contact a{
             color: black;

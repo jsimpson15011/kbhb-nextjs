@@ -11,8 +11,9 @@ export const getAnnouncementItems = async (reduxStore) => {
     const announcementItemsRes = await fetch("https://psa.homesliceweb.com/wp-json/wp/v2/psas")
     const newAnnouncementData = await announcementItemsRes.json()
     const newAnnouncementItems = newAnnouncementData.filter(announcement => {
-      return announcement.meta_box.psa_date + 25200 > (Math.floor(Date.now()/1000))
+      return parseInt(announcement.meta_box.psa_date) + 25200 > (Math.floor(Date.now()/1000))
     })
+
     const closureRes = await fetch("https://psa.homesliceweb.com/wp-json/wp/v2/closures")
     const closureData = await closureRes.json()
     const activeClosure = closureData.filter(closure => {

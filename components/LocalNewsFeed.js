@@ -18,7 +18,7 @@ const LocalNewsFeed = props => {
         let newsArticle =
           <article key={article.title} className='article'>
             <LazyLoad>
-              <img src={article.image.url} alt=''/>
+              <img src={article.image ? article.image.url : ''} alt=''/>
             </LazyLoad>
             <div className='article-content'>
               <a href={article.link}>

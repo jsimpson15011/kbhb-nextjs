@@ -15,7 +15,6 @@ const Announcement = props => {
       <></>
     )
   }
-  console.log(currentItem)
   return (
     <MainLayout>
       <Head>

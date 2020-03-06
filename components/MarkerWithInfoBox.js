@@ -4,7 +4,6 @@ import React, {useState} from "react"
 
 const MarkerWithInfoBox = (props) => {
   const [open, toggleOpen] = useState(false)
-  console.log(props)
   return (
     <Marker icon="/img/map-icon.png"
             position={{lat: props.lat, lng: props.lng}}

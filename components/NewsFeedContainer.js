@@ -1,17 +1,11 @@
 import React, {useCallback, useEffect} from 'react'
 import {useSelector, useDispatch} from "react-redux"
-import Parser from "rss-parser"
 import LocalNewsFeed from "./LocalNewsFeed"
 import MusicNewsFeed from "./MusicNewsFeed"
-import {newsUrl} from "../site-settings"
+import newsHelpers from "../utils/newsHelpers"
 
-const NewsFeedContainer = props => {
-  const CORS_PROXY = "https://cors-anywhere.herokuapp.com/"
+const NewsFeedContainer = () => {
   const dispatch = useDispatch()
-  /*  const addCountryItems = useCallback(newsItems => dispatch({
-    type: 'ADD_LOCAL_NEWS',
-    data: newsItems
-  }))*/
   const addLocalItems = useCallback(newsItems => dispatch({
     type: 'ADD_LOCAL_NEWS',
     data: newsItems
@@ -22,41 +16,18 @@ const NewsFeedContainer = props => {
     data: newsItems
   }))
   useEffect(() => {
-    async function getNewsItems() {
-      const kbhbParser = new Parser({
-        customFields: {
-          item: [
-            ['image', 'image']
-          ]
-          ,
-        }
-      })
+    newsHelpers.getNewsItems().then(
+      items => {
+        addLocalItems(items.kbhbFeed)
+        addMusicItems(items.musicNewsFeed)
+      }
+    )
 
-      const countryParser = new Parser({
-        customFields: {
-          item: [
-            ['media:group', "media:group", {keepArray: true}]
-          ]
-        }
-      })
 
-      const kbhbFeed = await kbhbParser.parseURL('https://kbhbradio.com/rss.php')
-
-      const countryFeed = await countryParser.parseURL(CORS_PROXY + newsUrl)
-
-      countryFeed.items.length = 3
-
-      kbhbFeed.items.length = 3
-
-      addLocalItems(kbhbFeed)
-      addMusicItems(countryFeed)
-    }
-
-    getNewsItems()
   }, [])
 
   const newsItems = useSelector(state => state.newsItems)
-  if (newsItems.localNews === null || newsItems.musicNews === null) {
+  if (newsItems.localNews === null && newsItems.musicNews === null) {
     return (
       <h2>
         Loading
@@ -64,10 +35,29 @@ const NewsFeedContainer = props => {
     )
   }
 
+  if (newsItems.localNews === null && newsItems.musicNews){
+    return(
+        <MusicNewsFeed items={newsItems.musicNews.items}/>
+      )
+  }
+
+  if (newsItems.musicNews === null && newsItems.localNews){
+    return(
+      <LocalNewsFeed items={newsItems.localNews.items}/>
+    )
+  }
+
   return (
     <>
       <MusicNewsFeed items={newsItems.musicNews.items}/>
       <LocalNewsFeed items={newsItems.localNews.items}/>
+      <style global jsx>
+        {`
+a > span{
+  color: white;
+}
+`}
+      </style>
     </>
   )
 }
