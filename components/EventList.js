@@ -1,6 +1,5 @@
 import React from "react"
 import ReactHtmlParser from "react-html-parser"
-import Link from "next/link"
 import mainTheme from "../styles/katTheme"
 import {formatDate} from "../utils/eventHelpers"
 
@@ -34,25 +33,36 @@ const EventList = props => {
               {ReactHtmlParser(event.title.rendered)}
               {formatDate(event.meta_box.event_event_date_time)}
             </a>
-            : <Link href={`/${event.type}/${event.slug}`}>
-              <a>
+            : <h2>
                 {ReactHtmlParser(event.title.rendered)}
                 {formatDate(event.meta_box.event_event_date_time)}
-              </a>
-            </Link>
+            </h2>
+        }
+        {
+          <div className="event-content">
+            {ReactHtmlParser(event.content.rendered)}
+          </div>
+          /*<p>test</p>*/
         }
         <style jsx>
           {`
-            a{
+          p{
+            color: #231F20;
+            margin-top: 14px;
+          }
+            a, h2{
               font-size: 1.5em;
               color: #dddddd;
               background: #231F20;
-              text-decoration: none;
               padding: 7px;
               box-shadow: #303030 3px 3px 3px;
               margin-left: 7px;
               width: 100%;
               text-align: center;
+              margin-bottom: 14px;
+            }
+            .event-content{
+              color: #231F20;
             }
             img{
               margin-bottom: 14px;
