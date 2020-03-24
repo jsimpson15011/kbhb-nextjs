@@ -5,7 +5,7 @@ import Link from "next/link"
 
 const Announcements = () => {
   const announcementItems = useSelector(state => state.announcements.announcementItems)
-  if (announcementItems === null || announcementItems.length === 0) {
+  if (announcementItems === null) {
     return (
       <></>
     )
@@ -43,6 +43,13 @@ const Announcements = () => {
           </Link> :
           ''
       }
+      {
+        announcementItems.restaurantItems.length ?
+          <Link href={'restaurant-info'}>
+            <a>Restaurants</a>
+          </Link> :
+          ''
+      }
 
       <style jsx>
         {`            
@@ -53,6 +60,7 @@ const Announcements = () => {
     z-index: 2;
     margin-left: auto;
     display: flex;
+    flex-wrap: wrap;
     position: absolute;
     right: 0;
             }
