@@ -39,7 +39,7 @@ const Announcements = () => {
       {
         announcementItems.closures.length ?
           <Link href={'cancellations'}>
-            <a>Closings and Delays</a>
+            <a>COVID-19 Updates</a>
           </Link> :
           ''
       }
