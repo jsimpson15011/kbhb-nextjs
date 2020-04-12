@@ -61,9 +61,13 @@ const Announcements = () => {
     margin-left: auto;
     display: flex;
     flex-wrap: wrap;
-    position: absolute;
     right: 0;
+            }    
+          @media all and (min-width: 1000px){
+            .outer-wrapper{
+                  position: absolute;
             }
+    }
             a{
               background: white;
               border-top: solid black 1px;
