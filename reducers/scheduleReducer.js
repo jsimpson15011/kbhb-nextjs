@@ -14,7 +14,7 @@ export const getSchedule = async (reduxStore) => {
     let correctBlock = false
 
 
-    if(dayOfTheWeek < 6){
+    if(dayOfTheWeek < 6 && dayOfTheWeek > 0){
       scheduleBlock.forEach(block => {
         if(block === 'mf'){
           correctBlock = true
@@ -34,7 +34,7 @@ export const getSchedule = async (reduxStore) => {
         return false
       }
     }
-    if(dayOfTheWeek === 7){
+    if(dayOfTheWeek === 0){
       scheduleBlock.forEach(block => {
         if(block === 'sun'){
           correctBlock = true

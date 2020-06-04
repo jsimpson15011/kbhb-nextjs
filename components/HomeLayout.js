@@ -1,8 +1,18 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Header from "./Header"
 import Footer from "./Footer"
+import {initGA, logPageView} from "../utils/analytics"
 
-const HomeLayout = props => (
+const HomeLayout = props => {
+  useEffect(() => {
+    if (!window.GA_INITIALIZED) {
+      initGA()
+      window.GA_INITIALIZED = true
+    }
+    logPageView()
+  }, [])
+
+  return (
   <div>
     <Header/>
     <div className='contents'>
@@ -10,6 +20,6 @@ const HomeLayout = props => (
     </div>
     <Footer/>
   </div>
-)
+)}
 
 export default HomeLayout

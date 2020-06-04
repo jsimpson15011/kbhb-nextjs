@@ -5,7 +5,7 @@ import Link from "next/link"
 
 const Announcements = () => {
   const announcementItems = useSelector(state => state.announcements.announcementItems)
-  if (announcementItems === null || announcementItems.length === 0) {
+  if (announcementItems === null) {
     return (
       <></>
     )
@@ -39,7 +39,14 @@ const Announcements = () => {
       {
         announcementItems.closures.length ?
           <Link href={'cancellations'}>
-            <a>Closings and Delays</a>
+            <a>COVID-19 Updates</a>
+          </Link> :
+          ''
+      }
+      {
+        announcementItems.restaurantItems.length ?
+          <Link href={'restaurant-info'}>
+            <a>Restaurants</a>
           </Link> :
           ''
       }
@@ -53,9 +60,14 @@ const Announcements = () => {
     z-index: 2;
     margin-left: auto;
     display: flex;
-    position: absolute;
+    flex-wrap: wrap;
     right: 0;
+            }    
+          @media all and (min-width: 1000px){
+            .outer-wrapper{
+                  position: absolute;
             }
+    }
             a{
               background: white;
               border-top: solid black 1px;

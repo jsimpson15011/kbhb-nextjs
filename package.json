@@ -23,6 +23,7 @@
     "normalize.css": "^8.0.1",
     "react": "16.11.0",
     "react-dom": "16.11.0",
+    "react-ga": "^2.7.0",
     "react-google-maps": "^9.4.5",
     "react-html-parser": "^2.0.2",
     "react-lazyload": "^2.6.5",
