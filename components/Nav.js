@@ -7,7 +7,6 @@ import {parseNavItems} from "../utils/navHelper"
 
 const Nav = ({navItems}) => {
 
-
   if (navItems === null) {
     return <nav>
       <ul>
@@ -37,6 +36,7 @@ const Nav = ({navItems}) => {
       a {
         color: black;
         text-decoration: none;
+        font-size: .8em;
       }
       nav {
         text-align: center;
@@ -87,14 +87,14 @@ const Nav = ({navItems}) => {
 
               if (type === 'custom') {
                 return (
-                  <li key={key}>
+                  <li key={key} className={subMenu ? 'menu-item-has-children' : ''}>
                     <a href={href}>{label}</a>
                     {subMenu}
                   </li>
                 )
               } else {
                 return (
-                  <li key={key}>
+                  <li key={key} className={subMenu ? 'menu-item-has-children' : ''}>
                     <Link activeClassName=" active-link" href={href}>
                       <a>{label}</a>
                     </Link>
@@ -145,12 +145,13 @@ const Nav = ({navItems}) => {
         text-transform: uppercase;
         padding: 0 7px;
         box-sizing: border-box;
+        font-size: .9em;
       }
       a:hover, a:focus, .active-link {
         background: ${mainTheme.accent};
         color: white;
       }
-      .top-level-menu li:hover .sub-menu, .top-level-menu li:focus-within .sub-menu{
+      .menu-item-has-children:hover .sub-menu{
         display: block;
       }
       .sub-menu{

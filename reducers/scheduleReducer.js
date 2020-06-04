@@ -1,5 +1,6 @@
 import fetch from "isomorphic-unfetch"
 import {baseUrl} from '../site-settings'
+import moment from "moment"
 
 export const getSchedule = async (reduxStore) => {
   const {dispatch} = reduxStore
@@ -46,16 +47,19 @@ export const getSchedule = async (reduxStore) => {
 
     const startTime = item.meta_box.schedule_start_time.replace(':', '')
     const endTime = item.meta_box.schedule_end_time.replace(':', '')
-    const localeString = (new Date).toLocaleString('en-US', {
+    /*const localeString = (new Date).toLocaleString('en-US', {
       hour: '2-digit',
       minute: '2-digit',
       timeZone: 'America/Denver'
-    }).toLowerCase().replace(':', '')
+    }).toLowerCase().replace(':', '')*/
+    const localeString = moment().format('hhmm a')
 
     const convertTo24 = time => {
       return time.slice(-2) === 'am'
         ? parseInt(time.slice(0, -2))
-        : Number(parseInt(time.slice(0, -2))) + 1200
+        : Number(parseInt(time.slice(0, -2))) === 1200 ?
+          Number(parseInt(time.slice(0, -2)))
+          : Number(parseInt(time.slice(0, -2))) + 1200
     }
 
     const startTime24 = convertTo24(startTime)

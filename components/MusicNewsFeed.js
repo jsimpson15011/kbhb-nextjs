@@ -16,25 +16,27 @@ const MusicNewsFeed = props => {
       <h2>{newsTitle}</h2>
       <hr className='thin-hr'/>
       {props.items.map(article => {
-        const image = article["media:group"].filter(media => {
+        const image = article["media:group"] ? article["media:group"].filter(media => {
           return media["media:content"][0]["$"].type.includes('image')
-        })[0]
+        })[0] : []
 
-        const mp3 = article["media:group"].filter(media => {
+        const mp3 = article["media:group"] ? article["media:group"].filter(media => {
           return media["media:content"][0]["$"].type.includes('audio')
-        })
+        }) : []
 
-        const imgSrc = image["media:content"][0]["$"].url
-        const imgCredit = image["media:credit"][0]["_"]
+        const imgSrc = image["media:content"]? image["media:content"][0]["$"].url : false
+        const imgCredit = image["media:credit"]? image["media:credit"][0]["_"] : ""
         const newsArticle =
           <article key={article.title} className='article'>
             <div className='article-content'>
-              <LazyLoad>
+               {imgSrc ? <LazyLoad>
                 <aside className="img-container">
                   <img src={imgSrc} alt=''/>
                   <p>{imgCredit}</p>
                 </aside>
               </LazyLoad>
+                 : ""
+               }
               <div>
                 <h3>{ReactHtmlParser(article.title)}</h3>
                 {ReactHtmlParser(article.content)}
