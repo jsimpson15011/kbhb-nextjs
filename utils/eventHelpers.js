@@ -30,6 +30,25 @@ export const activeItemsOnly = items => {
     })
 }
 
+export const activeItemsOnlySpecific = (items, startName, endName) => {
+  return items.filter(
+    item => {
+      const displayStartTime = !timestamp(item.meta_box[startName]) ? // If start time isn't defined always show until end time has passed
+        0
+        : timestamp(item.meta_box[startName])
+      const displayEndTime = !timestamp(item.meta_box[endName]) ?// If end time isn't defined always show when start date has passed
+        2147483647
+        : timestamp(item.meta_box[endName])
+      const timeNow = timestamp()
+
+      if (timeNow < displayStartTime || timeNow > displayEndTime) {
+        return false
+      }
+
+      return item
+    })
+}
+
 export const sortItems = items => {
   const eventsSortedByPublishDate = items.sort((a, b) => {
     const timeA = new Date(a.date).getTime()

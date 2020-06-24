@@ -6,6 +6,7 @@ import { getNavItems } from "../reducers/navReducer"
 import {getSchedule} from "../reducers/scheduleReducer"
 import {getAnnouncementItems} from "../reducers/announcementReducer"
 import {getCovidItems} from "../reducers/covidReducer"
+import {getBannerAds} from "../reducers/bannerAdReducer"
 
 function MyApp({Component, pageProps}) {
   return <Component {...pageProps} />
@@ -13,6 +14,7 @@ function MyApp({Component, pageProps}) {
 
 MyApp.getInitialProps = async ({reduxStore, Component, ctx}) => {
   await getNavItems(reduxStore)
+  await getBannerAds(reduxStore)
   await getAnnouncementItems(reduxStore)
   await getSchedule(reduxStore)
   await getCovidItems(reduxStore)

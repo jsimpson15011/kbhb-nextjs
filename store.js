@@ -5,11 +5,12 @@ import newsReducer from "./reducers/newsReducer"
 import scheduleReducer from "./reducers/scheduleReducer"
 import announcementReducer from "./reducers/announcementReducer"
 import covidReducer from "./reducers/covidReducer"
+import bannerAdsReducer from "./reducers/bannerAdReducer"
 const initialState = {
   navItems: null,
 }
 
-const rootReducer = combineReducers({navItems: navReducer, newsItems: newsReducer, schedule: scheduleReducer, announcements: announcementReducer, covidItems: covidReducer})
+const rootReducer = combineReducers({navItems: navReducer, bannerAds: bannerAdsReducer, newsItems: newsReducer, schedule: scheduleReducer, announcements: announcementReducer, covidItems: covidReducer})
 export const initializeStore = (preloadedState = initialState) => {
   return createStore(
     rootReducer,
