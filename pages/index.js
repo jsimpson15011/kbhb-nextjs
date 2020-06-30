@@ -12,7 +12,6 @@ import SmallImages from "../components/SmallImages"
 
 import dynamic from "next/dynamic"
 import {baseUrl, listenLiveUrl, metaDescription, siteTitle} from "../site-settings"
-import useScript from "../hooks/useScript"
 
 const NewsFeedContainer = dynamic(import('../components/NewsFeedContainer'))
 
@@ -28,7 +27,6 @@ const Home = props => {
       easing: 'easeInOutSine'
     })
   }
-  useScript('//post.futurimedia.com/futuri-post-widget.js')
   return (
     <div>
       <Head>
@@ -51,14 +49,6 @@ const Home = props => {
                     width="300"
                     height="480"
                     src={`${listenLiveUrl}/plugins/onair/?searchbar=on&streamfooter=on&newwindow=on`}/>
-                    <div className="futuri-container">
-                      <h3>What you missed on The Roadhouse</h3>
-                      <div className="futuri-widget" data-config="station=kout&zone=5&next=popup&theme=light&limit=1"/>
-
-                      <h3>What you missed with Mark Houston</h3>
-                      <div className="futuri-widget" data-config="station=kout&zone=8&next=popup&theme=light&limit=1"/>
-                    </div>
-
           </div>
         </MaxWidthWrapper>
       </HomeLayout>
@@ -70,12 +60,6 @@ const Home = props => {
       .news-section {
         width: 644px;
         max-width: 100%;
-      }
-      .futuri-container {
-        padding: 7px;
-        box-sizing: border-box;
-        color: black;
-        background: #efefef;
       }
     `}</style>
     </div>
@@ -111,6 +95,7 @@ Home.getInitialProps = async () => {
     const slides = activeItemsOnly(sortedEventsData)
       .map(promotion => {
         let promotionInfo = {
+          parentSlug: promotion.type,
           slug: `/${promotion.type.replace('_', '-')}/${promotion.slug}`,
           alt: promotion.title.rendered
         }
@@ -118,25 +103,25 @@ Home.getInitialProps = async () => {
           promotionInfo.externalLink = promotion.meta_box.event_external_link
         }
 
-        if (promotion.meta_box.event_home_slide[0]) {
+        if (promotion.meta_box.event_home_slide && promotion.meta_box.event_home_slide[0]) {
           promotionInfo.image = promotion.meta_box.event_home_slide[0].full_url
         }
 
-        if (promotion.meta_box.event_square_image[0]) {
+        if (promotion.meta_box.event_square_image && promotion.meta_box.event_square_image[0]) {
           promotionInfo.smallImage = promotion.meta_box.event_square_image[0].full_url
         }
 
-        if (parseInt(promotion.meta_box.event_show_on_home_page)) {
-          promotionInfo.showOnSlider = true
+        if(parseInt(promotion.meta_box.event_show_on_home_page)){
+          promotionInfo.showOnSlider = true;
         } else {
-          promotionInfo.showOnSlider = false
+          promotionInfo.showOnSlider = false;
         }
-        if (parseInt(promotion.meta_box.event_show_below_slider)) {
-          promotionInfo.showBelowSlider = true
+        if(parseInt(promotion.meta_box.event_show_below_slider)){
+          promotionInfo.showBelowSlider = true;
         } else {
-          promotionInfo.showBelowSlider = false
+          promotionInfo.showBelowSlider = false;
         }
-        if (promotion.type === 'slideshowimageonly') {
+        if (promotion.type === 'slideshowimageonly'){
           promotionInfo.slideIsImageOnly = true
         }
 

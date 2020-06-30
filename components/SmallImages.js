@@ -3,11 +3,12 @@ import MaxWidthWrapper from "./MaxWidthWrapper"
 import dynamic from "next/dynamic"
 import {shuffle} from "../utils/eventHelpers"
 import mainTheme from "../styles/katTheme"
+import React from "react"
 
 const LazyLoad = dynamic(() => import('react-lazyload'))
 
 const SmallImages = ({blocks}) => {
-  const shuffledBlocks = shuffle([].concat(blocks.filter(block => (block.smallImage && block.showBelowSlider))))
+  const shuffledBlocks = blocks ? shuffle([].concat(blocks.filter(block => (block.smallImage && block.showBelowSlider)))) : []
   shuffledBlocks.length > 3 ? shuffledBlocks.length = 3 : shuffledBlocks.length
   const images = shuffledBlocks.map(block => {
     if (block.externalLink && block.smallImage) {
@@ -44,7 +45,7 @@ const SmallImages = ({blocks}) => {
     } else if (block.smallImage) {
       return (
         <div className='slide-container' key={block.smallImage}>
-          <Link href={block.slug}>
+          <Link href={`${block.parentSlug}/[slug]`} as={block.slug}>
             <a>
               <LazyLoad>
                 <img alt={block.alt} src={block.smallImage}/>

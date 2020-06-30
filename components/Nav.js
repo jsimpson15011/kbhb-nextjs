@@ -71,15 +71,34 @@ const Nav = ({navItems}) => {
                         </li>
                       )
                     } else {
-                      return (
-                        <li key={item.url}>
-                          <Link activeClassName=" active-link" href={`${item.parentSlug}/${item.slug}`}>
-                            <a>
-                              {item.title}
-                            </a>
-                          </Link>
-                        </li>
-                      )
+                      if (item.parentSlug){
+                        return (
+                          <li key={item.url}>
+                            <Link activeClassName=" active-link"
+                              href={`${item.parentSlug}/[slug]`}
+                              as={`${item.parentSlug}/${item.slug}`}
+                                  passHref
+                            >
+                              <a>
+                                {item.title}
+                              </a>
+                            </Link>
+                          </li>
+                        )
+                      } else {
+                        return (
+                          <li key={item.url}>
+                            <Link activeClassName=" active-link"
+                                  href={`/${item.slug}`}
+                                  passHref
+                            >
+                              <a>
+                                {item.title}
+                              </a>
+                            </Link>
+                          </li>
+                        )
+                      }
                     }
                   })}
                 </ul>

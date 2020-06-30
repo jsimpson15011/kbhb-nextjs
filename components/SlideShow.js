@@ -12,7 +12,7 @@ import {listenLiveUrl} from "../site-settings"
 const BelowSlideShow = () => {
   return (
     <div>
-      <h2>The Black Hills' Favorite Country Station</h2>
+      <h2>The Black Hills Best Mix</h2>
       <a href={listenLiveUrl} className='listen-online'>Listen Online Now</a>
       <a href="https://thehomeslicegroup.com/" className='homeslice-media'>Homeslice Media Group</a>
       <style jsx>{`
@@ -72,9 +72,7 @@ const SlideShow = ({slides}) => {
 
   if (!slides) {
     return (
-      <div>
-        Loading
-      </div>
+      <BelowSlideShow/>
     )
   }
 
@@ -96,7 +94,7 @@ const SlideShow = ({slides}) => {
               } else if (slide.image && !slide.slideIsImageOnly) {
                 return (
                   <div className='slide-container' key={slide.image}>
-                    <Link href={slide.slug}>
+                    <Link href={`/${slide.parentSlug}/[slug]`} as={`${slide.slug}`}>
                       <a>
                         <img alt={slide.alt} src={slide.image}/>
                       </a>
