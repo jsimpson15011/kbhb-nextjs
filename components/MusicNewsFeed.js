@@ -55,9 +55,6 @@ const MusicNewsFeed = props => {
         )
       })}
       <style jsx>{`
-      .news-feed{
-        margin-bottom: 84px; 
-      }
       .article{
         display: flex;
         flex-wrap: wrap;

@@ -2,48 +2,49 @@ import React, {useCallback, useEffect, useState} from 'react'
 import Head from "next/head"
 import MainLayout from "../../../components/MainLayout"
 import {metaDescription, siteTitle} from "../../../site-settings"
-import MusicNewsFeed from "../../../components/MusicNewsFeed"
+import LocalNewsFeed from "../../../components/LocalNewsFeed"
 import newsHelpers from "../../../utils/newsHelpers"
 import {useSelector} from "react-redux"
 import {useDispatch} from "react-redux"
+import mainTheme from "../../../styles/katTheme"
 
 
-const MusicNewsPage = props => {
+const LocalNewsPage = props => {
 
   const dispatch = useDispatch()
   const [loadingButtonText, setLoadingButtonText] = useState("Load More")
   const [numberOfNewsItems, setNumberOfNewsItems] = useState(6)
-  const addMusicItems = useCallback(newsItems => dispatch({
-    type: 'ADD_MUSIC_NEWS',
+  const addLocalItems = useCallback(newsItems => dispatch({
+    type: 'ADD_LOCAL_NEWS',
     data: newsItems
   }))
   useEffect(() => {
     newsHelpers.getNewsItems(numberOfNewsItems).then(
       items => {
-        addMusicItems(items.musicNewsFeed)
+        addLocalItems(items.kbhbFeed)
       }
     )
   }, [])
 
 
-/*  const handleClick = (e) => {
+  const handleClick = (e) => {
     setLoadingButtonText("Please Wait. Loading...")
     setNumberOfNewsItems(numberOfNewsItems + 3)
-    newsHelpers.getNewsItems(numberOfNewsItems).then(
+    newsHelpers.getNewsItems(numberOfNewsItems + 3).then(
       items => {
-        addMusicItems(items.musicNewsFeed)
-        setLoadingButtonText("Load More")
+        addLocalItems(items.kbhbFeed)
+        setLoadingButtonText(newsItems.localNews.items[newsItems.localNews.items.length - 1] ? "Load More" : "End of results")
       }
     )
 
-  }*/
+  }
 
   const newsItems = useSelector(state => state.newsItems)
-  if (newsItems.musicNews === null) {
+  if (newsItems.localNews === null) {
     return (
       <div>
         <Head>
-          <title>{siteTitle} - Music News</title>
+          <title>{siteTitle} - Local News</title>
           <link rel='icon' href='/favicon.ico'/>
           <meta name="description"
                 content={`${metaDescription}`}/>
@@ -59,18 +60,22 @@ const MusicNewsPage = props => {
 
       <div>
         <Head>
-          <title>{siteTitle} - Music News</title>
+          <title>{siteTitle} - Local News</title>
           <link rel='icon' href='/favicon.ico'/>
           <meta name="description"
                 content={`${metaDescription}`}/>
         </Head>
         <MainLayout>
-          <MusicNewsFeed items={newsItems.musicNews.items}/>
-          {/*<button onClick={() => handleClick()}>{loadingButtonText}</button>*/}
+          <LocalNewsFeed items={newsItems.localNews.items}/>
+          <button onClick={() => handleClick()}>{loadingButtonText}</button>
         </MainLayout>
         <style jsx>
           {`button{
 padding: .5rem 1rem;
+display: block;
+font-size: 1.4em;
+border: ${mainTheme.brand} solid 2px;
+font-weight: bold;
 
 }`}
         </style>
@@ -79,4 +84,4 @@ padding: .5rem 1rem;
   )
 }
 
-export default MusicNewsPage
+export default LocalNewsPage

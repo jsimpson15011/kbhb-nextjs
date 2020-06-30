@@ -3,6 +3,8 @@ import {useSelector, useDispatch} from "react-redux"
 import LocalNewsFeed from "./LocalNewsFeed"
 import MusicNewsFeed from "./MusicNewsFeed"
 import newsHelpers from "../utils/newsHelpers"
+import Link from "next/link"
+import mainTheme from "../styles/katTheme"
 
 const NewsFeedContainer = () => {
   const dispatch = useDispatch()
@@ -50,12 +52,34 @@ const NewsFeedContainer = () => {
   return (
     <>
       <MusicNewsFeed items={newsItems.musicNews.items}/>
+      <Link href="/news/music-news">
+        <a className="read-more-news">
+          See More News Stories
+        </a>
+      </Link>
       <LocalNewsFeed items={newsItems.localNews.items}/>
+      <Link href="/news/local-news">
+        <a className="read-more-news">
+          See More News Stories
+        </a>
+      </Link>
       <style global jsx>
         {`
 a > span{
   color: white;
 }
+      .read-more-news{
+        background: #f3f3f3;
+        border: ${mainTheme.brand} solid 4px;
+        padding: 7px;
+        box-sizing: border-box;
+        font-weight: bold;
+        text-decoration: none;
+        color: #100f0f;
+        display: block;
+        text-align: center;
+        margin-bottom: 21px;
+      }
 `}
       </style>
     </>

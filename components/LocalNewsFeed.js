@@ -39,6 +39,9 @@ const LocalNewsFeed = props => {
         margin-bottom: .5em;
         text-transform: uppercase;
       }
+      .news-feed{
+        width: 100%;
+      }
       .article{
         display: flex;
         flex-wrap: wrap;
