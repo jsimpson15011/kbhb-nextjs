@@ -95,7 +95,7 @@ Home.getInitialProps = async () => {
     const slides = activeItemsOnly(sortedEventsData)
       .map(promotion => {
         let promotionInfo = {
-          parentSlug: promotion.type,
+          parentSlug: promotion.type.replace('_', '-'),
           slug: `/${promotion.type.replace('_', '-')}/${promotion.slug}`,
           alt: promotion.title.rendered
         }
