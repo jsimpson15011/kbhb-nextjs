@@ -11,9 +11,9 @@ const Personality = props => {
       <Head>
         <title>{siteTitle} - {props.content.title.rendered}</title>
         <link rel='icon' href='/favicon.ico'/>
+        <script type="text/javascript" src="//post.futurimedia.com/futuri-post-widget.js" defer/>
       </Head>
       <DynamicContent content={props.content}/>
-      <script type="text/javascript" src="//post.futurimedia.com/futuri-post-widget.js" defer/>
     </MainLayout>
   )
 }
