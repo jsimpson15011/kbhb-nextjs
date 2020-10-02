@@ -2,6 +2,8 @@ import React from "react"
 import { withRedux } from "../lib/redux"
 
 import "../styles/hamburger.css"
+import "slick-carousel/slick/slick.css"
+import '../styles/slick-theme.css'
 import { getNavItems } from "../reducers/navReducer"
 import {getSchedule} from "../reducers/scheduleReducer"
 import {getAnnouncementItems} from "../reducers/announcementReducer"

@@ -1,6 +1,6 @@
 import React from 'react'
 import mainTheme from "../styles/katTheme"
-import MaxWidthWrapper from "./MaxWidthWrapper"
+import Button from "./Button"
 import Link from "next/link"
 import Nav from "./Nav"
 import LiveSchedule from "./LiveSchedule"
@@ -8,76 +8,118 @@ import HamburgerMenu from "./HamburgerMenu"
 import {useSelector} from "react-redux"
 import {facebookUrl, instagramUrl, siteTitle, twitterUrl} from "../site-settings"
 import Announcements from "./Announcements"
+import BannerAd from "./BannerAd"
 
-const SocialContainer = () => {
+const HeaderLogoContainer = () => {
+
   return (
-    <div className='social-container'>
-      <Link href="/">
-        <a className='logo'>
-          <img alt={`${siteTitle}`} src='/img/logo.png'/>
-        </a>
-      </Link>
-      <div className='social-icons'>
-        {
-          facebookUrl ?
-            <a href={`${facebookUrl}`}>
-              <img alt='facebook' src='/img/icons/facebook.png'/>
+    <div className="header-logo">
+      <div className="header-logo__wrapper">
+        <h1>
+          <Link href="/">
+            <a>
+              <img className="header-logo__img" alt="Big 81 Ranch Radio KBHB" src="/img/logo.png"/>
             </a>
-            : ''
-        }
-        {
-          instagramUrl ?
-            <a href={`${instagramUrl}`}>
-              <img alt='instagram' src='/img/icons/instagram.png'/>
-            </a>
-            : ''
-        }
-        {
-          twitterUrl ?
-            <a href={`${twitterUrl}`}>
-              <img alt='twitter' src='/img/icons/twitter.png'/>
-            </a>
-            : ''
-        }
+          </Link>
+        </h1>
+        <div className="button-container">
+          <Button overLine="KBHB" text="On Demand" spacing="14px" width="200px" internalLink href="/on-demand"/>
+          <Button overLine="Follow Us" text="On Facebook" outline spacing="14px" width="200px" href={facebookUrl}/>
+        </div>
       </div>
-      <style jsx>{`
-      .social-container {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-      }
-      .social-icons{
-        display: flex;
-        align-items: center;
-      }
-      .social-icons a{
-        margin-right: 5px;
-      }
-      .logo{
-        margin-right: 14px;
-      }
-    `}</style>
+      <style jsx>
+        {`
+          .header-logo{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: auto;
+            margin-bottom: auto;
+          }
+          
+          .header-logo__img{
+            width: 100%;
+          }
+          
+          .header-logo__wrapper{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-left: 21px;
+            padding-right: 21px;
+            box-sizing: border-box;
+            max-width: 100%;
+          }
+          
+          h1{
+            margin-bottom: 14px;
+            width: 320px;
+            max-width: 100%;
+          }
+          .button-container{
+         
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+          }
+`}
+      </style>
     </div>
   )
 }
 
 const Header = () => {
+  const bannerAds = useSelector(state => state.bannerAds)
   const navItems = useSelector(state => state.navItems)
 
   return (
     <div className='main-header'>
-      <MaxWidthWrapper>
-        <SocialContainer/>
-        <LiveSchedule/>
-      </MaxWidthWrapper>
       <Nav navItems={navItems}/>
-      <Announcements />
+      <div className="main-header__content-wrapper">
+        <HeaderLogoContainer/>
+        <div className="schedule-announcements">
+          <LiveSchedule/>
+          <Announcements/>
+        </div>
+        <BannerAd bannerAds={bannerAds} position={"header"}/>
+      </div>
       <HamburgerMenu navItems={navItems}/>
       <style jsx>
         {`
         .main-header {
-          background: url("/img/concert.png");
-          padding: 15px 0;
+          background: url("/img/windmill-background.jpg");
+          background-position: 80% 20%;
+          padding: 0;
+          height: 700px;
+          max-height: 60vh;
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 100px;
+        }
+        
+        @media all and (min-width: 1350px){
+          background-position: top center;
+        }
+        
+        .schedule-announcements{
+          width: 600px;
+          max-width: 100%;
+          min-width: 48%;
+          margin-top: auto;
+          display: flex;
+          align-items: flex-start;
+          flex-wrap: wrap;
+          position: relative;
+        }
+        @media all and (min-width: 535px){
+          .schedule-announcements{
+            transform: translateY(50%);
+          }
+        }
+        .main-header__content-wrapper{
+          display: flex;
+          flex-direction: column;
+          flex-grow: 1;
         }
       `}
       </style>

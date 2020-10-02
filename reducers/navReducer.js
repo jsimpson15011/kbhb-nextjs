@@ -13,6 +13,7 @@ export const getNavItems = async (reduxStore) => {
     const initialLinks = [{
       slug: '',
       url: '/',
+      object: 'page',
       title: 'Home',
       type: 'initial'
     }]

@@ -1,6 +1,6 @@
 export const siteTitle = 'KAT 98.7'
 export const remoteEventsName = 'On The Prowl'
-export const baseUrl = 'https://katcms.homesliceweb.com'
+export const baseUrl = 'https://kbhbcms.homesliceweb.com'
 export const phone = '605-348-3939'
 export const email = 'houston@katradio.com'
 export const facebookUrl = 'https://www.facebook.com/katcountry987/'

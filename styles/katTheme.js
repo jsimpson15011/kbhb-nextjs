@@ -1,8 +1,9 @@
 const mainTheme = {
   menuBreakPoint: '1000px',
   brand: '#ffd276',
-  background: '#231f20',
-  accent: '#ab0000'
+  brand100: '#E8EDF0',
+  background: '#efefef',
+  accent: '#3B73B1',
 }
 
 export default mainTheme

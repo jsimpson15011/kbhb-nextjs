@@ -4,8 +4,6 @@ import dynamic from "next/dynamic"
 
 const LazyLoad = dynamic(() => import('react-lazyload'))
 const Slider = dynamic(() => import('react-slick'))
-import "slick-carousel/slick/slick.css"
-import '../styles/slick-theme.css'
 import Link from "next/link"
 import {belowSlidesMessage, listenLiveUrl} from "../site-settings"
 

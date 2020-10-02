@@ -4,6 +4,7 @@ import mainTheme from '../styles/katTheme'
 import {withRedux} from "../lib/redux"
 import MaxWidthWrapper from "./MaxWidthWrapper"
 import {parseNavItems} from "../utils/navHelper"
+import decodeHtmlSpecialChars from "../utils/decodeHtmlSpecialChars"
 
 const Nav = ({navItems}) => {
 
@@ -56,7 +57,6 @@ const Nav = ({navItems}) => {
 
   return (
     <nav>
-      <MaxWidthWrapper>
         <ul className="top-level-menu">
           {links.map(({key, href, label, type, childItems}) => {
               const subMenu = childItems ?
@@ -66,7 +66,7 @@ const Nav = ({navItems}) => {
                       return (
                         <li key={item.url}>
                           <a href={item.url}>
-                            {item.title}
+                            {decodeHtmlSpecialChars(item.title)}
                           </a>
                         </li>
                       )
@@ -75,12 +75,12 @@ const Nav = ({navItems}) => {
                         return (
                           <li key={item.url}>
                             <Link activeClassName=" active-link"
-                              href={`${item.parentSlug}/[slug]`}
-                              as={`${item.parentSlug}/${item.slug}`}
+                              href={item.object === "page" ? `/[slug]` : `/${item.object}/[slug]`}
+                              as={item.object === "page" ? `/${item.slug}` : `/${item.object}/${item.slug}`}
                                   passHref
                             >
                               <a>
-                                {item.title}
+                                {decodeHtmlSpecialChars(item.title)}
                               </a>
                             </Link>
                           </li>
@@ -93,7 +93,7 @@ const Nav = ({navItems}) => {
                                   passHref
                             >
                               <a>
-                                {item.title}
+                                {decodeHtmlSpecialChars(item.title)}
                               </a>
                             </Link>
                           </li>
@@ -107,7 +107,7 @@ const Nav = ({navItems}) => {
               if (type === 'custom') {
                 return (
                   <li key={key} className={subMenu ? 'menu-item-has-children' : ''}>
-                    <a href={href}>{label}</a>
+                    <a href={href}>{decodeHtmlSpecialChars(label)}</a>
                     {subMenu}
                   </li>
                 )
@@ -115,7 +115,7 @@ const Nav = ({navItems}) => {
                 return (
                   <li key={key} className={subMenu ? 'menu-item-has-children' : ''}>
                     <Link activeClassName=" active-link" href={href}>
-                      <a>{label}</a>
+                      <a>{decodeHtmlSpecialChars(label)}</a>
                     </Link>
                     {subMenu}
                   </li>
@@ -124,7 +124,6 @@ const Nav = ({navItems}) => {
             }
           )}
         </ul>
-      </MaxWidthWrapper>
       <style jsx>{`
       :global(body) {
         margin: 0;
@@ -132,9 +131,16 @@ const Nav = ({navItems}) => {
           Helvetica, sans-serif;
       }
       nav {
+        font-family: 'Istok Web', sans-serif;
+        padding: 14px 0;
+        box-sizing: border-box;
         text-align: center;
-        background: ${mainTheme.brand};
         display: none;
+        background: rgb(255,255,255);
+        background: -moz-linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(4,8,17,1) 100%);
+        background: -webkit-linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(4,8,17,1) 100%);
+        background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(4,8,17,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#040811",GradientType=1);
       }
       @media all and (min-width: ${mainTheme.menuBreakPoint}){
         nav{
@@ -143,38 +149,36 @@ const Nav = ({navItems}) => {
       }
       .top-level-menu {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         width: 100%;
       }
-      nav > .top-level-menu {
-        padding: 4px 16px;
-      }
+      
       .top-level-menu li{
         position: relative;
       }
       li {
         display: flex;
-        padding: 6px 8px;
+        padding: 7px 0;
       }
+      
       a {
         border-bottom: transparent 2px solid;
-        font-weight: bold;
-        color: black;
-        text-decoration: none;
-        text-transform: uppercase;
-        padding: 0 7px;
-        box-sizing: border-box;
-        font-size: .9em;
-      }
-      a:hover, a:focus, .active-link {
-        background: ${mainTheme.accent};
         color: white;
+        text-decoration: none;
+        padding: 0 14px;
+        box-sizing: border-box;
+        font-size: 1.1em;
+        min-width: 130px;
+      }
+      
+      a:hover, a:focus, .active-link {
+        text-decoration: underline;
       }
       .menu-item-has-children:hover .sub-menu{
         display: block;
       }
       .sub-menu{
-        background: white;
+        background: #151515;
         position: absolute;
         display: none;
         z-index: 500;

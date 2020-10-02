@@ -8,85 +8,89 @@ import ReactHtmlParser from "react-html-parser"
 const LiveSchedule = () => {
   const scheduleData = useSelector(state => state.schedule)
 
-  if (scheduleData === null || !scheduleData.schedule[0]){
+  if (scheduleData === null || !scheduleData.schedule[0]) {
     return (
       <></>
     )
   }
   return (
-    <div className="listen-live">
-      <a href={`${listenLiveUrl}/#listen-live`} className="top">
-        {
-          scheduleData.schedule[0].meta_box.schedule_square_image[0] ?
-            <img className='personality-image' alt='' src={scheduleData.schedule[0].meta_box.schedule_square_image[0].full_url}/> :
-            ''
-        }
-        <div className="sound-img-and-text">
-          <img alt='' src='/img/sound-wave.png'/>
-          <div>
-            <h3>Listen Live</h3>
-            <p>
-              <b>{ReactHtmlParser(scheduleData.schedule[0].title.rendered)}</b> {scheduleData.schedule[0].meta_box.schedule_start_time} - {scheduleData.schedule[0].meta_box.schedule_end_time}
-            </p>
-          </div>
+    <a href={`${listenLiveUrl}/#listen-live`} className="listen-live">
+      {
+        scheduleData.schedule[0].meta_box.schedule_square_image[0] ?
+          <div className="image-wrapper">
+            <img className='listen-live__personality-image' alt=''
+                 src={scheduleData.schedule[0].meta_box.schedule_square_image[0].full_url}/>
+          </div>  :
+          ''
+      }
+      <img alt='' src='/img/sound-wave.png' className="listen-live__icon"/>
+        <div className="listen-live__text">
+          <h3>Listen Live</h3>
+          <p>
+            <b>{ReactHtmlParser(scheduleData.schedule[0].title.rendered)}</b> {scheduleData.schedule[0].meta_box.schedule_start_time} - {scheduleData.schedule[0].meta_box.schedule_end_time}
+          </p>
         </div>
-      </a>
-      <div className="bottom">
-        <p>Request: text or call 605-348-3939</p>
-      </div>
       <style jsx>
         {`
           .listen-live{
-            background: #fff7f2;
-            color: ${mainTheme.accent};
-            box-sizing: border-box;
             display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-          }
-          .listen-live a{
+            flex-wrap: wrap;
+            align-items: center;
+            background: ${mainTheme.background};
             color: ${mainTheme.accent};
             text-decoration: none;
+            border-bottom-right-radius: 21px;
+            border-top-right-radius: 21px;
+            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.65));
+            margin-bottom: 7px;
           }
-          .personality-image{
-            width: 100px;
+          .image-wrapper{
+            align-self: stretch;
+            width: 95px;
           }
+          .listen-live__personality-image{
+            min-height: 100%;
+            width: 100%;
+            height: auto;
+          }
+          .listen-live__icon{
+            margin-left: 21px;
+            display: none;
+          }
+
+          .listen-live__text{
+            margin-left: 21px;
+            padding-top: 7px;
+            flex-shrink: 0;
+            font-size: .7rem;
+          }
+          
           h3{
             text-transform: uppercase;
             font-weight: bold;
-            margin-bottom: 7px;
+            font-size: 2.3em;
+            margin-bottom: 0;
           }
           p{
+            margin-right: 21px;
             margin-bottom: 7px;
           }
-          .sound-img-and-text{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-          }
-          .sound-img-and-text img{
-            margin: 0 14px;
-          }
-          .top{
-            padding: 0 14px 0 0;
-            display: flex;
-            justify-content: space-around;
-            height: 100%;
-            flex-wrap: wrap;
-          }
-          .bottom{
-            background: #333333;
-            color: #f3f3f3;
-            font-weight: bold;
-            margin-top: auto;
-            text-align: center;
-          }
-          .bottom p{
-            margin: 7px 0;
+          
+          @media all and (min-width: 550px){
+            .listen-live__icon{
+              display: block;
+            }
+            p{
+              margin-left: 21px;
+            }
+            .listen-live__text{
+              font-size: 1rem;
+            }
           }
         `}
       </style>
-    </div>
+    </a>
+
   )
 }
 

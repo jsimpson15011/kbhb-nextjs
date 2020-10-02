@@ -43,13 +43,6 @@ const Home = props => {
           <div className="news-section">
             <NewsFeedContainer/>
           </div>
-          <div className='tune-genie-player'>
-            <iframe title="listen live" name="onair" frameBorder="0" align="top,left" marginHeight="0" marginWidth="0"
-                    scrolling="no"
-                    width="300"
-                    height="480"
-                    src={`${listenLiveUrl}/plugins/onair/?searchbar=on&streamfooter=on&newwindow=on`}/>
-          </div>
         </MaxWidthWrapper>
       </HomeLayout>
       <style jsx>{`

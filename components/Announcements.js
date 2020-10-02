@@ -2,6 +2,7 @@ import React from "react"
 import {withRedux} from "../lib/redux"
 import {useSelector} from "react-redux"
 import Link from "next/link"
+import mainTheme from "../styles/katTheme"
 
 const Announcements = () => {
   const announcementItems = useSelector(state => state.announcements.announcementItems)
@@ -54,31 +55,30 @@ const Announcements = () => {
       <style jsx>
         {`            
             .outer-wrapper{
-    box-sizing: border-box;
-    padding-right: 14px;
-    max-width: 100%;
-    z-index: 2;
-    margin-left: auto;
-    display: flex;
-    flex-wrap: wrap;
-    right: 0;
+              box-sizing: border-box;
+              padding-right: 14px;
+              max-width: 100%;
+              z-index: 2;
+              margin-left: auto;
+              display: flex;
+              flex-wrap: wrap;
+              left: 0;
+              bottom: 0;
+              transform: translateY(100%);
+              position: absolute;
             }    
-          @media all and (min-width: 1000px){
-            .outer-wrapper{
-                  position: absolute;
-            }
-    }
             a{
-              background: white;
-              border-top: solid black 1px;
+              background: ${mainTheme.background};
               padding: 7px;
               font-weight:bold;
               text-decoration: none;
-              color: black;
+              color: ${mainTheme.accent};
+              filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.65));
               margin-left: 14px;
+              margin-top: 7px;
             }
             a:hover, a:focus{
-              background: #ab0000;
+              background: ${mainTheme.accent};
               color: white;
             }
 `}

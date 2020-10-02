@@ -16,8 +16,8 @@ export const parseNavItems = navItems => {
         navItemInfo.key = navItem.url
         navItemInfo.href = navItem.url
       } else {
-        navItemInfo.key = navItem.slug
-        navItemInfo.href = '/' + navItem.slug
+        navItemInfo.key = navItem.object === "page" ? navItem.slug : navItem.object +"_"+ navItem.slug
+        navItemInfo.href = navItem.object === "page" ? '/' + navItem.slug : "/"+navItem.object +"/"+ navItem.slug
       }
       return (
         navItemInfo
