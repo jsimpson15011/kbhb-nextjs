@@ -6,7 +6,7 @@ import Nav from "./Nav"
 import LiveSchedule from "./LiveSchedule"
 import HamburgerMenu from "./HamburgerMenu"
 import {useSelector} from "react-redux"
-import {facebookUrl, instagramUrl, siteTitle, twitterUrl} from "../site-settings"
+import {facebookUrl} from "../site-settings"
 import Announcements from "./Announcements"
 import BannerAd from "./BannerAd"
 
@@ -33,8 +33,9 @@ const HeaderLogoContainer = () => {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            margin-top: auto;
-            margin-bottom: auto;
+            max-width: ${mainTheme.maxWidth};
+            width: 100%;
+            margin: auto;
           }
           
           .header-logo__img{
@@ -69,7 +70,6 @@ const HeaderLogoContainer = () => {
 }
 
 const Header = () => {
-  const bannerAds = useSelector(state => state.bannerAds)
   const navItems = useSelector(state => state.navItems)
 
   return (
@@ -77,11 +77,15 @@ const Header = () => {
       <Nav navItems={navItems}/>
       <div className="main-header__content-wrapper">
         <HeaderLogoContainer/>
-        <div className="schedule-announcements">
-          <LiveSchedule/>
-          <Announcements/>
+        <div className="main-header__bottom">
+          <div className="schedule-announcements">
+            <LiveSchedule/>
+            <Announcements/>
+          </div>
+          <div className="banner-wrapper">
+            <BannerAd position="header"/>
+          </div>
         </div>
-        <BannerAd bannerAds={bannerAds} position={"header"}/>
       </div>
       <HamburgerMenu navItems={navItems}/>
       <style jsx>
@@ -98,23 +102,45 @@ const Header = () => {
         }
         
         @media all and (min-width: 1350px){
+        .main-header {
           background-position: top center;
+        }
+        }
+        
+        .main-header__bottom{
+          display: flex;
+          flex-wrap: wrap;
+          align-items: flex-start;
+        }
+        
+        @media all and (min-width: 1220px){
+          .main-header__bottom{
+            transform: translateY(65%);
+            margin-top: -60px;
+          }
+        }
+        
+        .banner-wrapper{
+          width: 600px;
+          max-width: 100%;
+          min-width: 48%;
+          display: flex;
+          align-items: flex-start;
+          flex-wrap: wrap;
+          position: relative;
         }
         
         .schedule-announcements{
           width: 600px;
           max-width: 100%;
           min-width: 48%;
-          margin-top: auto;
           display: flex;
+          flex-direction: column;
           align-items: flex-start;
+          justify-content: flex-start;
           flex-wrap: wrap;
           position: relative;
-        }
-        @media all and (min-width: 535px){
-          .schedule-announcements{
-            transform: translateY(50%);
-          }
+          margin-bottom: 14px;
         }
         .main-header__content-wrapper{
           display: flex;

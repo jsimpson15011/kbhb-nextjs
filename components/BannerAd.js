@@ -1,8 +1,21 @@
 import React from 'react'
+import {useSelector} from "react-redux"
 
-const BannerAd = (bannerAds) => {
-  if (bannerAds.bannerAds.bannerAds === null || bannerAds.bannerAds.bannerAds.length === 0) {
+const BannerAd = ({position, page}) => {
+  const bannerAds = useSelector(state => state.bannerAds).bannerAds
+
+  if (bannerAds === null || bannerAds.length === 0) {
     return null
+  }
+
+  let filteredAds =  bannerAds.filter(bannerAd =>  {
+    return bannerAd.meta_box.banner_location.indexOf(position) !== -1
+  })
+
+  if (typeof page !== 'undefined' && position !== "header"){
+    filteredAds = filteredAds.filter(bannerAd => {
+      /*TODO add page filter for banner ads*/
+    })
   }
 
   function getRandomInt(min, max) {
@@ -11,9 +24,9 @@ const BannerAd = (bannerAds) => {
     return Math.floor(Math.random() * (max - min)) + min //The maximum is exclusive and the minimum is inclusive
   }
 
-  const randomInt = getRandomInt(0, (bannerAds.bannerAds.bannerAds.length))
+  const randomInt = getRandomInt(0, (filteredAds.length))
 
-  const currentBanner = bannerAds.bannerAds.bannerAds[randomInt]
+  const currentBanner = filteredAds[randomInt]
 
   return (
     <div className="banner-container">
@@ -23,7 +36,7 @@ const BannerAd = (bannerAds) => {
       <style jsx>
         {`
         .banner-container{
-          width: 100%;
+          display: flex;
         }
         img{
           display: block;

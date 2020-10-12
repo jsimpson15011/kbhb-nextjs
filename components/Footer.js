@@ -10,8 +10,6 @@ import {useSelector} from "react-redux"
 import BannerAd from "./BannerAd"
 
 const Footer = () => {
-  const bannerAds = useSelector(state => state.bannerAds)
-
   return (
     <div id='footer' className='footer'>
       <MaxWidthWrapper display='flex' className='max-width-wrapper'>
@@ -35,7 +33,6 @@ const Footer = () => {
             </LazyLoad>
           </a>
         </div>
-        <BannerAd bannerAds={bannerAds}/>
       </MaxWidthWrapper>
       <style jsx>
         {`

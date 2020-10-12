@@ -42,7 +42,6 @@ const LiveSchedule = () => {
             border-bottom-right-radius: 21px;
             border-top-right-radius: 21px;
             filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.65));
-            margin-bottom: 7px;
           }
           .image-wrapper{
             align-self: stretch;
@@ -66,7 +65,6 @@ const LiveSchedule = () => {
           }
           
           h3{
-            text-transform: uppercase;
             font-weight: bold;
             font-size: 2.3em;
             margin-bottom: 0;

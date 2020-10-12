@@ -59,14 +59,14 @@ const Announcements = () => {
               padding-right: 14px;
               max-width: 100%;
               z-index: 2;
-              margin-left: auto;
               display: flex;
               flex-wrap: wrap;
-              left: 0;
-              bottom: 0;
-              transform: translateY(100%);
-              position: absolute;
             }    
+            /*@media all and (min-width: 1217px){
+              .outer-wrapper{
+                position: absolute;
+              }
+            }*/
             a{
               background: ${mainTheme.background};
               padding: 7px;
