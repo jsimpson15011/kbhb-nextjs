@@ -12,3 +12,13 @@ export function useNav () {
     isError: error
   }
 }
+
+export function useBannerAds () {
+  const { data, error } = useSWR(`${baseUrl}/wp-json/wp/v2/banner_ad?_embed&per_page=10`, fetcher)
+
+  return {
+    data: data,
+    isLoading: !error && !data,
+    isError: error
+  }
+}

@@ -1,14 +1,16 @@
 import React from 'react'
-import {useSelector} from "react-redux"
+import {useBannerAds} from "../utils/cachedData"
 
 const BannerAd = ({position, page}) => {
-  const bannerAds = null //todo finish banner ads
+  const {data, isLoading, isError} = useBannerAds()
 
-  if (bannerAds === null || bannerAds.length === 0) {
-    return null
+  if (isLoading && !isError) {
+    return(
+      <div style={{height: "85px"}}/>
+    )
   }
 
-  let filteredAds =  bannerAds.filter(bannerAd =>  {
+  let filteredAds =  data.filter(bannerAd =>  {
     return bannerAd.meta_box.banner_location.indexOf(position) !== -1
   })
 
@@ -27,6 +29,8 @@ const BannerAd = ({position, page}) => {
   const randomInt = getRandomInt(0, (filteredAds.length))
 
   const currentBanner = filteredAds[randomInt]
+
+  console.log(currentBanner.meta_box.banner_banner_image[0].width)
 
   return (
     <div className="banner-container">
