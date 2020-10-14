@@ -14,7 +14,7 @@ const HomeLayout = props => {
 
   return (
   <div>
-    <Header/>
+    <Header menuItems={props.menuItems}/>
     <div className='contents'>
       { props.children }
     </div>

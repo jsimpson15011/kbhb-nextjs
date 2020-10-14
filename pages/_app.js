@@ -14,7 +14,7 @@ function MyApp({Component, pageProps}) {
   return <Component {...pageProps} />
 }
 
-MyApp.getInitialProps = async ({reduxStore, Component, ctx}) => {
+/*MyApp.getInitialProps = async ({reduxStore, Component, ctx}) => {
   await getNavItems(reduxStore)
   await getBannerAds(reduxStore)
   await getAnnouncementItems(reduxStore)
@@ -27,6 +27,6 @@ MyApp.getInitialProps = async ({reduxStore, Component, ctx}) => {
   return {
     pageProps
   }
-}
+}*/
 
-export default withRedux(MyApp)
+export default MyApp

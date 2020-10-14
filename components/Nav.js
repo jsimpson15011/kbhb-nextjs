@@ -5,125 +5,78 @@ import {withRedux} from "../lib/redux"
 import MaxWidthWrapper from "./MaxWidthWrapper"
 import {parseNavItems} from "../utils/navHelper"
 import decodeHtmlSpecialChars from "../utils/decodeHtmlSpecialChars"
+import {useNav} from "../utils/cachedData"
 
-const Nav = ({navItems}) => {
-
-  if (navItems === null) {
-    return <nav>
-      <ul>
-        <li>.</li>
-      </ul>
-      <style jsx>{`
-      :global(body) {
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
-          Helvetica, sans-serif;
-      }
-      nav {
-        text-align: center;
-        background: ${mainTheme.brand};
-      }
-      ul {
-        display: flex;
-        justify-content: space-between;
-      }
-      nav > ul {
-        padding: 4px 16px;
-      }
-      li {
-        display: flex;
-        padding: 6px 8px;
-      }
-      a {
-        color: black;
-        text-decoration: none;
-        font-size: .8em;
-      }
-      nav {
-        text-align: center;
-        background: ${mainTheme.brand};
-        display: none;
-      }
-      @media all and (min-width: ${mainTheme.menuBreakPoint}){
-        nav{
-          display: block;
-        }
-      }
-    `}</style>
-    </nav>
-  }
-
-  const links = parseNavItems(navItems)
-
+const Menu = ({links}) => {
   return (
     <nav>
-        <ul className="top-level-menu">
-          {links.map(({key, href, label, type, childItems}) => {
-              const subMenu = childItems ?
-                <ul className="sub-menu">
-                  {childItems.map(item => {
-                    if (item.type === 'custom') {
+      <ul className="top-level-menu">
+        {links.map(({key, href, label, type, childItems}) => {
+            const subMenu = childItems ?
+              <ul className="sub-menu">
+                {childItems.map(item => {
+                  if (item.type === 'custom') {
+                    return (
+                      <li key={item.url}>
+                        <a href={item.url}>
+                          {decodeHtmlSpecialChars(item.title)}
+                        </a>
+                      </li>
+                    )
+                  } else {
+                    if (item.parentSlug) {
                       return (
                         <li key={item.url}>
-                          <a href={item.url}>
-                            {decodeHtmlSpecialChars(item.title)}
-                          </a>
+                          <Link activeClassName=" active-link"
+                                href={item.object === "page" ? `/[slug]` : `/${item.object}/[slug]`}
+                                as={item.object === "page" ? `/${item.slug}` : `/${item.object}/${item.slug}`}
+                                passHref
+                          >
+                            <a>
+                              {decodeHtmlSpecialChars(item.title)}
+                            </a>
+                          </Link>
                         </li>
                       )
                     } else {
-                      if (item.parentSlug){
-                        return (
-                          <li key={item.url}>
-                            <Link activeClassName=" active-link"
-                              href={item.object === "page" ? `/[slug]` : `/${item.object}/[slug]`}
-                              as={item.object === "page" ? `/${item.slug}` : `/${item.object}/${item.slug}`}
-                                  passHref
-                            >
-                              <a>
-                                {decodeHtmlSpecialChars(item.title)}
-                              </a>
-                            </Link>
-                          </li>
-                        )
-                      } else {
-                        return (
-                          <li key={item.url}>
-                            <Link activeClassName=" active-link"
-                                  href={`/${item.slug}`}
-                                  passHref
-                            >
-                              <a>
-                                {decodeHtmlSpecialChars(item.title)}
-                              </a>
-                            </Link>
-                          </li>
-                        )
-                      }
+                      return (
+                        <li key={item.url}>
+                          <Link activeClassName=" active-link"
+                                href={`/${item.slug}`}
+                                passHref
+                          >
+                            <a>
+                              {decodeHtmlSpecialChars(item.title)}
+                            </a>
+                          </Link>
+                        </li>
+                      )
                     }
-                  })}
-                </ul>
-                : ''
+                  }
+                })}
+              </ul>
+              : ''
 
-              if (type === 'custom') {
-                return (
-                  <li key={key} className={subMenu ? 'menu-item-has-children' : ''}>
-                    <a href={href}>{decodeHtmlSpecialChars(label)}</a>
-                    {subMenu}
-                  </li>
-                )
-              } else {
-                return (
-                  <li key={key} className={subMenu ? 'menu-item-has-children' : ''}>
-                    <Link activeClassName=" active-link" href={href}>
-                      <a>{decodeHtmlSpecialChars(label)}</a>
-                    </Link>
-                    {subMenu}
-                  </li>
-                )
-              }
+            if (type === 'custom') {
+              return (
+                <li key={key} className={subMenu ? 'menu-item-has-children' : ''}>
+                  <a href={href}>{decodeHtmlSpecialChars(label)}</a>
+                  {subMenu}
+                </li>
+              )
+            } else {
+              return (
+                <li key={key} className={subMenu ? 'menu-item-has-children' : ''}>
+                  <Link activeClassName=" active-link" href={href}>
+                    <a>{decodeHtmlSpecialChars(label)}</a>
+                  </Link>
+                  {subMenu}
+                </li>
+              )
             }
-          )}
-        </ul>
+          }
+        )}
+      </ul>
       <style jsx>{`
       :global(body) {
         margin: 0;
@@ -194,4 +147,33 @@ const Nav = ({navItems}) => {
   )
 }
 
-export default withRedux(Nav)
+const Nav = ({navItems}) => {
+
+  const {data, isLoading, isError} = useNav()
+
+  if (isLoading && navItems) {
+    return (
+      <Menu links={parseNavItems(navItems)}/>
+    )
+  }
+  if (isLoading && !navItems) {
+    return (
+      <div>
+        Loading
+      </div>
+    )
+  }
+
+  if (isError) {
+    return (
+      <div>
+      </div>
+    )
+  }
+
+  return(
+    <Menu links={parseNavItems(data.items)}/>
+  )
+}
+
+export default Nav

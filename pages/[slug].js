@@ -4,10 +4,22 @@ import MainLayout from "../components/MainLayout"
 import Head from "next/dist/next-server/lib/head"
 import DynamicContent from "../components/DynamicContent"
 import {baseUrl, siteTitle} from "../site-settings"
+import {fetcher} from "../utils/cachedData"
+import {useRouter} from "next/router"
 
-const NewsArticle = props => {
+const Page = props => {
+  const router = useRouter()
+
+  if (router.isFallback) {
+    return (
+      <div>
+        LOADING...
+      </div>
+    )
+  }
+
   return (
-    <MainLayout>
+    <MainLayout menuItems={props.menuItems}>
       <Head>
         <title>{siteTitle} - {props.content.title.rendered}</title>
         <link rel='icon' href='/favicon.ico'/>
@@ -17,14 +29,36 @@ const NewsArticle = props => {
   )
 }
 
-NewsArticle.getInitialProps = async context => {
-  const {slug} = context.query
-  const res = await fetch(`${baseUrl}/wp-json/wp/v2/pages?slug=${slug}&_embed`)
+export async function getStaticProps(context) {
+  const slug = context.params.slug
+  const [res, menuItems] = await Promise.all([
+    await fetch(`${baseUrl}/wp-json/wp/v2/pages?slug=${slug}&_embed`),
+    fetcher(`${baseUrl}/wp-json/menus/v1/menus/main-navigation`)
+  ])
+
   const data = await res.json()
 
+
   return {
-    content: data[0]
+    props: {
+      content: data[0],
+      menuItems: menuItems
+    }
   }
 }
 
-export default NewsArticle
+export async function getStaticPaths() {
+  const res = await fetch(`${baseUrl}/wp-json/wp/v2/pages?_embed&per_page=100`)
+  const data = await res.json()
+
+  const paths = data.map(page => ({
+    params: {slug: page.slug}
+  }))
+
+  return {
+    paths,
+    fallback: true
+  }
+}
+
+export default Page

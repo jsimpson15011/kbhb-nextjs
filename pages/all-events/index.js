@@ -19,7 +19,6 @@ const Concerts = props => {
       </Head>
       <MainLayout>
         <h2>All Promotions</h2>
-        <EventList category='concerts' events={props.events}/>
       </MainLayout>
     </div>
   )

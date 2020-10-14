@@ -2,7 +2,7 @@ import React from 'react'
 import {useSelector} from "react-redux"
 
 const BannerAd = ({position, page}) => {
-  const bannerAds = useSelector(state => state.bannerAds).bannerAds
+  const bannerAds = null //todo finish banner ads
 
   if (bannerAds === null || bannerAds.length === 0) {
     return null

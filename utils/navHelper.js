@@ -1,5 +1,5 @@
 export const parseNavItems = navItems => {
-  return navItems.navItems.map(navItem => {
+  return navItems.map(navItem => {
       let navItemInfo = {
         label: navItem.title,
         type: navItem.type,

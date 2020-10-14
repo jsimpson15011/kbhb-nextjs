@@ -69,12 +69,11 @@ const HeaderLogoContainer = () => {
   )
 }
 
-const Header = () => {
-  const navItems = useSelector(state => state.navItems)
+const Header = ({menuItems}) => {
 
   return (
     <div className='main-header'>
-      <Nav navItems={navItems}/>
+      <Nav navItems={menuItems ? menuItems.items : null}/>
       <div className="main-header__content-wrapper">
         <HeaderLogoContainer/>
         <div className="main-header__bottom">
@@ -87,7 +86,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <HamburgerMenu navItems={navItems}/>
+      <HamburgerMenu navItems={menuItems ? menuItems.items : null}/>
       <style jsx>
         {`
         .main-header {

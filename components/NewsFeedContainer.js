@@ -7,6 +7,9 @@ import Link from "next/link"
 import mainTheme from "../styles/katTheme"
 
 const NewsFeedContainer = () => {
+  return(
+    <div/>
+  )
   const dispatch = useDispatch()
   const addLocalItems = useCallback(newsItems => dispatch({
     type: 'ADD_LOCAL_NEWS',
