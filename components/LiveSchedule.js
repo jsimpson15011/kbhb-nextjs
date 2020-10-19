@@ -1,25 +1,30 @@
 import React from "react"
 import mainTheme from "../styles/katTheme"
-import {useSelector} from "react-redux"
-import {withRedux} from "../lib/redux"
 import {listenLiveUrl} from "../site-settings"
 import ReactHtmlParser from "react-html-parser"
+import {useSchedule} from "../utils/cachedData"
 
 const LiveSchedule = () => {
-  const scheduleData = useSelector(state => state.schedule)
+  const {data, isLoading, isError} = useSchedule()
 
-  if (scheduleData === null || !scheduleData.schedule[0]) {
+  if (isLoading && !isError) {
     return (
       <></>
     )
   }
+  if (data.length === 0) {
+    return (
+      <></>
+    )
+  }
+
   return (
     <a href={`${listenLiveUrl}/#listen-live`} className="listen-live">
       {
-        scheduleData.schedule[0].meta_box.schedule_square_image[0] ?
+        data[0].meta_box.schedule_square_image[0] ?
           <div className="image-wrapper">
             <img className='listen-live__personality-image' alt=''
-                 src={scheduleData.schedule[0].meta_box.schedule_square_image[0].full_url}/>
+                 src={data[0].meta_box.schedule_square_image[0].full_url}/>
           </div>  :
           ''
       }
@@ -27,7 +32,7 @@ const LiveSchedule = () => {
         <div className="listen-live__text">
           <h3>Listen Live</h3>
           <p>
-            <b>{ReactHtmlParser(scheduleData.schedule[0].title.rendered)}</b> {scheduleData.schedule[0].meta_box.schedule_start_time} - {scheduleData.schedule[0].meta_box.schedule_end_time}
+            <b>{ReactHtmlParser(data[0].title.rendered)}</b> {data[0].meta_box.schedule_start_time} - {data[0].meta_box.schedule_end_time}
           </p>
         </div>
       <style jsx>
@@ -92,4 +97,4 @@ const LiveSchedule = () => {
   )
 }
 
-export default withRedux(LiveSchedule)
+export default LiveSchedule
