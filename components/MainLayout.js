@@ -17,7 +17,7 @@ const Layout = props => {
   <div>
     <Header menuItems={props.menuItems}/>
     <div className='contents'>
-      <MaxWidthWrapper theme = "dark">
+      <MaxWidthWrapper>
           {props.children}
       </MaxWidthWrapper>
     </div>

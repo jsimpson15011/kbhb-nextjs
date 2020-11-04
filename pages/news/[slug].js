@@ -4,28 +4,76 @@ import MainLayout from "../../components/MainLayout"
 import Head from "next/dist/next-server/lib/head"
 import DynamicContent from "../../components/DynamicContent"
 import {baseUrl, siteTitle} from "../../site-settings"
+import {fetcher} from "../../utils/cachedData"
+import {activeItemsOnly} from "../../utils/eventHelpers"
+import NewsArticle from "../../components/NewsArticle"
+import {useRouter} from "next/router"
 
-const NewsArticle = props => {
+const NewsPage = props => {
+  const router = useRouter()
+
+  if (!props.article) {
+    return (
+      <h2>Loading...</h2>
+    )
+  }
+
+  const storyCat = props.categories.filter(category => {
+    return category.id === props.article.categories[0]
+  })
   return (
     <MainLayout>
       <Head>
-        <title>{siteTitle} - {props.title}</title>
+        <title>{siteTitle} - {props.article.title.rendered}</title>
         <link rel='icon' href='/favicon.ico'/>
-        <script type="text/javascript" src="//post.futurimedia.com/futuri-post-widget.js" defer/>
+        <meta property="og:url"
+              content={`https://www.kbhbradio.com${router.asPath}`} />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content={props.article.title.rendered}/>
+        <meta property="og:image"
+              content={props.article.images[0].news_photo_full[0]}/>
       </Head>
+      <NewsArticle
+        article={props.article}
+        category={storyCat[0].name}
+      />
     </MainLayout>
   )
 }
 
-NewsArticle.getInitialProps = async context => {
-  const {slug} = context.query
-  const res = await fetch(`${baseUrl}/wp-json/wp/v2/posts?filter[category_name]=${slug}&_embed`)
-  const data = await res.json()
+export async function getStaticPaths() {
+
+  /*const paths = data.map(page => ({
+    params: {slug: '*'}
+  }))*/
 
   return {
-    content: data[0],
-    title: slug
+    paths: [
+      {params: {slug: '*'}}
+    ]
+    ,
+    fallback: true
   }
 }
 
-export default NewsArticle
+export async function getStaticProps({params, preview = false, previewData}) {
+  console.log(params)
+  try {
+    const [categories, articles] = await Promise.all([
+      fetcher(`${baseUrl}/wp-json/wp/v2/categories`),
+      fetcher(`${baseUrl}/wp-json/wp/v2/posts?slug=${params.slug}`)
+    ])
+
+    return {
+      props: {
+        article: articles[0],
+        categories: categories
+      }
+    }
+  } catch (e) {
+    console.log(e)
+    return {props: {}}
+  }
+}
+
+export default NewsPage

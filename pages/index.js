@@ -17,6 +17,16 @@ import {fetcher} from "../utils/cachedData"
 const NewsFeedContainer = dynamic(import('../components/NewsFeedContainer'))
 
 const Home = props => {
+  const categories = props.categories
+  const articles = props.articles
+  const topStory = articles.filter(article => {
+    return article.meta_box.news_top_story === "1"
+  })[0]
+  const sideArticles = props.articles.filter(article => {
+    return article.meta_box.news_side_bar === "1"
+  })
+
+  sideArticles.length > 4 ? sideArticles.length = 4 : ""
 
   const handleFloatUpReveal = className => {
     anime({
@@ -42,7 +52,7 @@ const Home = props => {
         <SmallImages blocks={props.slides}/>
         <MaxWidthWrapper>
           <div className="news-section">
-            <NewsFeedContainer/>
+            <NewsFeedContainer categories={categories} article={articles} sideArticle={sideArticles} topStory={topStory}/>
           </div>
         </MaxWidthWrapper>
       </HomeLayout>
@@ -52,8 +62,7 @@ const Home = props => {
         color: #333;
       }
       .news-section {
-        width: 644px;
-        max-width: 100%;
+        width: 100%;
       }
     `}</style>
     </div>
@@ -62,9 +71,11 @@ const Home = props => {
 
 export async function getStaticProps() {
   try {
-    const [promoRes, menuItems] = await Promise.all([
+    const [promoRes, menuItems, categories, articles] = await Promise.all([
       fetch(`${baseUrl}/wp-json/wp/v2/promotions?_embed&per_page=100`),
-      fetcher(`${baseUrl}/wp-json/menus/v1/menus/main-navigation`)
+      fetcher(`${baseUrl}/wp-json/menus/v1/menus/main-navigation`),
+      fetcher(`${baseUrl}/wp-json/wp/v2/categories`),
+      fetcher(`${baseUrl}/wp-json/wp/v2/posts`)
     ])
     const [promoData] = await Promise.all([
       promoRes.json(),
@@ -111,7 +122,9 @@ export async function getStaticProps() {
     return {
       props: {
         slides: slides,
-        menuItems: menuItems
+        menuItems: menuItems,
+        articles: articles,
+        categories: categories
       }
     }
   } catch (e) {

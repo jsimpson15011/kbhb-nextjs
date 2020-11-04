@@ -5,67 +5,21 @@ import MusicNewsFeed from "./MusicNewsFeed"
 import newsHelpers from "../utils/newsHelpers"
 import Link from "next/link"
 import mainTheme from "../styles/katTheme"
+import NewsArticle from "./NewsArticle"
 
-const NewsFeedContainer = () => {
-  return(
-    <div/>
-  )
-  const dispatch = useDispatch()
-  const addLocalItems = useCallback(newsItems => dispatch({
-    type: 'ADD_LOCAL_NEWS',
-    data: newsItems
-  }))
+const NewsFeedContainer = props => {
 
-  const addMusicItems = useCallback(newsItems => dispatch({
-    type: 'ADD_MUSIC_NEWS',
-    data: newsItems
-  }))
-  useEffect(() => {
-    newsHelpers.getNewsItems().then(
-      items => {
-        addLocalItems(items.kbhbFeed)
-        addMusicItems(items.musicNewsFeed)
-      }
-    )
-
-
-  }, [])
-
-  const newsItems = useSelector(state => state.newsItems)
-  if (newsItems.localNews === null && newsItems.musicNews === null) {
-    return (
-      <h2>
-        Loading
-      </h2>
-    )
-  }
-
-  if (newsItems.localNews === null && newsItems.musicNews){
-    return(
-        <MusicNewsFeed items={newsItems.musicNews.items}/>
-      )
-  }
-
-  if (newsItems.musicNews === null && newsItems.localNews){
-    return(
-      <LocalNewsFeed items={newsItems.localNews.items}/>
-    )
-  }
+  const topStoryCat = props.categories.filter(category => {
+    return category.id === props.topStory.categories[0]
+  })
 
   return (
     <>
-      <MusicNewsFeed items={newsItems.musicNews.items}/>
-      <Link href="/news/music-news">
-        <a className="read-more-news">
-          See More News Stories
-        </a>
-      </Link>
-      <LocalNewsFeed items={newsItems.localNews.items}/>
-      <Link href="/news/local-news">
-        <a className="read-more-news">
-          See More News Stories
-        </a>
-      </Link>
+      <NewsArticle
+        topStory
+        article = {props.topStory}
+        category = {topStoryCat[0].name}
+      />
       <style global jsx>
         {`
 a > span{

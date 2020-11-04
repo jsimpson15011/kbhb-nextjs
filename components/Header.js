@@ -206,8 +206,8 @@ const Header = ({menuItems}) => {
         }
         
         .contents{
-        background: ${mainTheme.background};
-        color: white;
+        background: white;
+        color: #3E3E3E;
         padding: 1px;
       }
       .content li{
