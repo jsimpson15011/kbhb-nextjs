@@ -1,9 +1,4 @@
-import React, {useCallback, useEffect} from 'react'
-import {useSelector, useDispatch} from "react-redux"
-import LocalNewsFeed from "./LocalNewsFeed"
-import MusicNewsFeed from "./MusicNewsFeed"
-import newsHelpers from "../utils/newsHelpers"
-import Link from "next/link"
+import React from 'react'
 import mainTheme from "../styles/katTheme"
 import NewsArticle from "./NewsArticle"
 

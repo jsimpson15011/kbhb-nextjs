@@ -6,8 +6,6 @@ import dynamic from "next/dynamic"
 const LazyLoad = dynamic(() => import('react-lazyload'))
 import Link from "next/link"
 import {email, phone, siteTitle} from "../site-settings"
-import {useSelector} from "react-redux"
-import BannerAd from "./BannerAd"
 
 const Footer = () => {
   return (
@@ -16,8 +14,8 @@ const Footer = () => {
         <div className='contact'>
           <p>Phone number: <a href={`tel:${phone}`}>{phone}</a></p>
           <p>E-Mail: <a href={`mailto:${email}`}>{email}</a></p>
-          <p>Address: 660 Florman STE 100</p>
-          <p>Rapid City, SD 57701</p>
+          <p>1612 Junction Avenue, Suite #1</p>
+          <p>Sturgis, SD 57785</p>
         </div>
         <div className='logos'>
           <Link href='/'>
