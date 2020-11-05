@@ -6,12 +6,10 @@ import SlideShow from "../components/SlideShow"
 import {Waypoint} from "react-waypoint"
 import anime from "animejs"
 import MaxWidthWrapper from "../components/MaxWidthWrapper"
-import {withRedux} from "../lib/redux"
 import {activeItemsOnly} from "../utils/eventHelpers"
-import SmallImages from "../components/SmallImages"
 
 import dynamic from "next/dynamic"
-import {baseUrl, listenLiveUrl, metaDescription, siteTitle} from "../site-settings"
+import {baseUrl, metaDescription, siteTitle} from "../site-settings"
 import {fetcher} from "../utils/cachedData"
 
 const NewsFeedContainer = dynamic(import('../components/NewsFeedContainer'))
@@ -49,7 +47,6 @@ const Home = props => {
       <HomeLayout menuItems={props.menuItems}>
         <Waypoint onEnter={() => handleFloatUpReveal('slide-show')}/>
         <SlideShow slides={props.slides}/>
-        <SmallImages blocks={props.slides}/>
         <MaxWidthWrapper>
           <div className="news-section">
             <NewsFeedContainer categories={categories} article={articles} sideArticle={sideArticles} topStory={topStory}/>

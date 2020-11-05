@@ -74,7 +74,7 @@ const NewsArticle = (props) => {
               line-height: 1.1;
             }
             .date{
-              font-size: .8em;
+              font-size: .9em;
               color: #676767;
             }
             .category{
@@ -83,7 +83,7 @@ const NewsArticle = (props) => {
               text-transform: uppercase;
             }
             .date-headline{
-              font-size: 1.5em;
+              font-size: 1.3em;
             }
           `}
         </style>
