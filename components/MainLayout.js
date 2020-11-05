@@ -3,6 +3,7 @@ import Header from "./Header"
 import Footer from "./Footer"
 import MaxWidthWrapper from "./MaxWidthWrapper"
 import {initGA, logPageView} from "../utils/analytics"
+import SideBar from "./SideBar"
 
 const Layout = props => {
   useEffect(() => {
@@ -17,11 +18,33 @@ const Layout = props => {
   <div>
     <Header menuItems={props.menuItems}/>
     <div className='contents'>
-      <MaxWidthWrapper>
+      <div className='wrapper'>
           {props.children}
-      </MaxWidthWrapper>
+      </div>
+      <SideBar/>
     </div>
     <Footer/>
+    <style jsx>
+      {
+        `
+          .contents{
+            display: flex;
+            max-width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+          }
+          .wrapper{
+            box-sizing: border-box;
+            padding: 21px;
+            max-width: 100%;
+            width: 1300px;
+            background: #f6f7f8;
+            margin-right: 14px;
+          }
+`
+      }
+    </style>
   </div>
 )}
 

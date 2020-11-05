@@ -123,9 +123,13 @@ const NewsArticle = (props) => {
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
+                max-width: 100%;
               }
               figcaption{
                 margin-top: 7px;
+                width: 600px;
+                max-width: 100%;
+                text-align: center;
               }
               .source{
                 display: block;
@@ -145,7 +149,7 @@ const NewsArticle = (props) => {
             width={fileInfo[1]}
             height={fileInfo[2]}
             alt=""
-            style={{marginBottom: "14px"}}
+            style={{marginBottom: "14px", maxWidth: "100%"}}
           />
         )
       }
