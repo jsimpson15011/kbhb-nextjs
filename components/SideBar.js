@@ -1,12 +1,87 @@
 import React from 'react'
 import Link from "next/link"
 import Image from "next/image"
-import {articleDate, categoryColor} from "../utils/articleFunctions"
+import {articleDate, categoryColor, getCategory} from "../utils/articleFunctions"
+import NewsArticle from "./NewsArticle"
 
 const SideBar = (props) => {
+  if (!props.articles){
+    return(
+      <div className="sideBar">
+        <a href="https://v7player.wostreaming.net/2825">
+          <Image
+            src="/img/listen-live.jpg"
+            width="302"
+            height="125"
+            alt="Listen Live"
+          />
+        </a>
+        <a href="https://thehomeslicegroup.com/employment/">
+          <Image
+            src="/img/employment_ops-2020.jpg"
+            width="300"
+            height="100"
+            alt="Employment Opportunities"
+          />
+        </a>
 
-  return(
+        <iframe
+          src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FKBHB-Radio%2F206573262695380&amp;width=300&amp;height=600&amp;show_faces=true&amp;colorscheme=light&amp;stream=true&amp;show_border=true&amp;header=false"
+          scrolling="no" frameBorder="0" style={{border: "none", overflow: "hidden", width: "300px", height: "600px"}}
+        />
+        <h2>Market News</h2>
+        <iframe src="https://kbhbindex.agricharts.com/pages/custom.php?id=30408" width="300" height="660" frameBorder="0"
+                scrolling="no"/>
+
+        <style jsx>
+          {
+            `
+                    .sideBar{
+                      display: flex;
+                      flex-direction: column;
+                    }
+                    a{
+                      margin-bottom: 21px;
+                    }
+                  `
+          }
+        </style>
+      </div>
+    )
+  }
+  const articles = props.articles.map(article => {
+    const category = props.categories.filter(category => {
+      return category.id === article.categories[0]
+    })[0]
+
+    return (
+      <>
+        <NewsArticle
+          key={article.id}
+          sideBar
+          article={article}
+          category={category.name}
+        />
+        <div/>
+        <style jsx>
+          {
+            `
+            div{
+              width: 100%;
+              height: 2px;
+              background: #edf0f1;
+              margin-bottom: 14px;
+            }
+`
+          }
+        </style>
+      </>
+    )
+  })
+
+  return (
     <div className="sideBar">
+      {articles}
       <a href="https://v7player.wostreaming.net/2825">
         <Image
           src="/img/listen-live.jpg"
@@ -26,15 +101,15 @@ const SideBar = (props) => {
 
       <iframe
         src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FKBHB-Radio%2F206573262695380&amp;width=300&amp;height=600&amp;show_faces=true&amp;colorscheme=light&amp;stream=true&amp;show_border=true&amp;header=false"
-        scrolling="no" frameBorder="0" style={{border:"none", overflow:"hidden", width:"300px", height:"600px"}}
-        />
-        <h2>Market News</h2>
+        scrolling="no" frameBorder="0" style={{border: "none", overflow: "hidden", width: "300px", height: "600px"}}
+      />
+      <h2>Market News</h2>
       <iframe src="https://kbhbindex.agricharts.com/pages/custom.php?id=30408" width="300" height="660" frameBorder="0"
               scrolling="no"/>
 
-              <style jsx>
-                {
-                  `
+      <style jsx>
+        {
+          `
                     .sideBar{
                       display: flex;
                       flex-direction: column;
@@ -43,8 +118,8 @@ const SideBar = (props) => {
                       margin-bottom: 21px;
                     }
                   `
-                }
-              </style>
+        }
+      </style>
     </div>
   )
 }

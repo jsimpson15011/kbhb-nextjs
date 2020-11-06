@@ -89,7 +89,48 @@ const NewsArticle = (props) => {
         </style>
       </>
     )
-  } else {//the default article
+  }
+  if (props.sideBar){
+    return (
+      <>
+        <Link href={`/news/${encodeURIComponent(props.article.slug)}`}>
+          <a>
+                  <span
+                    className="category"
+                    style={{
+                      color: categoryColor[props.category] ? categoryColor[props.category] : "#3E3E3E"
+                    }}
+                  >
+              {props.category === "Uncategorized" ? "News" : props.category}
+            </span>
+                <h3 dangerouslySetInnerHTML={{__html: props.article.title.rendered}}/>
+          </a>
+        </Link>
+        <style jsx>
+          {`
+            a{
+              color: #3E3E3E;
+              display: block;
+              width: 300px;
+              text-decoration: none;
+              font-size: 1.2em;
+            }
+            h3{
+              color: #141414;
+              font-size: 1.1em;
+              line-height: 1.1;
+            }
+            .category{
+              font-weight: bold;
+              text-transform: uppercase;
+              
+            }
+          `}
+        </style>
+      </>
+    )
+  }
+  else {//the default article
     const images = props.article.images.map(image => {
       const fileInfo = image.news_photo_full
 

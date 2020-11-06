@@ -11,8 +11,8 @@ import {activeItemsOnly} from "../utils/eventHelpers"
 import dynamic from "next/dynamic"
 import {baseUrl, metaDescription, siteTitle} from "../site-settings"
 import {fetcher} from "../utils/cachedData"
-
-const NewsFeedContainer = dynamic(import('../components/NewsFeedContainer'))
+import SideBar from "../components/SideBar"
+import NewsArticle from "../components/NewsArticle"
 
 const Home = props => {
   const categories = props.categories
@@ -24,7 +24,9 @@ const Home = props => {
     return article.meta_box.news_side_bar === "1"
   })
 
-  sideArticles.length > 4 ? sideArticles.length = 4 : ""
+  const topStoryCat = categories.filter(category => {
+    return category.id === topStory.categories[0]
+  })[0]
 
   const handleFloatUpReveal = className => {
     anime({
@@ -47,19 +49,31 @@ const Home = props => {
       <HomeLayout menuItems={props.menuItems}>
         <Waypoint onEnter={() => handleFloatUpReveal('slide-show')}/>
         <SlideShow slides={props.slides}/>
-        <MaxWidthWrapper>
+        <div className="contents">
           <div className="news-section">
-            <NewsFeedContainer categories={categories} article={articles} sideArticle={sideArticles} topStory={topStory}/>
+            <NewsArticle topStory article={topStory} category={topStoryCat.name}/>
           </div>
-        </MaxWidthWrapper>
+          <SideBar articles={sideArticles} categories={props.categories}/>
+        </div>
       </HomeLayout>
       <style jsx>{`
       .hero {
         width: 100%;
         color: #333;
       }
+      .contents{
+            display: flex;
+            max-width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+      }
       .news-section {
-        width: 100%;
+            box-sizing: border-box;
+            padding: 21px;
+            max-width: 100%;
+            width: 1300px;
+            margin-right: 14px;
       }
     `}</style>
     </div>
