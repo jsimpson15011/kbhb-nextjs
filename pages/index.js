@@ -5,14 +5,13 @@ import HomeLayout from "../components/HomeLayout"
 import SlideShow from "../components/SlideShow"
 import {Waypoint} from "react-waypoint"
 import anime from "animejs"
-import MaxWidthWrapper from "../components/MaxWidthWrapper"
 import {activeItemsOnly} from "../utils/eventHelpers"
 
-import dynamic from "next/dynamic"
 import {baseUrl, metaDescription, siteTitle} from "../site-settings"
 import {fetcher} from "../utils/cachedData"
 import SideBar from "../components/SideBar"
 import NewsArticle from "../components/NewsArticle"
+import {categoryColor} from "../utils/articleFunctions"
 
 const Home = props => {
   const categories = props.categories
@@ -27,6 +26,78 @@ const Home = props => {
   const topStoryCat = categories.filter(category => {
     return category.id === topStory.categories[0]
   })[0]
+
+  const onlyNews = props.articles.filter(article => {
+    return (
+      (
+        article.categories.indexOf(3) !== -1
+        &&
+        article.meta_box.news_side_bar !== "1"
+        &&
+        article.meta_box.news_top_story !== "1"
+      )
+    )
+  })
+  onlyNews.length = onlyNews.length > 6 ? 6 : onlyNews.length
+  const newsArticles = onlyNews.map(article => {
+    return (
+      <React.Fragment key={article.id}>
+        <NewsArticle
+          summary
+          article={article}
+          category="News"
+        />
+        <div/>
+        <style jsx>
+          {
+            `
+            div{
+              width: 100%;
+              height: 2px;
+              background: #edf0f1;
+              margin-bottom: 14px;
+            }
+`
+          }
+        </style>
+      </React.Fragment>
+    )
+  })
+
+  const onlySports = props.articles.filter(article => {
+    return (
+      article.categories.indexOf(6) !== -1
+      &&
+      article.meta_box.news_side_bar !== "1"
+      &&
+      article.meta_box.news_top_story !== "1"
+    )
+  })
+  onlyNews.length = onlyNews.length > 6 ? 6 : onlyNews.length
+  const sportsArticles = onlySports.map(article => {
+    return (
+      <React.Fragment key={article.id}>
+        <NewsArticle
+          summary
+          article={article}
+          category="Sports"
+        />
+        <div/>
+        <style jsx>
+          {
+            `
+            div{
+              width: 100%;
+              height: 2px;
+              background: #edf0f1;
+              margin-bottom: 14px;
+            }
+`
+          }
+        </style>
+      </React.Fragment>
+    )
+  })
 
   const handleFloatUpReveal = className => {
     anime({
@@ -52,6 +123,14 @@ const Home = props => {
         <div className="contents">
           <div className="news-section">
             <NewsArticle topStory article={topStory} category={topStoryCat.name}/>
+            <div className="news-section__col">
+              <h2 className="news-section__header news-section__header--news">News</h2>
+              {newsArticles}
+            </div>
+            <div className="news-section__col">
+              <h2 className="news-section__header news-section__header--sports">Sports</h2>
+              {sportsArticles}
+            </div>
           </div>
           <SideBar articles={sideArticles} categories={props.categories}/>
         </div>
@@ -64,16 +143,36 @@ const Home = props => {
       .contents{
             display: flex;
             max-width: 100%;
+            box-sizing: border-box;
+            width: 1600px;
             flex-wrap: wrap;
             justify-content: center;
             align-items: flex-start;
+            margin-left: auto;
+            margin-right: auto;
       }
       .news-section {
             box-sizing: border-box;
             padding: 21px;
             max-width: 100%;
-            width: 1300px;
+            width: 1060px;
             margin-right: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            flex-grow: 1;
+      }
+      .news-section__col{
+        width: 300px;
+        min-width: 45%;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .news-section__header--news{
+        color: ${categoryColor['News']};
+      }      
+      .news-section__header--sports{
+        color: ${categoryColor['Sports']};
       }
     `}</style>
     </div>
@@ -86,7 +185,7 @@ export async function getStaticProps() {
       fetch(`${baseUrl}/wp-json/wp/v2/promotions?_embed&per_page=100`),
       fetcher(`${baseUrl}/wp-json/menus/v1/menus/main-navigation`),
       fetcher(`${baseUrl}/wp-json/wp/v2/categories`),
-      fetcher(`${baseUrl}/wp-json/wp/v2/posts`)
+      fetcher(`${baseUrl}/wp-json/wp/v2/posts?per_page=100`)
     ])
     const [promoData] = await Promise.all([
       promoRes.json(),

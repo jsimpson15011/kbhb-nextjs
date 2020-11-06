@@ -50,6 +50,9 @@ const NewsArticle = (props) => {
             }
             a{
               text-decoration: none;
+              flex-grow: 1;
+              margin-bottom: 76px;
+              width: 100%;
             }
             .top-story{
               color: #3B73B1;
@@ -130,6 +133,42 @@ const NewsArticle = (props) => {
       </>
     )
   }
+  if (props.summary){
+    return (
+      <>
+        <Link href={`/news/${encodeURIComponent(props.article.slug)}`}>
+          <a>
+            <span className="date">{articleDate(props.article.date)}</span>
+            <h3 dangerouslySetInnerHTML={{__html: props.article.title.rendered}}/>
+            <div className="content" dangerouslySetInnerHTML={{__html: props.article.excerpt.rendered}}/>
+          </a>
+        </Link>
+        <style jsx>
+          {`
+            a{
+              color: #3E3E3E;
+              display: block;
+              width: 100%;
+              text-decoration: none;
+              font-size: 1.2em;
+            }
+            h3{
+              color: #141414;
+              font-size: 1.1em;
+              line-height: 1.1;
+            }
+            .category{
+              font-weight: bold;
+              text-transform: uppercase;
+            }
+            .content{
+              font-size: .9rem;
+            }
+          `}
+        </style>
+      </>
+    )
+  }
   else {//the default article
     const images = props.article.images.map(image => {
       const fileInfo = image.news_photo_full
@@ -177,6 +216,10 @@ const NewsArticle = (props) => {
                 text-align: center;
                 font-weight: bold;
               }
+              .caption{
+                display: block;
+                text-align: center;
+              }
 `
               }
             </style>
@@ -201,8 +244,9 @@ const NewsArticle = (props) => {
       <>
         <article>
           <div className="image-col">
+            <h3 dangerouslySetInnerHTML={{__html: props.article.title.rendered}}/>
             <div className="date-headline">
-              <h3 dangerouslySetInnerHTML={{__html: props.article.title.rendered}}/>
+              <span className="source">{props.article.meta_box.news_source}</span>
               <span className="date">{articleDate(props.article.date)}</span>
               <Link href={`/category/${props.category === "Uncategorized" ? "News" : props.category}`}>
                 <a>
@@ -252,11 +296,17 @@ const NewsArticle = (props) => {
            
             h3{
               color: #141414;
-              font-size: 2em;
+              font-size: 2.5rem;
               line-height: 1.1;
+              width: 100%;
+            }
+            .source{
+              font-size: 1.1rem;
+              color: #676767;
+              display: block;
             }
             .date{
-              font-size: .8em;
+              font-size: 1.1rem;
               color: #676767;
             }
             .category{
@@ -265,8 +315,8 @@ const NewsArticle = (props) => {
               text-transform: uppercase;
             }
             .date-headline{
-              font-size: 1.5em;
               margin-bottom: 28px;
+              width: 100%;
             }
           `}
         </style>

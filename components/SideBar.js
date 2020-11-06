@@ -55,9 +55,8 @@ const SideBar = (props) => {
     })[0]
 
     return (
-      <>
+      <React.Fragment key={article.id}>
         <NewsArticle
-          key={article.id}
           sideBar
           article={article}
           category={category.name}
@@ -75,7 +74,7 @@ const SideBar = (props) => {
 `
           }
         </style>
-      </>
+      </React.Fragment>
     )
   })
 

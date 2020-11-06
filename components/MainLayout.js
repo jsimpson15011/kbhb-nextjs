@@ -38,8 +38,7 @@ const Layout = props => {
             box-sizing: border-box;
             padding: 21px;
             max-width: 100%;
-            width: 1300px;
-            background: #f6f7f8;
+            width: 1100px;
             margin-right: 14px;
           }
 `
