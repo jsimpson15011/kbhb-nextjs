@@ -46,12 +46,14 @@ export async function getStaticPaths() {
   /*const paths = data.map(page => ({
     params: {slug: '*'}
   }))*/
+  const posts = await fetcher(`${baseUrl}/wp-json/wp/v2/posts`)
+
+  const paths = posts.map(post => ({
+    params: { slug: post.slug }
+  }))
 
   return {
-    paths: [
-      {params: {slug: '*'}}
-    ]
-    ,
+    paths,
     fallback: true
   }
 }
