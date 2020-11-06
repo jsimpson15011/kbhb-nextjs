@@ -27,7 +27,7 @@ const Menu = ({links}) => {
                     if (item.parentSlug) {
                       return (
                         <li key={item.url}>
-                          <Link activeClassName=" active-link"
+                          <Link
                                 href={item.object === "page" ? `/[slug]` : `/${item.object}/[slug]`}
                                 as={item.object === "page" ? `/${item.slug}` : `/${item.object}/${item.slug}`}
                                 passHref

@@ -169,6 +169,85 @@ const NewsArticle = (props) => {
       </>
     )
   }
+  if (props.summaryWithImage) {
+    const mainImg = props.article.images[0].news_photo_large
+    return (
+      <>
+        <Link href={`/news/${encodeURIComponent(props.article.slug)}`}>
+          <a>
+            <article>
+              <div className="image-col">
+                <Image
+                  src={mainImg[0]}
+                  width={mainImg[1]}
+                  height={mainImg[2]}
+                  alt=""
+                />
+              </div>
+              <div className="text-col">
+                <div className="date-headline">
+                  <span className="date">{articleDate(props.article.date)}</span>
+                </div>
+                <h3 dangerouslySetInnerHTML={{__html: props.article.title.rendered}}/>
+                <div className="content" dangerouslySetInnerHTML={{__html: props.article.excerpt.rendered}}/>
+              </div>
+            </article>
+          </a>
+        </Link>
+        <style jsx>
+          {`
+            article{
+              color: #3E3E3E;
+              display: flex;
+              flex-wrap: wrap;
+              width: 100%;
+              font-size: 1.2rem;
+            }
+            a{
+              text-decoration: none;
+              flex-grow: 1;
+              margin-bottom: 76px;
+              width: 100%;
+            }
+            .top-story{
+              color: #3B73B1;
+              font-size: 2em;
+              text-transform: none;
+            }
+            .image-col{
+              width: 400px;
+              max-width: 100%;
+              margin-right: 14px;
+              min-width: 39%;
+            }
+            .text-col{
+              width: 600px;
+              max-width: 100%;
+              min-width: 59%;
+            }
+           
+            h3{
+              color: #141414;
+              font-size: 2em;
+              line-height: 1.1;
+            }
+            .date{
+              font-size: .9em;
+              color: #676767;
+            }
+            .category{
+              font-weight: bold;
+              margin-left: 7px;
+              text-transform: uppercase;
+            }
+            .date-headline{
+              font-size: 1.3em;
+            }
+          `}
+        </style>
+      </>
+    )
+  }
   else {//the default article
     const images = props.article.images.map(image => {
       const fileInfo = image.news_photo_full
