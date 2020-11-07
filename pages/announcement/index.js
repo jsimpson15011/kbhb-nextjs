@@ -7,9 +7,14 @@ import {useSelector} from "react-redux"
 import ReactHtmlParser from "react-html-parser"
 import Link from "next/link"
 import mainTheme from "../../styles/katTheme"
+import {useAnnouncements} from "../../utils/cachedData"
 
 const Announcements = () => {
-  const announcementItems = useSelector(state => state.announcements.announcementItems.announcements)
+  const {announcementItems, isLoading, isError} = useAnnouncements()
+  if (isLoading){
+    return <></>
+  }
+
   const announcementLinks = (announcements) => announcements.map(event => {
     const externalLink = event.meta_box.event_external_link
 

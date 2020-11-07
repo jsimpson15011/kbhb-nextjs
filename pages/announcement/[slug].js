@@ -2,15 +2,12 @@ import React from 'react'
 import MainLayout from "../../components/MainLayout"
 import Head from "next/dist/next-server/lib/head"
 import DynamicContent from "../../components/DynamicContent"
-import { siteTitle} from "../../site-settings"
+import {baseUrl, siteTitle} from "../../site-settings"
 import {useSelector} from "react-redux"
+import {fetcher} from "../../utils/cachedData"
 
 const Announcement = props => {
-  const announcementItems = useSelector(state => state.announcements.announcementItems.announcements)
-  const currentItem = announcementItems.filter(item => {
-    return item.slug === props.slug
-  })[0]
-  if (currentItem.length === 0){
+  if (!props.announcement){
     return (
       <></>
     )
@@ -18,20 +15,45 @@ const Announcement = props => {
   return (
     <MainLayout>
       <Head>
-        <title>{siteTitle} - {currentItem.title.rendered}</title>
+        <title>{siteTitle} - {props.announcement.title.rendered}</title>
         <link rel='icon' href='/favicon.ico'/>
       </Head>
-      <DynamicContent content={currentItem}/>
+      <DynamicContent content={props.announcement}/>
     </MainLayout>
   )
 }
 
-Announcement.getInitialProps = async context => {
-  const {slug} = context.query
+export async function getStaticPaths() {
 
+  /*const paths = data.map(page => ({
+    params: {slug: '*'}
+  }))*/
+  const posts = await fetcher(`https://psa.homesliceweb.com/wp-json/wp/v2/psas`)
+
+  const paths = posts.map(post => ({
+    params: { slug: post.slug }
+  }))
 
   return {
-    slug: slug
+    paths,
+    fallback: true
+  }
+}
+
+export async function getStaticProps({params, preview = false, previewData}) {
+  try {
+    const [announcment] = await Promise.all([
+      fetcher(`https://psa.homesliceweb.com/wp-json/wp/v2/psas?slug=${params.slug}`)
+    ])
+
+    return {
+      props: {
+        announcement: announcment[0],
+      }
+    }
+  } catch (e) {
+    console.log(e)
+    return {props: {}}
   }
 }
 

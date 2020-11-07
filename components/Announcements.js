@@ -3,10 +3,19 @@ import {withRedux} from "../lib/redux"
 import {useSelector} from "react-redux"
 import Link from "next/link"
 import mainTheme from "../styles/katTheme"
+import {useAnnouncements, useClosures} from "../utils/cachedData"
 
 const Announcements = () => {
-  const announcementItems = useSelector(state => state.announcements.announcementItems)
-  if (announcementItems === null) {
+  const {announcementItems, isLoading, isError} = useAnnouncements()
+  const {closureItems , closureIsLoading, closureIsError} = useClosures()
+
+  if (isLoading || closureIsLoading || !closureItems) {
+    return (
+      <></>
+    )
+  }
+  if (isError){
+    console.log(isError)
     return (
       <></>
     )
@@ -31,26 +40,26 @@ const Announcements = () => {
   return (
     <div className="outer-wrapper">
       {
-        announcementItems.announcements.length ?
-          <Link href={`announcement`}>
+        announcementItems.length ?
+          <Link href={`/announcement`}>
             <a>Announcements</a>
           </Link> :
           ''
       }
       {
-        announcementItems.closures.length ?
-          <Link href={'cancellations'}>
+        closureItems.length ?
+          <Link href={'/cancellations'}>
             <a>COVID-19 Updates</a>
           </Link> :
           ''
       }
-      {
+{/*      {
         announcementItems.restaurantItems.length ?
           <Link href={'restaurant-info'}>
             <a>Restaurants</a>
           </Link> :
           ''
-      }
+      }*/}
 
       <style jsx>
         {`            

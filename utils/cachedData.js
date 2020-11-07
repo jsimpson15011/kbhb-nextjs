@@ -71,6 +71,26 @@ const scheduleFetcher = (...args) => {
     ))
   )
 }
+const announcementFetcher = (...args) => {
+  return(
+    fetch(...args).then(res => res.json().then(announcement => {
+        return announcement.filter(item => {
+          return item.meta_box.psa_date + 25200 > (Math.floor(Date.now()/1000))
+        })
+      }
+    ))
+  )
+}
+const closureFetcher = (...args) => {
+  return(
+    fetch(...args).then(res => res.json().then(closure => {
+        return closure.filter(closure => {
+          return closure.meta_box.closureIsShowing === '1'
+        })
+      }
+    ))
+  )
+}
 
 export function useNav () {
   const { data, error } = useSWR(`${baseUrl}/wp-json/menus/v1/menus/main-navigation`, fetcher)
@@ -97,6 +117,26 @@ export function useSchedule () {
 
   return {
     data: data,
+    isLoading: !error && !data,
+    isError: error
+  }
+}
+
+export function useAnnouncements () {
+  const { data, error } = useSWR(`https://psa.homesliceweb.com/wp-json/wp/v2/psas`, announcementFetcher)
+
+  return {
+    announcementItems: data,
+    isLoading: !error && !data,
+    isError: error
+  }
+}
+
+export function useClosures () {
+  const { data, error } = useSWR(`https://psa.homesliceweb.com/wp-json/wp/v2/closures`, closureFetcher)
+
+  return {
+    closureItems: data,
     isLoading: !error && !data,
     isError: error
   }
