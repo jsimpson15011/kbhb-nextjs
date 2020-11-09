@@ -19,6 +19,7 @@ const NewsArticle = (props) => {
                   width={mainImg[1]}
                   height={mainImg[2]}
                   alt=""
+                  layout="responsive"
                 />
               </div>
               <div className="text-col">
@@ -47,6 +48,7 @@ const NewsArticle = (props) => {
               flex-wrap: wrap;
               width: 100%;
               font-size: 1.2rem;
+              align-items: flex-start;
             }
             a{
               text-decoration: none;
