@@ -3,10 +3,15 @@ import MainLayout from "../../components/MainLayout"
 import Head from "next/dist/next-server/lib/head"
 import DynamicContent from "../../components/DynamicContent"
 import {siteTitle} from "../../site-settings"
-import {useSelector} from "react-redux"
+import {useClosures} from "../../utils/cachedData"
 
 const Closures = () => {
-  const closure = useSelector(state => state.announcements.announcementItems.closures)[0]
+  const {closureItems, isLoading, isError} = useClosures()
+  if (isLoading){
+    return <></>
+  }
+  const closure = closureItems[0]
+
   return (
     <MainLayout>
       <Head>
