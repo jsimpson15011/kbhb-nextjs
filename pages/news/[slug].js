@@ -32,6 +32,8 @@ const NewsPage = props => {
         <meta property="og:title" content={props.article.title.rendered}/>
         <meta property="og:image"
               content={props.article.images[0].news_photo_full[0]}/>
+              <meta property="og:width" content={props.article.images[0].news_photo_full[1]}/>
+              <meta property="og:height" content={props.article.images[0].news_photo_full[2]}/>
       </Head>
       <NewsArticle
         article={props.article}
