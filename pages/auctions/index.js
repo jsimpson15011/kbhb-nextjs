@@ -1,0 +1,125 @@
+import React from 'react'
+import fetch from "isomorphic-unfetch"
+import MainLayout from "../../components/MainLayout"
+import Head from "next/dist/next-server/lib/head"
+import DynamicContent from "../../components/DynamicContent"
+import {baseUrl, siteTitle} from "../../site-settings"
+import {fetcher} from "../../utils/cachedData"
+import {useRouter} from "next/router"
+import SimpleReactLightBox, {SRLWrapper} from "simple-react-lightbox"
+
+const Auction = props => {
+  const router = useRouter()
+  console.log(props.auctionItems)
+
+  if (router.isFallback || !props.auctionItems) {
+    return (
+      <div>
+        LOADING...
+      </div>
+    )
+  }
+
+  const auctionItems = props.auctionItems.map(item => {
+
+    return (
+      <SimpleReactLightBox key={item.id}>
+        <div className="item">
+
+          <h3>{item.title.rendered}</h3>
+          <div className="images">
+            <SRLWrapper>
+              {
+                item.meta_box.auction_images.map(image => {
+                    const thumbnail = image.sizes.thumbnail
+                    return (
+
+                      <img
+                        src={image.full_url}
+                        width={thumbnail.width}
+                        height={thumbnail.height}
+                        alt=""
+                        key={thumbnail.url}
+                      />
+
+                    )
+                  }
+                )
+              }
+            </SRLWrapper>
+          </div>
+          <div className="content" dangerouslySetInnerHTML={{__html: item.content.rendered}}/>
+        </div>
+        <style jsx>
+          {`
+            .item{
+              display: flex;
+              flex-wrap: wrap;
+              border-bottom: #6c7885 solid 1px;
+              padding-bottom: 21px;
+              margin-bottom: 7px;
+            }
+            h3{
+              background: #2D3F62;
+              color: white;
+              padding: 14px;
+              box-sizing: border-box;
+            }
+            .content{
+              width: 700px;
+              max-width: 100%;
+              box-sizing: border-box;
+              padding: 14px;
+              margin-left: 14px;
+              margin-right: 14px;
+              flex-grow: 1;
+              line-height: 1.6;
+              font-size: 1.3rem;
+              background: #f2f4fa;
+            }
+            .images{
+              display: flex;
+              flex-direction: column;
+            }
+            .images img{
+              display: block;
+              margin-bottom: 14px;
+            }
+`}
+        </style>
+      </SimpleReactLightBox>
+    )
+  })
+
+  return (
+    <MainLayout menuItems={props.menuItems}>
+      <Head>
+        <title>{siteTitle} - {props.content.title.rendered}</title>
+        <link rel='icon' href='/favicon.ico'/>
+      </Head>
+      <DynamicContent content={props.content}/>
+      {auctionItems}
+    </MainLayout>
+  )
+}
+
+export async function getStaticProps() {
+  const [res, auctionItems, menuItems] = await Promise.all([
+    await fetch(`${baseUrl}/wp-json/wp/v2/pages?slug=auctions&_embed`),
+    fetcher("https://blackhillsstore.com/wp-json/wp/v2/auction-item?orderby=menu_order&order=asc"),
+    fetcher(`${baseUrl}/wp-json/menus/v1/menus/main-navigation`)
+  ])
+
+  const data = await res.json()
+
+
+  return {
+    props: {
+      content: data[0],
+      menuItems: menuItems,
+      auctionItems: auctionItems
+    }
+  }
+}
+
+export default Auction

@@ -71,13 +71,8 @@ const DynamicContent = props => {
             margin-bottom: 14px;
           }
           .content{
-            background: #eeeeee;
-            margin: 21px;
-            color: #160303;
-            padding: 14px;
             box-sizing: border-box;
             width: 100%;
-            border-left: ${mainTheme.brand} solid 10.5px;
           }
         `}
       </style>
