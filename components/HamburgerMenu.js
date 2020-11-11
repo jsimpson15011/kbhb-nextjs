@@ -2,6 +2,8 @@ import {parseNavItems} from "../utils/navHelper"
 import Link from "../utils/ActiveLink"
 import React, {useState} from "react"
 import mainTheme from "../styles/katTheme"
+import {useNav} from "../utils/cachedData"
+import decodeHtmlSpecialChars from "../utils/decodeHtmlSpecialChars"
 
 const HamburgerMenu = ({navItems}) => {
   const [menuIsExpanded, setMenuIsExpanded] = useState(false)
@@ -10,7 +12,10 @@ const HamburgerMenu = ({navItems}) => {
     e.preventDefault()
     setMenuIsExpanded(!menuIsExpanded)
   }
-
+  const {data, isLoading, isError} = useNav()
+  if (!isLoading){
+    navItems = data.items
+  }
   if (navItems === null) {
     return (
       <></>
@@ -44,16 +49,20 @@ const HamburgerMenu = ({navItems}) => {
                       return (
                         <li key={item.url}>
                           <a href={item.url}>
-                            {item.title}
+                            {decodeHtmlSpecialChars(item.title)}
                           </a>
                         </li>
                       )
                     } else {
                       return (
                         <li key={item.url}>
-                          <Link activeClassName="active-link" href={`${item.parentSlug}/${item.slug}`}>
+                          <Link
+                            href={item.object === "page" ? `/[slug]` : `/${item.object}/[slug]`}
+                            as={item.object === "page" ? `/${item.slug}` : `/${item.object}/${item.slug}`}
+                            passHref
+                          >
                             <a>
-                              {item.title}
+                              {decodeHtmlSpecialChars(item.title)}
                             </a>
                           </Link>
                         </li>
@@ -66,7 +75,7 @@ const HamburgerMenu = ({navItems}) => {
               if (type === 'custom') {
                 return (
                   <li key={key}>
-                    <a href={href}>{label}</a>
+                    <a href={href}>{decodeHtmlSpecialChars(label)}</a>
                     {subMenu}
                   </li>
                 )
@@ -74,7 +83,7 @@ const HamburgerMenu = ({navItems}) => {
                 return (
                   <li key={key}>
                     <Link activeClassName=" active-link" href={href}>
-                      <a>{label}</a>
+                      <a>{decodeHtmlSpecialChars(label)}</a>
                     </Link>
                     {subMenu}
                   </li>
@@ -120,7 +129,7 @@ const HamburgerMenu = ({navItems}) => {
           .hamburger-menu-list{
             display: flex;
             flex-direction: column;
-            background: ${mainTheme.background};
+            background: ${mainTheme.accent};
             box-sizing: border-box;
             padding: 7px;
             padding-top: 14px;

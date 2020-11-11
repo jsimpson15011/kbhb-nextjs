@@ -1,5 +1,5 @@
 const mainTheme = {
-  menuBreakPoint: '1000px',
+  menuBreakPoint: '1450px',
   maxWidth: '1500px',
   brand: '#eaeaea',
   brand100: '#E8EDF0',
