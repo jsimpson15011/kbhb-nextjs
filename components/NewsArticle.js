@@ -6,7 +6,7 @@ import {articleDate, categoryColor} from "../utils/articleFunctions"
 const NewsArticle = (props) => {
 
   if (props.topStory) {
-    const mainImg = props.article.images[0].news_photo_large
+    const mainImg = props.article.images[0] ? props.article.images[0].news_photo_large : false
     return (
       <>
         <Link href={`/news/${encodeURIComponent(props.article.slug)}`}>
@@ -14,13 +14,17 @@ const NewsArticle = (props) => {
             <article>
               <div className="image-col">
                 <h2 className="top-story">Top Story</h2>
-                <Image
-                  src={mainImg[0]}
-                  width={mainImg[1]}
-                  height={mainImg[2]}
-                  alt=""
-                  layout="responsive"
-                />
+                {
+                  mainImg ?
+                    <Image
+                    src={mainImg[0]}
+                    width={mainImg[1]}
+                    height={mainImg[2]}
+                    alt=""
+                    layout="responsive"
+                  /> :
+                    ""
+                }
               </div>
               <div className="text-col">
                 <div className="date-headline">

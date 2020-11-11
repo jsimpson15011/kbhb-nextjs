@@ -8,18 +8,18 @@ import anime from "animejs"
 import {activeItemsOnly} from "../utils/eventHelpers"
 
 import {baseUrl, metaDescription, siteTitle} from "../site-settings"
-import {fetcher} from "../utils/cachedData"
+import {fetcher, useArticles} from "../utils/cachedData"
 import SideBar from "../components/SideBar"
 import NewsArticle from "../components/NewsArticle"
 import {categoryColor} from "../utils/articleFunctions"
 
 const Home = props => {
   const categories = props.categories
-  const articles = props.articles
+  const {articles, isLoading, isError} = useArticles({url: `${baseUrl}/wp-json/wp/v2/posts?per_page=100`,initialData: props.articles})
   const topStory = articles.filter(article => {
     return article.meta_box.news_top_story === "1"
   })[0]
-  const sideArticles = props.articles.filter(article => {
+  const sideArticles = articles.filter(article => {
     return article.meta_box.news_side_bar === "1"
   })
 
@@ -27,7 +27,7 @@ const Home = props => {
     return category.id === topStory.categories[0]
   })[0]
 
-  const onlyNews = props.articles.filter(article => {
+  const onlyNews = articles.filter(article => {
     return (
       (
         article.categories.indexOf(3) !== -1
@@ -64,7 +64,7 @@ const Home = props => {
     )
   })
 
-  const onlySports = props.articles.filter(article => {
+  const onlySports = articles.filter(article => {
     return (
       article.categories.indexOf(6) !== -1
       &&
@@ -235,7 +235,8 @@ export async function getStaticProps() {
         menuItems: menuItems,
         articles: articles,
         categories: categories
-      }
+      },
+      revalidate: 1
     }
   } catch (e) {
     console.log(e)

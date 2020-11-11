@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import MainLayout from "../../components/MainLayout"
 import Head from "next/dist/next-server/lib/head"
 import {baseUrl, siteTitle} from "../../site-settings"
-import {fetcher} from "../../utils/cachedData"
+import {fetcher, useArticles} from "../../utils/cachedData"
 import NewsArticle from "../../components/NewsArticle"
 import {categoryColor} from "../../utils/articleFunctions"
 import {useRouter} from "next/router"
@@ -11,7 +11,14 @@ import mainTheme from "../../styles/katTheme"
 const Category = props => {
   const router = useRouter()
 
-  if (!props.articles) {
+  if (!props.articles || !props.category) {
+    return (
+      <h2>Loading...</h2>
+    )
+  }
+  const {articles, isLoading, isError} = useArticles({url: `${baseUrl}/wp-json/wp/v2/posts?per_page=10&categories=${props.category.id}`,initialData: props.articles})
+
+  if (isLoading){
     return (
       <h2>Loading...</h2>
     )
@@ -19,7 +26,7 @@ const Category = props => {
 
 
   const perPage = 10
-  const [newsArticles, setNewsArticles] = useState(props.articles)
+  const [newsArticles, setNewsArticles] = useState(articles)
   const [offset, setOffset] = useState(perPage)
   const [loadButtonState, setLoadButtonState] = useState('block')
 
@@ -31,7 +38,7 @@ const Category = props => {
       setOffset(perPage)
       }
     )
-  }, [router.asPath])
+  }, [router.asPath, articles])
 
   const articleJSX = newsArticles.map(article => {
     return (
@@ -131,7 +138,8 @@ export async function getStaticProps({params, preview = false, previewData}) {
         articles: articles,
         category: categories[0],
         key: categories[0]
-      }
+      },
+      revalidate: 1
     }
   } catch (e) {
     console.log(e)

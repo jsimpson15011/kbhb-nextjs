@@ -141,3 +141,12 @@ export function useClosures () {
     isError: error
   }
 }
+
+export function useArticles ({url=`${baseUrl}/wp-json/wp/v2/posts?per_page=100`,initialData= null}) {
+  const {data, error} = useSWR(url, fetcher, {initialData: initialData})
+  return {
+    articles: data,
+    isLoading: !error && !data,
+    isError: error
+  }
+}

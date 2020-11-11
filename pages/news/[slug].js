@@ -4,7 +4,7 @@ import MainLayout from "../../components/MainLayout"
 import Head from "next/dist/next-server/lib/head"
 import DynamicContent from "../../components/DynamicContent"
 import {baseUrl, siteTitle} from "../../site-settings"
-import {fetcher} from "../../utils/cachedData"
+import {fetcher, useArticles} from "../../utils/cachedData"
 import {activeItemsOnly} from "../../utils/eventHelpers"
 import NewsArticle from "../../components/NewsArticle"
 import {useRouter} from "next/router"
@@ -12,31 +12,47 @@ import {useRouter} from "next/router"
 const NewsPage = props => {
   const router = useRouter()
 
-  if (!props.article) {
+
+  if (!props.articles) {
+    return (
+      <h2>Loading...</h2>
+    )
+  }
+  const {articles, isLoading, isError} = useArticles({url: `${baseUrl}/wp-json/wp/v2/posts?slug=${router.query.slug}`,initialData: props.articles})
+
+  if (isLoading){
     return (
       <h2>Loading...</h2>
     )
   }
 
   const storyCat = props.categories.filter(category => {
-    return category.id === props.article.categories[0]
+    return category.id === articles[0].categories[0]
   })
   return (
     <MainLayout>
       <Head>
-        <title>{siteTitle} - {props.article.title.rendered}</title>
+        <title>{siteTitle} - {articles[0].title.rendered}</title>
         <link rel='icon' href='/favicon.ico'/>
         <meta property="og:url"
               content={`https://www.kbhbradio.com${router.asPath}`} />
         <meta property="og:type" content="article"/>
-        <meta property="og:title" content={props.article.title.rendered}/>
-        <meta property="og:image"
-              content={props.article.images[0].news_photo_full[0]}/>
-              <meta property="og:width" content={props.article.images[0].news_photo_full[1]}/>
-              <meta property="og:height" content={props.article.images[0].news_photo_full[2]}/>
+        <meta property="og:title" content={articles[0].title.rendered}/>
+        {
+          articles[0].images[0] ?
+            <>
+            <meta property="og:image"
+                  content={articles[0].images[0].news_photo_full[0]}/>
+            <meta property="og:width" content={articles[0].images[0].news_photo_full[1]}/>
+          <meta property="og:height" content={articles[0].images[0].news_photo_full[2]}/>
+          </>
+          :
+          ""
+        }
+
       </Head>
       <NewsArticle
-        article={props.article}
+        article={articles[0]}
         category={storyCat[0].name}
       />
     </MainLayout>
@@ -69,9 +85,10 @@ export async function getStaticProps({params, preview = false, previewData}) {
 
     return {
       props: {
-        article: articles[0],
+        articles: articles,
         categories: categories
-      }
+      },
+      revalidate: 1
     }
   } catch (e) {
     console.log(e)

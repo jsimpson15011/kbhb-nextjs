@@ -118,7 +118,8 @@ export async function getStaticProps() {
       content: data[0],
       menuItems: menuItems,
       auctionItems: auctionItems
-    }
+    },
+    revalidate: 1
   }
 }
 
