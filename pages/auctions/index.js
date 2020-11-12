@@ -33,14 +33,15 @@ const Auction = props => {
                 item.meta_box.auction_images.map(image => {
                     const thumbnail = image.sizes.thumbnail
                     return (
-
-                      <img
-                        src={image.full_url}
-                        width={thumbnail.width}
-                        height={thumbnail.height}
-                        alt=""
-                        key={thumbnail.url}
-                      />
+                      <a href={image.full_url} data-attribute="SRL">
+                        <img
+                          src={thumbnail.url}
+                          width={thumbnail.width}
+                          height={thumbnail.height}
+                          alt=""
+                          key={thumbnail.url}
+                        />
+                      </a>
 
                     )
                   }
