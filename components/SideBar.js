@@ -1,13 +1,19 @@
 import React from 'react'
-import Link from "next/link"
 import Image from "next/image"
-import {articleDate, categoryColor, getCategory} from "../utils/articleFunctions"
 import NewsArticle from "./NewsArticle"
+import Weather from "./Weather"
 
 const SideBar = (props) => {
   if (!props.articles){
     return(
       <div className="sideBar">
+        <h2>Weather</h2>
+        {
+          props.noWeather ?
+            "" :
+            <Weather sidebar/>
+        }
+
         <a href="https://v7player.wostreaming.net/2825">
           <Image
             src="/img/listen-live.jpg"
@@ -81,6 +87,8 @@ const SideBar = (props) => {
   return (
     <div className="sideBar">
       {articles}
+      <h2>Weather</h2>
+      <Weather sidebar/>
       <a href="https://v7player.wostreaming.net/2825">
         <Image
           src="/img/listen-live.jpg"

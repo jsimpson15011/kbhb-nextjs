@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react'
 import Header from "./Header"
 import Footer from "./Footer"
-import MaxWidthWrapper from "./MaxWidthWrapper"
 import {initGA, logPageView} from "../utils/analytics"
 import SideBar from "./SideBar"
 
@@ -21,7 +20,7 @@ const Layout = props => {
       <div className='wrapper'>
           {props.children}
       </div>
-      <SideBar/>
+      <SideBar noWeather={props.noWeather} />
     </div>
     <Footer/>
     <style jsx>

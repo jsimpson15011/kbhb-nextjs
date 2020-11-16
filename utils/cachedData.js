@@ -150,3 +150,13 @@ export function useArticles ({url=`${baseUrl}/wp-json/wp/v2/posts?per_page=100`,
     isError: error
   }
 }
+
+export function useWeather(){
+  const {data, error} = useSWR("https://api.weather.gov/gridpoints/UNR/88,73/forecast", fetcher)
+
+  return{
+    weather: data,
+    isLoading: !error && !data,
+    isError: error
+  }
+}
