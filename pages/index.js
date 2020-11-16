@@ -16,6 +16,17 @@ import {categoryColor} from "../utils/articleFunctions"
 const Home = props => {
   const categories = props.categories
   const {articles, isLoading, isError} = useArticles({url: `${baseUrl}/wp-json/wp/v2/posts?per_page=100`,initialData: props.articles})
+  if (isLoading){
+    return (
+      <h2>Loading...</h2>
+    )
+  }
+  if (isError){
+    return(
+      <>
+      </>
+    )
+  }
   const topStory = articles.filter(article => {
     return article.meta_box.news_top_story === "1"
   })[0]
@@ -210,16 +221,8 @@ export async function getStaticProps() {
           promotionInfo.smallImage = promotion.meta_box.event_square_image[0].full_url
         }
 
-        if (parseInt(promotion.meta_box.event_show_on_home_page)) {
-          promotionInfo.showOnSlider = true
-        } else {
-          promotionInfo.showOnSlider = false
-        }
-        if (parseInt(promotion.meta_box.event_show_below_slider)) {
-          promotionInfo.showBelowSlider = true
-        } else {
-          promotionInfo.showBelowSlider = false
-        }
+        promotionInfo.showOnSlider = !!parseInt(promotion.meta_box.event_show_on_home_page);
+        promotionInfo.showBelowSlider = !!parseInt(promotion.meta_box.event_show_below_slider);
         if (promotion.type === 'slideshowimageonly') {
           promotionInfo.slideIsImageOnly = true
         }
