@@ -32,6 +32,12 @@ const Auction = props => {
               {
                 item.meta_box.auction_images.map(image => {
                     const thumbnail = image.sizes.thumbnail
+                    if (!thumbnail){
+                      return (
+                        <>
+                        </>
+                      )
+                    }
                     return (
                       <a href={image.full_url} data-attribute="SRL">
                         <img
@@ -42,7 +48,6 @@ const Auction = props => {
                           key={thumbnail.url}
                         />
                       </a>
-
                     )
                   }
                 )
@@ -65,6 +70,7 @@ const Auction = props => {
               color: white;
               padding: 14px;
               box-sizing: border-box;
+              width: 100%;
             }
             .content{
               width: 700px;
