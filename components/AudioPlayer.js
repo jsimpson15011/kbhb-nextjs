@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react"
 import ReactHtmlParser from "react-html-parser"
 
 const AudioTrack = props => {
-  //test
   return (
     <button className="track-item" onClick={() => props.setCurrentTrackNumber(props.trackNumber)}>
       {ReactHtmlParser(props.title)}
@@ -34,21 +33,24 @@ const AudioPlayer = props => {
   const [currentTrackNumber, setCurrentTrackNumber] = useState(0)
   const [autoplayIsOn, setAutoPlay] = useState(false)
 
+  const onClick = (trackNumber) => {
+    setCurrentTrackNumber(trackNumber)
+  }
+
   const tracks = props.audio.map((track, index) => {
     return (
       <AudioTrack
         key={track.title}
         title={track.title}
         trackNumber={index}
-        setCurrentTrackNumber={setCurrentTrackNumber}
+        setCurrentTrackNumber={onClick}
         currentTrackNumber={currentTrackNumber}
       />
     )
   })
 
   useEffect(() => {
-    document.getElementById('audio').load()
-    autoplayIsOn ? document.getElementById('audio').play() : setAutoPlay(!autoplayIsOn)
+    document.getElementById(`audio-${props.title}`).load()
   }, [currentTrackNumber])
 
 
@@ -58,7 +60,7 @@ const AudioPlayer = props => {
         <div className="current-track">
           {ReactHtmlParser(props.audio[currentTrackNumber].title)}
         </div>
-        <audio id="audio" controls onEnded={() => {
+        <audio id={`audio-${props.title}`} controls onEnded={() => {
           setCurrentTrackNumber(
             (currentTrackNumber + 1) === props.audio.length ? 0 : currentTrackNumber + 1
           )
@@ -77,18 +79,20 @@ const AudioPlayer = props => {
           .audio-player-container{
             display: block;
             width: 750px;
-            padding: 7px;
+            overflow:hidden;
+            padding: 0;
+            padding-bottom: 21px;
             box-sizing: border-box;
             margin-left: auto;
             margin-right: auto;
             min-width: 50%;
             max-width: 100%;
-            background: #353535;
+            background: #edf3f5;
             margin-bottom: 14px;
+            box-shadow: gray 2px 2px 2px;
           }
           .track-and-controls{
-            background: black;
-            padding: 7px;
+            padding: 0;
             box-sizing: border-box;
           }
           .current-track{
@@ -96,8 +100,11 @@ const AudioPlayer = props => {
             font-weight: bold;
             margin-bottom: 7px;
             font-size: 1.5em;
+            color: white;
+            background: #3B73B1;
+            padding: 14px;
           }
-          #audio{
+          audio{
             max-width:100%;
             width: 500px;
             margin-left:auto;
@@ -116,7 +123,7 @@ const AudioPlayer = props => {
             }
           }
           .track-list{
-            width: 500px;
+            width: 100%;
             margin-left:auto;
             margin-right:auto;
             max-width:100%;
