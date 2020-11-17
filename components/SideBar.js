@@ -7,7 +7,7 @@ const SideBar = (props) => {
   if (!props.articles){
     return(
       <div className="sideBar">
-        <h2>Weather</h2>
+
         {
           props.noWeather ?
             "" :

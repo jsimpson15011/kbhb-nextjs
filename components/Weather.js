@@ -118,6 +118,12 @@ const Weather = props => {
 
   return (
     <div>
+      {
+        props.sidebar ?
+          <h2>Weather</h2>
+          : ""
+      }
+
       {forecast}
       {
         props.sidebar ?
