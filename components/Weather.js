@@ -83,7 +83,7 @@ const Weather = props => {
                 props.sidebar ? ".9rem" : "1.2rem"
               }; 
                   text-align: center;
-                  margin-top: 7px;
+                  margin-top: 0;
                   margin-bottom: 7px;
                   background: #163858;
                   color: white;
