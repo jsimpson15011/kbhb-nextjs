@@ -12,7 +12,7 @@ const Weather = props => {
       </div>
     )
   }
-  if (isError) {
+  if (isError || !weather.properties) {
     return (
       <></>
     )
