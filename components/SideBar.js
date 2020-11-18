@@ -87,7 +87,6 @@ const SideBar = (props) => {
   return (
     <div className="sideBar">
       {articles}
-      <h2>Weather</h2>
       <Weather sidebar/>
       <a href="https://v7player.wostreaming.net/2825">
         <Image
