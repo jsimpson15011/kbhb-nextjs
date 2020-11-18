@@ -255,7 +255,7 @@ const NewsArticle = (props) => {
     )
   }
   else {//the default article
-    const images = props.article.images.map(image => {
+    const images = props.article.images ? props.article.images.map(image => {
       const fileInfo = image.news_photo_full
 
       if (image.photo_caption || image.photo_source) {
@@ -324,7 +324,7 @@ const NewsArticle = (props) => {
       }
 
 
-    })
+    }) : ""
     return (
       <>
         <article>
