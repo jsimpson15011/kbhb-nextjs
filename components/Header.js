@@ -204,15 +204,20 @@ const Header = ({menuItems}) => {
         body {
           line-height: 1.4;
         }
+        .content ul{
+          list-style: disc;
+          margin-block-start: 1em;
+          margin-block-end: 1em;
+          margin-inline-start: 0;
+          margin-inline-end: 0;
+          padding-inline-start: 1em;
+        }
         
-        .contents{
+        /*.contents{
         background: white;
         color: #3E3E3E;
         padding: 1px;
-      }
-      .content li{
-        color: white;
-      }
+      }*/
       b, strong{
         font-weight: bold;
       }
