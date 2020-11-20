@@ -10,7 +10,6 @@ import SimpleReactLightBox, {SRLWrapper} from "simple-react-lightbox"
 
 const Auction = props => {
   const router = useRouter()
-  console.log(props.auctionItems)
 
   if (router.isFallback || !props.auctionItems) {
     return (
@@ -23,39 +22,41 @@ const Auction = props => {
   const auctionItems = props.auctionItems.map(item => {
 
     return (
-      <SimpleReactLightBox key={item.id}>
-        <div className="item">
+      <React.Fragment key={item.id}>
+        <SimpleReactLightBox>
+          <div className="item">
 
-          <h3>{item.title.rendered}</h3>
-          <div className="images">
-            <SRLWrapper>
-              {
-                item.meta_box.auction_images.map(image => {
-                    const thumbnail = image.sizes.thumbnail
-                    if (!thumbnail){
+            <h3>{item.title.rendered}</h3>
+            <div className="images">
+              <SRLWrapper>
+                {
+                  item.meta_box.auction_images.map(image => {
+                      const thumbnail = image.sizes.thumbnail
+                      if (!thumbnail) {
+                        return (
+                          <React.Fragment key={image.full_url}>
+                          </React.Fragment>
+                        )
+                      }
                       return (
-                        <>
-                        </>
+                        <a href={image.full_url} data-attribute="SRL" key={image.full_url}>
+                          <img
+                            src={thumbnail.url}
+                            width={thumbnail.width}
+                            height={thumbnail.height}
+                            alt=""
+                            key={thumbnail.url}
+                          />
+                        </a>
                       )
                     }
-                    return (
-                      <a href={image.full_url} data-attribute="SRL">
-                        <img
-                          src={thumbnail.url}
-                          width={thumbnail.width}
-                          height={thumbnail.height}
-                          alt=""
-                          key={thumbnail.url}
-                        />
-                      </a>
-                    )
-                  }
-                )
-              }
-            </SRLWrapper>
+                  )
+                }
+              </SRLWrapper>
+            </div>
+            <div className="content" dangerouslySetInnerHTML={{__html: item.content.rendered}}/>
           </div>
-          <div className="content" dangerouslySetInnerHTML={{__html: item.content.rendered}}/>
-        </div>
+        </SimpleReactLightBox>
         <style jsx>
           {`
             .item{
@@ -94,7 +95,8 @@ const Auction = props => {
             }
 `}
         </style>
-      </SimpleReactLightBox>
+      </React.Fragment>
+
     )
   })
 
