@@ -11,10 +11,8 @@ const BullSalesPage = props => {
   })
 
   const salesJSX = nonExpired.map(item => {
-    console.log(item)
     return (
-      <div className="item">
-
+      <div className="item" key={item.id}>
         <h3 dangerouslySetInnerHTML={{__html: item.title.rendered}}/>
         <div className="images">
           <Image
