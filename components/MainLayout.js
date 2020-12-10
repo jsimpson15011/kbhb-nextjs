@@ -3,6 +3,7 @@ import Header from "./Header"
 import Footer from "./Footer"
 import {initGA, logPageView} from "../utils/analytics"
 import SideBar from "./SideBar"
+import BannerAd from "./BannerAd"
 
 const Layout = props => {
   useEffect(() => {
@@ -18,6 +19,7 @@ const Layout = props => {
     <Header menuItems={props.menuItems}/>
     <div className='contents'>
       <div className='wrapper'>
+        <BannerAd position="top"/>
           {props.children}
       </div>
       <SideBar noWeather={props.noWeather} />

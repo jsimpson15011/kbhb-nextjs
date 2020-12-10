@@ -1,7 +1,10 @@
 import React from 'react'
+import {useRouter} from "next/router"
 import {useBannerAds} from "../utils/cachedData"
 
-const BannerAd = ({position, page}) => {
+const BannerAd = ({position}) => {
+  const router = useRouter()
+  const currentSlug = router.query.slug || router.route.replace('/','')
   const {data, isLoading, isError} = useBannerAds()
 
   if (isLoading && !isError) {
@@ -14,9 +17,9 @@ const BannerAd = ({position, page}) => {
     return bannerAd.meta_box.banner_location.indexOf(position) !== -1
   })
 
-  if (typeof page !== 'undefined' && position !== "header"){
+  if (position !== "header"){
     filteredAds = filteredAds.filter(bannerAd => {
-      /*TODO add page filter for banner ads*/
+      return bannerAd['page-slugs'].indexOf(currentSlug) !== -1
     })
   }
 
@@ -30,7 +33,9 @@ const BannerAd = ({position, page}) => {
 
   const currentBanner = filteredAds[randomInt]
 
-  console.log(currentBanner.meta_box.banner_banner_image[0].width)
+  if (!currentBanner){
+    return <></>
+  }
 
   return (
     <div className="banner-container">
