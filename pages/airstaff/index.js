@@ -3,38 +3,58 @@ import fetch from "isomorphic-unfetch"
 import MainLayout from "../../components/MainLayout"
 import {withRedux} from "../../lib/redux"
 import Head from "next/head"
-import Link from "next/link"
+import Image from "next/image"
 import {baseUrl, metaDescription, siteTitle} from "../../site-settings"
+import ReactHtmlParser from "react-html-parser"
 
 const Personalities = props => {
+  let mapIndex = 0
   const personalityLinks = props.personalities.map(personality => {
+    mapIndex += 1
+    const mainImg = personality.images
     return (
-      <div key={personality.slug}>
-        <Link href={'/personalities/' + personality.slug}>
-          <a>
-            {personality.title.rendered}
-          </a>
-        </Link>
+      <div className="air-staff" key={personality.slug}>
+        {
+          mainImg ?
+            <Image
+              className="air-staff__img"
+              src={mainImg[0]}
+              width={mainImg[1]}
+              height={mainImg[2]}
+              alt=""
+            /> :
+            ""
+        }
+        <div className="air-staff__text">
+          <h2>
+            {ReactHtmlParser(personality.title.rendered)}
+          </h2>
+          {ReactHtmlParser(personality.content.rendered)}
+        </div>
+
+
         <style jsx>
-          {`
-            a{
-              font-size: 1.5em;
-              color: black;
-              background: #f8f8f8;
-              text-decoration: none;
-              padding: 7px;
-              box-shadow: #303030 2px 2px 2px;
-            }
-            a:focus, a:hover{
-              box-shadow: #303030 1px 1px 2px;
-            }
-            a:active{
-              box-shadow: #303030 0 0 2px;
-            }
-            div{
+          {`                  
+            .air-staff{
+              display: flex;
+              flex-wrap: wrap;
+              align-items: center;
+              background: ${mapIndex % 2 ? '#e4eaf5' : 'white'};
+              padding: 14px;
+              box-sizing: border-box;
+              width: 100%;
               margin-bottom: 14px;
               margin-top: 14px;
+              justify-content: space-around;
             }
+            .air-staff__text{
+              width: 850px;
+              max-width: 100%;
+            }
+            .air-staff__img{
+              align-self: flex-start;
+            }
+            
           `}
         </style>
       </div>
@@ -49,7 +69,6 @@ const Personalities = props => {
               content={`${metaDescription}`}/>
       </Head>
       <MainLayout>
-        <h2>Personalities</h2>
         <nav>
           {personalityLinks}
         </nav>
@@ -70,7 +89,7 @@ const Personalities = props => {
 }
 
 Personalities.getInitialProps = async () => {
-  const personalityRes = await fetch(`${baseUrl}/wp-json/wp/v2/personality?per_page=100`)
+  const personalityRes = await fetch(`${baseUrl}/wp-json/wp/v2/personality?per_page=100&order=asc`)
   const personalityData = await personalityRes.json()
 
 
