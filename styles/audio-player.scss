@@ -1,0 +1,125 @@
+.media-control {
+  color: white;
+  &--button {
+    border: 2px solid transparent;
+    background: none;
+    border-radius: 50%;
+    height: 45px;
+    width: 45px;
+    padding-left: 7px;
+    overflow: hidden;
+    cursor: pointer;
+    svg{
+      fill: #dbdbdb;
+      width: 100%;
+    }
+    &:hover, &:focus{
+      svg{
+        fill: white;
+        width: 100%;
+      }
+    }
+    &-outlined{
+      border: 1px solid #ffffff;
+    }
+  }
+  &-group{
+    display: flex;
+    align-items: center;
+  }
+  &--seekbar{
+    margin-right: 7px;
+    width: 180px;
+  }
+  &--volume{
+    width: 180px;
+  }
+
+}
+.media-row{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.media-controls{
+  color: white;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background: #284a67;
+  box-sizing: border-box;
+  padding: 21px;
+  border-bottom: 4px solid #030822;
+}
+
+.container {
+  background:#eb6c5b;
+  padding:20px;
+}
+input[type="range"]{
+  -webkit-appearance: none;
+  height: 8px;
+  outline: none !important;
+  appearance:none;
+  border:none;
+  border-radius:30px;
+}
+input[type="range"]::-moz-focus-outer {
+  border: 0;
+}
+input[type="range"]:hover {
+  outline:none;
+}
+
+/* Chrome */
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 9px;
+  height: 9px;
+  background: #4CAF50;
+  cursor: pointer;
+  border-radius:30px;
+  outline:none;
+}
+
+/* Moz */
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #f1f9f4;
+  cursor: pointer;
+  border-radius:50%;
+  border:none;
+  outline:none;
+}
+input[type="range"]::-moz-range-progress {
+  background-color: #fff;
+  height: 100%;
+  border-radius:30px;
+  border:none;
+}
+input[type="range"]::-moz-range-track {
+  background-color: #ccc;
+  border-radius:30px;
+  border:none;
+  height: 100%;
+}
+
+/* IE*/
+
+input[type="range"]::-ms-fill-lower {
+  background-color: #fff;
+  height: 100%;
+  border-radius:30px;
+  border:none;
+}
+input[type="range"]::-ms-fill-upper {
+  background-color: #ccc;
+  border-radius:30px;
+  border:none;
+  height: 100%;
+}

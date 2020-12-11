@@ -11,7 +11,8 @@ const OnDemandPage = props => {
     return {
       title: article.title.rendered,
       url: article.meta_box.audio_file[0].url,
-      onDemandCategory: article['on-demand-category']
+      onDemandCategory: article['on-demand-category'],
+      thumbnail: article.images
     }
   })
 
