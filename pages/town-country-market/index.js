@@ -75,7 +75,7 @@ const Page = props => {
         <link rel='icon' href='/favicon.ico'/>
       </Head>
       <Image
-        src="/img/bull_sale.png"
+        src="/img/kbhb-town-and-country-market.jpg"
         width="701px"
         height="218px"
         layout="responsive"
