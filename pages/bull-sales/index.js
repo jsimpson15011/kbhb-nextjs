@@ -7,7 +7,7 @@ import Image from "next/image"
 
 const BullSalesPage = props => {
   const nonExpired = props.sales.filter(sale => {
-    return Date.now() / 1000 < sale.meta_box.bull_expiration_date
+    return Date.now() / 1000 < sale.meta_box.custom_expiration_date
   })
 
   const salesJSX = nonExpired.map(item => {
@@ -74,6 +74,12 @@ const BullSalesPage = props => {
         <title>{siteTitle} - {props.title}</title>
         <link rel='icon' href='/favicon.ico'/>
       </Head>
+      <Image
+        src="/img/bull_sale.png"
+        width="701px"
+        height="218px"
+        layout="responsive"
+      />
       {salesJSX}
       <style jsx>
         {
