@@ -70,7 +70,7 @@ export async function getStaticProps() {
     return {
       props: {
         articles: articles,
-        categories: categories
+        categories: categories.filter(category => {return category.meta_box['hide_on_main'] !== '1'})
       },
       revalidate: 1
     }
