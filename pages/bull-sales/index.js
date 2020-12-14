@@ -71,7 +71,7 @@ const BullSalesPage = props => {
   return (
     <MainLayout>
       <Head>
-        <title>{siteTitle} - {props.title}</title>
+        <title>{siteTitle} - Bull Sales</title>
         <link rel='icon' href='/favicon.ico'/>
       </Head>
       <Image

@@ -77,7 +77,7 @@ const Category = props => {
   return (
     <MainLayout>
       <Head>
-        <title>{siteTitle} - {props.title}</title>
+        <title>{siteTitle} - {props.category.name}</title>
         <link rel='icon' href='/favicon.ico'/>
       </Head>
       <div className="news-section">

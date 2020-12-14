@@ -71,7 +71,7 @@ const Page = props => {
   return (
     <MainLayout>
       <Head>
-        <title>{siteTitle} - {props.title}</title>
+        <title>{siteTitle} - Town and Country Market</title>
         <link rel='icon' href='/favicon.ico'/>
       </Head>
       <Image
