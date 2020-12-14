@@ -43,7 +43,8 @@ export async function getStaticProps(context) {
     props: {
       content: data[0],
       menuItems: menuItems
-    }
+    },
+    revalidate: 1
   }
 }
 
