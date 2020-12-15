@@ -105,6 +105,9 @@ const AudioPlayer = props => {
     )
   })
 
+  if (!tracks.length){
+    return ("")
+  }
   return (
     <div className="audio-player-container">
       <div className="track-and-controls">

@@ -49,7 +49,7 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`${baseUrl}/wp-json/wp/v2/pages?_embed&per_page=100&exclude=570,518,583,476`)
+  const res = await fetch(`${baseUrl}/wp-json/wp/v2/pages?_embed&per_page=100&exclude=570,518,583,476,1070`)
   const data = await res.json()
 
   const paths = data.map(page => ({
