@@ -54,9 +54,9 @@ const scheduleFetcher = (...args) => {
         const localeString = moment().format('hhmm a')
 
         const convertTo24 = time => {
-          return time.slice(-2) === 'am'
-            ? parseInt(time.slice(0, -2))
-            : Number(parseInt(time.slice(0, -2))) === 1200 ?
+          return time.slice(-2) === 'am' ?
+            parseInt(time.slice(0, -2))
+            : Number(parseInt(time.slice(0, -5))) === 12 ?
               Number(parseInt(time.slice(0, -2)))
               : Number(parseInt(time.slice(0, -2))) + 1200
         }
