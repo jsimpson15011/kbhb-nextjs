@@ -8,7 +8,7 @@ const Weather = props => {
 
   if (isLoading) {
     return (
-      <div>
+      <div style={{height: 465, width: 350}}>
         Loading Please Wait
       </div>
     )
@@ -57,9 +57,11 @@ const Weather = props => {
                 .container{
                   width: 200px;
                   min-width: 15%;
+                  padding: 0;
                   padding-bottom: 7px;
+                  box-sizing: border-box;
                   max-width:${
-                props.sidebar ? "49%" : "100%"
+                props.sidebar ? "40%" : "100%"
               }; 
                   background: #dcebef;
                 }
@@ -118,10 +120,10 @@ const Weather = props => {
 
 
   return (
-    <div>
+    <div className="weather-container">
       {
         props.sidebar ?
-          <h2>Weather</h2>
+          <h2 style={{width: "100%"}}>Weather</h2>
           : ""
       }
 
@@ -138,13 +140,11 @@ const Weather = props => {
       <style jsx>
         {
           `
-            div{
+            .weather-container{
               margin-bottom: 21px;
               display: flex;
               flex-wrap: wrap;
-              width: ${
-            props.sidebar ? "300px" : "auto"
-          };
+              width: ${props.sidebar ? "350px" : "auto"};
             }
             a{
               text-decoration: none;
