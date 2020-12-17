@@ -5,7 +5,7 @@ import Link from "next/link"
 import Nav from "./Nav"
 import LiveSchedule from "./LiveSchedule"
 import HamburgerMenu from "./HamburgerMenu"
-import {useSelector} from "react-redux"
+import Image from "next/image"
 import {facebookUrl} from "../site-settings"
 import Announcements from "./Announcements"
 import BannerAd from "./BannerAd"
@@ -18,7 +18,7 @@ const HeaderLogoContainer = () => {
         <h1>
           <Link href="/">
             <a>
-              <img className="header-logo__img" alt="Big 81 Ranch Radio KBHB" src="/img/logo.png"/>
+              <Image width={275} height={182} className="header-logo__img" alt="Big 81 Ranch Radio KBHB" src="/img/logo.png"/>
             </a>
           </Link>
         </h1>

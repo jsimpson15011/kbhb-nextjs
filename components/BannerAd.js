@@ -1,6 +1,7 @@
 import React from 'react'
 import {useRouter} from "next/router"
 import {useBannerAds} from "../utils/cachedData"
+import Image from "next/image"
 
 const BannerAd = ({position}) => {
   const router = useRouter()
@@ -36,11 +37,10 @@ const BannerAd = ({position}) => {
   if (!currentBanner){
     return <></>
   }
-
   return (
     <div className="banner-container">
       <a href={currentBanner.meta_box.banner_external_link}>
-        <img src={currentBanner.meta_box.banner_banner_image[0].full_url} alt={currentBanner.title.rendered}/>
+        <Image width={currentBanner.images[0].photo_full[1]} height={currentBanner.images[0].photo_full[2]} src={currentBanner.images[0].photo_full[0]} alt={currentBanner.title.rendered}/>
       </a>
       <style jsx>
         {`

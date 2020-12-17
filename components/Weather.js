@@ -1,6 +1,7 @@
 import React from 'react'
 import {useWeather} from "../utils/cachedData"
 import Link from "../utils/ActiveLink"
+import Image from "next/image"
 
 const Weather = props => {
   const {weather, isLoading, isError} = useWeather()
@@ -34,7 +35,7 @@ const Weather = props => {
 
             <div className="content">
               <div className="icon-temp">
-                <img src={item.icon} alt={item.shortForecast}/>
+                <Image width={64} height={64} src={item.icon} alt={item.shortForecast}/>
                 <span className="temp">{item.temperature}°F</span>
               </div>
               {
