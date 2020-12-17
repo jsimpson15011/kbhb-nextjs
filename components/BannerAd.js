@@ -10,7 +10,7 @@ const BannerAd = ({position}) => {
 
   if (isLoading && !isError) {
     return(
-      <div style={{height: "85px"}}/>
+      <></>
     )
   }
 
