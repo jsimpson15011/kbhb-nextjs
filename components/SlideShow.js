@@ -57,7 +57,6 @@ const BelowSlideShow = () => {
 }
 
 const SlideShow = ({slides}) => {
-  console.log(slides)
 
   const settings = {
     dots: true,
@@ -78,7 +77,6 @@ const SlideShow = ({slides}) => {
 
   return (
     <div className='slide-show'>
-      <LazyLoad>
         <Slider {...settings}>
           {slides
             .map(slide => {
@@ -115,7 +113,6 @@ const SlideShow = ({slides}) => {
               }
             })}
         </Slider>
-      </LazyLoad>
       <BelowSlideShow/>
       <style jsx>{`
         .slide-show img{

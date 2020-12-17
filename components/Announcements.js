@@ -11,7 +11,9 @@ const Announcements = () => {
 
   if (isLoading || closureIsLoading || !closureItems) {
     return (
-      <></>
+      <>
+      <div style={{width: "100%", height: 43}}/>
+      </>
     )
   }
   if (isError){
