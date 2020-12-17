@@ -2,7 +2,6 @@ import React from 'react'
 import mainTheme from "../styles/katTheme"
 import dynamic from "next/dynamic"
 
-const LazyLoad = dynamic(() => import('react-lazyload'))
 const Slider = dynamic(() => import('react-slick'))
 import Link from "next/link"
 import Image from "next/image"
@@ -99,7 +98,13 @@ const SlideShow = ({slides}) => {
                   <div className='slide-container' key={slide.image}>
                     <Link href={`/${slide.parentSlug}/[slug]`} as={`${slide.slug}`}>
                       <a>
-                        <img alt={slide.alt} src={slide.image}/>
+                        <Image
+                          alt={slide.alt}
+                          src={slide.image}
+                          height={slide.imageHeight}
+                          width={slide.imageWidth}
+                          layout="responsive"
+                        />
                       </a>
                     </Link>
                   </div>
@@ -107,7 +112,13 @@ const SlideShow = ({slides}) => {
               } else if (slide.image) {
                 return (
                   <div className='slide-container' key={slide.image}>
-                    <img alt={slide.alt} src={slide.image}/>
+                    <Image
+                      alt={slide.alt}
+                      src={slide.image}
+                      height={slide.imageHeight}
+                      width={slide.imageWidth}
+                      layout="responsive"
+                    />
                   </div>
                 )
               }
