@@ -26,9 +26,9 @@ const Weather = props => {
       return (
         <React.Fragment key={item.name}>
           {
-            forecastIndex % 2 !== 0 && forecastIndex !== 1 ?
+ /*           forecastIndex % 2 !== 0 && forecastIndex !== 1 ?
               <div className="day-divider"/>
-              : ""
+              : ""*/
           }
           <div key={item.name} className="container">
             <h2>{item.name}</h2>
@@ -47,15 +47,16 @@ const Weather = props => {
             </div>
           </div>
           {
-            forecastIndex === weather.properties.periods.length ?
+/*            forecastIndex === weather.properties.periods.length ?
               <div className="day-divider"/> :
-              ""
+              ""*/
           }
           <style jsx>
             {
               `
                 .container{
                   width: 200px;
+                  flex-grow: 1;
                   min-width: 15%;
                   padding: 0;
                   padding-bottom: 7px;
@@ -144,7 +145,9 @@ const Weather = props => {
               margin-bottom: 21px;
               display: flex;
               flex-wrap: wrap;
+              justify-content: space-around;
               width: ${props.sidebar ? "350px" : "auto"};
+              max-width: 100%;
             }
             a{
               text-decoration: none;
