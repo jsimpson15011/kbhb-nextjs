@@ -204,6 +204,7 @@ export async function getStaticProps() {
 
     const slides = activeItemsOnly(promoData)
       .map(promotion => {
+        console.log(promotion.meta_box.event_home_slide[0].sizes.large)
         let promotionInfo = {
           parentSlug: promotion.type.replace('_', '-'),
           slug: `/${promotion.type.replace('_', '-')}/${promotion.slug}`,
@@ -214,7 +215,9 @@ export async function getStaticProps() {
         }
 
         if (promotion.meta_box.event_home_slide && promotion.meta_box.event_home_slide[0]) {
-          promotionInfo.image = promotion.meta_box.event_home_slide[0].full_url
+          promotionInfo.image = promotion.meta_box.event_home_slide[0].sizes.large?.url
+          promotionInfo.imageWidth = promotion.meta_box.event_home_slide[0].sizes.large?.width
+          promotionInfo.imageHeight = promotion.meta_box.event_home_slide[0].sizes.large?.height
         }
 
         if (promotion.meta_box.event_square_image && promotion.meta_box.event_square_image[0]) {

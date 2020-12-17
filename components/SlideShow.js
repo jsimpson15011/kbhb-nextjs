@@ -5,6 +5,7 @@ import dynamic from "next/dynamic"
 const LazyLoad = dynamic(() => import('react-lazyload'))
 const Slider = dynamic(() => import('react-slick'))
 import Link from "next/link"
+import Image from "next/image"
 import {belowSlidesMessage, listenLiveUrl} from "../site-settings"
 
 const BelowSlideShow = () => {
@@ -56,6 +57,7 @@ const BelowSlideShow = () => {
 }
 
 const SlideShow = ({slides}) => {
+  console.log(slides)
 
   const settings = {
     dots: true,
@@ -84,7 +86,13 @@ const SlideShow = ({slides}) => {
                 return (
                   <div className='slide-container' key={slide.image}>
                     <a href={slide.externalLink}>
-                      <img alt={slide.alt} src={slide.image}/>
+                      <Image
+                        alt={slide.alt}
+                        src={slide.image}
+                        height={slide.imageHeight}
+                        width={slide.imageWidth}
+                        layout="responsive"
+                      />
                     </a>
                   </div>
                 )
