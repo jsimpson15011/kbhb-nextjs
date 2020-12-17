@@ -90,7 +90,7 @@ const Header = ({menuItems}) => {
       <style jsx>
         {`
         .main-header {
-          background: url("/img/windmill-background.jpg");
+          background: url("/img/windmill-background.webp");
           background-position: 80% 20%;
           padding: 0;
           height: 700px;
@@ -99,6 +99,10 @@ const Header = ({menuItems}) => {
           flex-direction: column;
           margin-bottom: 100px;
         }
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+   .main-header{background: url("/img/windmill-background.jpg");}
+}
+
         
         @media all and (min-width: 1350px){
         .main-header {
