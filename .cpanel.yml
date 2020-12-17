@@ -7,7 +7,6 @@ deployment:
     - /bin/cp -R pages $DEPLOYPATH
     - /bin/cp -R public $DEPLOYPATH
     - /bin/cp -R reducers $DEPLOYPATH
-    - /bin/cp -R hooks $DEPLOYPATH
     - /bin/cp -R styles $DEPLOYPATH
     - /bin/cp -R utils $DEPLOYPATH
     - /bin/cp next.config.js $DEPLOYPATH
