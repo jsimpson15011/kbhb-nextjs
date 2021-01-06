@@ -1,8 +1,6 @@
 import React from 'react'
 import mainTheme from "../styles/katTheme"
-import dynamic from "next/dynamic"
-
-const Slider = dynamic(() => import('react-slick'))
+import Slider from 'react-slick'
 import Link from "next/link"
 import Image from "next/image"
 import {belowSlidesMessage, listenLiveUrl} from "../site-settings"
@@ -14,7 +12,7 @@ const BelowSlideShow = () => {
       <a href={listenLiveUrl} className='listen-online'>Listen Online Now</a>
       <a href="https://thehomeslicegroup.com/" className='homeslice-media'>Homeslice Media Group</a>
       <style jsx>{`
-        div{
+        div {
           background: ${mainTheme.accent};
           color: white;
           display: flex;
@@ -26,31 +24,36 @@ const BelowSlideShow = () => {
           margin-bottom: 14px;
           margin-top: -6px;
         }
-        a:hover, a:focus{
+
+        a:hover, a:focus {
           background: ${mainTheme.accent};
           border: 1px solid
         }
-        h2{
+
+        h2 {
           margin-left: auto;
           margin-right: 3em;
           margin-bottom: 0;
           font-size: 1em;
         }
-        .listen-online{
+
+        .listen-online {
           background: black;
           border: 1px solid black;
         }
-        .homeslice-media{
+
+        .homeslice-media {
           background: #104b7d;
           border: 1px solid #104b7d;
           margin-right: 2em;
         }
-        .listen-online, .homeslice-media{
+
+        .listen-online, .homeslice-media {
           color: white;
           text-decoration: none;
           padding: .3em .8em;
         }
-    `}</style>
+      `}</style>
     </div>
   )
 }
@@ -59,7 +62,7 @@ const SlideShow = ({slides}) => {
 
   const settings = {
     dots: true,
-    lazyLoad: true,
+    lazyLoad: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -76,42 +79,26 @@ const SlideShow = ({slides}) => {
 
   return (
     <div className='slide-show'>
-        <Slider {...settings}>
-          {slides
-            .map(slide => {
-              if (slide.externalLink && slide.image) {
-                return (
-                  <div className='slide-container' key={slide.image}>
-                    <a href={slide.externalLink}>
-                      <Image
-                        alt={slide.alt}
-                        src={slide.image}
-                        height={slide.imageHeight}
-                        width={slide.imageWidth}
-                        layout="responsive"
-                      />
-                    </a>
-                  </div>
-                )
-              } else if (slide.image && !slide.slideIsImageOnly) {
-                return (
-                  <div className='slide-container' key={slide.image}>
-                    <Link href={`/${slide.parentSlug}/[slug]`} as={`${slide.slug}`}>
-                      <a>
-                        <Image
-                          alt={slide.alt}
-                          src={slide.image}
-                          height={slide.imageHeight}
-                          width={slide.imageWidth}
-                          layout="responsive"
-                        />
-                      </a>
-                    </Link>
-                  </div>
-                )
-              } else if (slide.image) {
-                return (
-                  <div className='slide-container' key={slide.image}>
+      <Slider {...settings}>
+        {slides
+          .map(slide => {
+            if (slide.externalLink && slide.image) {
+              return (
+                <a className='slide-container' key={slide.image} href={slide.externalLink}>
+                  <Image
+                    alt={slide.alt}
+                    src={slide.image}
+                    height={slide.imageHeight}
+                    width={slide.imageWidth}
+                    layout="responsive"
+                  />
+                </a>
+              )
+            } else if (slide.image && !slide.slideIsImageOnly) {
+              return (
+                <Link className='slide-container' key={slide.image} href={`/${slide.parentSlug}/[slug]`}
+                      as={`${slide.slug}`}>
+                  <a>
                     <Image
                       alt={slide.alt}
                       src={slide.image}
@@ -119,13 +106,25 @@ const SlideShow = ({slides}) => {
                       width={slide.imageWidth}
                       layout="responsive"
                     />
-                  </div>
-                )
-              }
-            })}
-        </Slider>
-      <BelowSlideShow/>
-      <style jsx>{`
+                  </a>
+                </Link>
+              )
+            } else if (slide.image) {
+              return (
+                <Image
+                  className='slide-container' key={slide.image}
+                  alt={slide.alt}
+                  src={slide.image}
+                  height={slide.imageHeight}
+                  width={slide.imageWidth}
+                  layout="responsive"
+                />
+              )
+            }
+          })}
+          </Slider>
+          <BelowSlideShow/>
+          <style jsx>{`
         .slide-show img{
           display: block;
           width: 100%;
@@ -143,8 +142,8 @@ const SlideShow = ({slides}) => {
           display: block;
         }
       `}</style>
-    </div>
-  )
-}
+          </div>
+          )
+        }
 
-export default SlideShow
+        export default SlideShow
