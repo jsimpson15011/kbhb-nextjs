@@ -16,3 +16,4 @@ deployment:
     - /bin/cp store.js $DEPLOYPATH
     - cd $DEPLOYPATH
     - npm install
+    - npm run build
