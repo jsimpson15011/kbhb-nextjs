@@ -17,3 +17,4 @@ deployment:
     - cd $DEPLOYPATH
     - npm install
     - npm run build
+    - pm2 restart kbhb-radio
