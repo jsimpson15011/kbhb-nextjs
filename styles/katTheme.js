@@ -1,10 +1,10 @@
 const mainTheme = {
   menuBreakPoint: '1450px',
   maxWidth: '1500px',
-  brand: '#eaeaea',
+  brand: '#f8f8f8',
   brand100: '#E8EDF0',
   background: '#efefef',
-  accent: '#3B73B1',
+  accent: '#2f629b',
 }
 
 export default mainTheme

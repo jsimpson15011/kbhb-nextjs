@@ -23,7 +23,6 @@ const LiveSchedule = () => {
           {`
           .listen-live {
             display: flex;
-            flex-wrap: wrap;
             align-items: center;
             background: ${mainTheme.background};
             color: ${mainTheme.accent};
@@ -121,14 +120,17 @@ const LiveSchedule = () => {
         {`
           .listen-live {
             display: flex;
-            flex-wrap: wrap;
             align-items: center;
             background: ${mainTheme.background};
             color: ${mainTheme.accent};
             text-decoration: none;
-            border-bottom-right-radius: 21px;
-            border-top-right-radius: 21px;
             filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.65));
+          }
+          @media all and (min-width: 616px){
+            .listen-live{
+              border-bottom-right-radius: 21px;
+              border-top-right-radius: 21px;
+            }
           }
 
           .image-wrapper {
