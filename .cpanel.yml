@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/kbhbradio/web-app
+    - export DEPLOYPATH=/home2/kbhbradio/web-app
     - /bin/cp -R components $DEPLOYPATH
     - /bin/cp -R lib $DEPLOYPATH
     - /bin/cp -R pages $DEPLOYPATH
