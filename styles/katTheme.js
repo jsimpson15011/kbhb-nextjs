@@ -4,7 +4,7 @@ const mainTheme = {
   brand: '#f8f8f8',
   brand100: '#E8EDF0',
   background: '#efefef',
-  accent: '#2f629B',
+  accent: '#2f629C',
 }
 
 export default mainTheme
