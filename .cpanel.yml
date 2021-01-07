@@ -14,6 +14,7 @@ deployment:
     - /bin/cp package-lock.json $DEPLOYPATH
     - /bin/cp site-settings.js $DEPLOYPATH
     - /bin/cp store.js $DEPLOYPATH
+    - /bin/cp processes.json $DEPLOYPATH
     - cd $DEPLOYPATH
     - npm install
     - npm run build
