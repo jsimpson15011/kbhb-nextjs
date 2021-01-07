@@ -3,7 +3,7 @@
     "name"        : "kbhb-radio",
     "script"      : "npm",
     "args" : "start",
-    "watch"       : ["../"],
+    "watch"       : true,
     "instances" : "max",
     "log_date_format"  : "YYYY-MM-DD HH:mm Z",
     "exec_mode" : "cluster"
