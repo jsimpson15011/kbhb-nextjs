@@ -1,7 +1,8 @@
 {
   "apps" : [{
     "name"        : "kbhb-radio",
-    "script"      : "next start -p 3007",
+    "script"      : "npm",
+    "args" : "start",
     "watch"       : ".next",
     "instances" : "max",
     "log_date_format"  : "YYYY-MM-DD HH:mm Z",
