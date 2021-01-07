@@ -1,6 +1,6 @@
 {
   "apps" : [{
-    "name"        : "someExpress4App",
+    "name"        : "kbhb-radio",
     "script"      : "next start -p 3007",
     "watch"       : ".next",
     "instances" : "max",
