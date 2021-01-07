@@ -1,0 +1,10 @@
+{
+  "apps" : [{
+    "name"        : "someExpress4App",
+    "script"      : "next start -p 3007",
+    "watch"       : ".next",
+    "instances" : "max",
+    "log_date_format"  : "YYYY-MM-DD HH:mm Z",
+    "exec_mode" : "cluster"
+  }]
+}
