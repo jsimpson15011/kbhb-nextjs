@@ -26,7 +26,7 @@ const Auction = props => {
         <SimpleReactLightBox>
           <div className="item">
 
-            <h3>{item.title.rendered}</h3>
+            <h3 dangerouslySetInnerHTML={{__html: item.title.rendered}}/>
             <div className="images">
               <SRLWrapper>
                 {
