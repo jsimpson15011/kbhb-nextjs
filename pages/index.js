@@ -243,7 +243,7 @@ export async function getStaticProps() {
         articles: articles,
         categories: categories
       },
-      revalidate: 15
+      revalidate: 30
     }
   } catch (e) {
     console.log(e)

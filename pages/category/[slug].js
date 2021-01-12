@@ -133,7 +133,7 @@ export async function getStaticProps({params, preview = false, previewData}) {
         category: categories[0],
         key: categories[0]
       },
-      revalidate: 15
+      revalidate: 30
     }
   } catch (e) {
     console.log(e)
