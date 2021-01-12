@@ -176,20 +176,25 @@ const NewsArticle = (props) => {
     )
   }
   if (props.summaryWithImage) {
-    const mainImg = props.article.images[0].news_photo_large
+    const mainImg = props.article.images[0] ? props.article.images[0].news_photo_large : false
     return (
       <>
         <Link href={`/news/${encodeURIComponent(props.article.slug)}`}>
           <a>
             <article>
-              <div className="image-col">
-                <Image
-                  src={mainImg[0]}
-                  width={mainImg[1]}
-                  height={mainImg[2]}
-                  alt=""
-                />
-              </div>
+                {
+                  mainImg ?
+                    <div className="image-col">
+                    <Image
+                    src={mainImg[0]}
+                    width={mainImg[1]}
+                    height={mainImg[2]}
+                    alt=""
+                  />
+                    </div>
+                  : ''
+                }
+
               <div className="text-col">
                 <div className="date-headline">
                   <span className="date">{articleDate(props.article.date)}</span>
@@ -227,7 +232,8 @@ const NewsArticle = (props) => {
               min-width: 39%;
             }
             .text-col{
-              width: 600px;
+              width: ${mainImg ? "600px" : "100%"};
+              flex-grow: 1;
               max-width: 100%;
               min-width: 59%;
             }

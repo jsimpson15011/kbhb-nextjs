@@ -29,7 +29,8 @@ const Home = props => {
   }
   const topStory = articles.filter(article => {
     return article.meta_box.news_top_story === "1"
-  })[0]
+  })[0] || articles[0]
+
   const sideArticles = articles.filter(article => {
     return article.meta_box.news_side_bar === "1"
   })
@@ -133,7 +134,7 @@ const Home = props => {
         <SlideShow slides={props.slides}/>
         <div className="contents">
           <div className="news-section">
-            <NewsArticle topStory article={topStory} category={topStoryCat.name}/>
+            <NewsArticle topStory article={topStory} category={topStoryCat?.name}/>
             <div className="news-section__col">
               <h2 className="news-section__header news-section__header--news">News</h2>
               {newsArticles}
@@ -204,7 +205,6 @@ export async function getStaticProps() {
 
     const slides = activeItemsOnly(promoData)
       .map(promotion => {
-        console.log(promotion.meta_box.event_home_slide[0].sizes.large)
         let promotionInfo = {
           parentSlug: promotion.type.replace('_', '-'),
           slug: `/${promotion.type.replace('_', '-')}/${promotion.slug}`,
