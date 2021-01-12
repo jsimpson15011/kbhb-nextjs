@@ -1,11 +1,8 @@
 import React from 'react'
-import fetch from "isomorphic-unfetch"
 import MainLayout from "../../components/MainLayout"
 import Head from "next/dist/next-server/lib/head"
-import DynamicContent from "../../components/DynamicContent"
 import {baseUrl, siteTitle} from "../../site-settings"
-import {fetcher, useArticles} from "../../utils/cachedData"
-import {activeItemsOnly} from "../../utils/eventHelpers"
+import {fetcher} from "../../utils/cachedData"
 import NewsArticle from "../../components/NewsArticle"
 import {useRouter} from "next/router"
 
@@ -18,13 +15,15 @@ const NewsPage = props => {
       <h2>Loading...</h2>
     )
   }
-  const {articles, isLoading, isError} = useArticles({url: `${baseUrl}/wp-json/wp/v2/posts?slug=${router.query.slug}`,initialData: props.articles})
 
+  const articles = props.articles
+  //const {articles, isLoading, isError} = useArticles({url: `${baseUrl}/wp-json/wp/v2/posts?slug=${router.query.slug}`,initialData: props.articles})
+/*
   if (isLoading){
     return (
       <h2>Loading...</h2>
     )
-  }
+  }*/
 
   const storyCat = props.categories.filter(category => {
     return category.id === articles[0].categories[0]

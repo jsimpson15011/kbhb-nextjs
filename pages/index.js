@@ -8,15 +8,16 @@ import anime from "animejs"
 import {activeItemsOnly} from "../utils/eventHelpers"
 
 import {baseUrl, metaDescription, siteTitle} from "../site-settings"
-import {fetcher, useArticles} from "../utils/cachedData"
+import {fetcher} from "../utils/cachedData"
 import SideBar from "../components/SideBar"
 import NewsArticle from "../components/NewsArticle"
 import {categoryColor} from "../utils/articleFunctions"
 
 const Home = props => {
   const categories = props.categories
-  const {articles, isLoading, isError} = useArticles({url: `${baseUrl}/wp-json/wp/v2/posts?per_page=100`,initialData: props.articles})
-  if (isLoading){
+  const articles = props.articles
+  /*const {articles, isLoading, isError} = useArticles({url: `${baseUrl}/wp-json/wp/v2/posts?per_page=100`,initialData: props.articles})*/
+/*  if (isLoading){
     return (
       <h2>Loading...</h2>
     )
@@ -26,7 +27,7 @@ const Home = props => {
       <>
       </>
     )
-  }
+  }*/
   const topStory = articles.filter(article => {
     return article.meta_box.news_top_story === "1"
   })[0] || articles[0]
