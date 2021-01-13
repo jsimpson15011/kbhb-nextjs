@@ -87,6 +87,7 @@ const Home = props => {
     )
   })
   onlyNews.length = onlyNews.length > 6 ? 6 : onlyNews.length
+  onlySports.length = onlySports.length > 6 ? 6 : onlySports.length
   const sportsArticles = onlySports.map(article => {
     return (
       <React.Fragment key={article.id}>
