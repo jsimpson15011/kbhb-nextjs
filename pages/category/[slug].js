@@ -2,26 +2,27 @@ import React, {useState, useEffect} from 'react'
 import MainLayout from "../../components/MainLayout"
 import Head from "next/dist/next-server/lib/head"
 import {baseUrl, siteTitle} from "../../site-settings"
-import {fetcher} from "../../utils/cachedData"
+import {fetcher, useArticles} from "../../utils/cachedData"
 import NewsArticle from "../../components/NewsArticle"
 import {categoryColor} from "../../utils/articleFunctions"
+import {useRouter} from "next/router"
+
 
 const Category = props => {
-/*  const router = useRouter()*/
+  const router = useRouter()
 
-/*  if (!props.articles || !props.category) {
+  if (!props.articles || !props.category) {
     return (
       <h2>Loading...</h2>
     )
-  }*/
-  const articles = props.articles
-/*  const {articles, isLoading, isError} = useArticles({url: `${baseUrl}/wp-json/wp/v2/posts?per_page=10&categories=${props.category.id}`,initialData: props.articles})
+  }
+  const {articles, isLoading, isError} = useArticles({url: `${baseUrl}/wp-json/wp/v2/posts?per_page=10&categories=${props.category.id}`,initialData: props.articles})
 
   if (isLoading){
     return (
       <h2>Loading...</h2>
     )
-  }*/
+  }
 
 
   const perPage = 10
@@ -30,11 +31,14 @@ const Category = props => {
   const [loadButtonState, setLoadButtonState] = useState('block')
 
   useEffect(() => {
+    const articles = fetcher(`${baseUrl}/wp-json/wp/v2/posts?per_page=${perPage}&categories=${props.category.id}`)
+    articles.then(articles => {
       setNewsArticles(articles)
       setLoadButtonState('block')
       setOffset(perPage)
-
-  }, [props.articles])
+      }
+    )
+  }, [router.asPath, articles])
 
   const articleJSX = newsArticles.map(article => {
     return (
