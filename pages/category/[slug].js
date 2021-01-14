@@ -9,11 +9,11 @@ import {categoryColor} from "../../utils/articleFunctions"
 const Category = props => {
 /*  const router = useRouter()*/
 
-  if (!props.articles || !props.category) {
+/*  if (!props.articles || !props.category) {
     return (
       <h2>Loading...</h2>
     )
-  }
+  }*/
   const articles = props.articles
 /*  const {articles, isLoading, isError} = useArticles({url: `${baseUrl}/wp-json/wp/v2/posts?per_page=10&categories=${props.category.id}`,initialData: props.articles})
 
