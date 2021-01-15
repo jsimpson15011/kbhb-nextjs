@@ -335,7 +335,7 @@ const NewsArticle = (props) => {
       <>
         <article>
           <div className="image-col">
-            <h3 dangerouslySetInnerHTML={{__html: props.article.title.rendered}}/>
+            <h1 dangerouslySetInnerHTML={{__html: props.article.title.rendered}}/>
             <div className="date-headline">
               <span className="source">{props.article.meta_box.news_source}</span>
               <span className="date">{articleDate(props.article.date)}</span>
@@ -385,9 +385,9 @@ const NewsArticle = (props) => {
               margin-top: 28px;
             }
            
-            h3{
+            h1{
               color: #141414;
-              font-size: 2.5rem;
+              font-size: 3rem;
               line-height: 1.1;
               width: 100%;
             }
