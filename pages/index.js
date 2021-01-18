@@ -15,25 +15,40 @@ import {categoryColor} from "../utils/articleFunctions"
 
 const Home = props => {
   const categories = props.categories
-  const {articles, isLoading, isError} = useArticles({url: `${baseUrl}/wp-json/wp/v2/posts?per_page=100`,initialData: props.articles})
-  if (isLoading){
+  const {articles, isLoading, isError} = useArticles({
+    url: `${baseUrl}/wp-json/wp/v2/posts?per_page=100`,
+    initialData: props.articles
+  })
+  if (isLoading) {
     return (
       <h2>Loading...</h2>
     )
   }
-  if (isError){
-    return(
+  if (isError) {
+    return (
       <>
       </>
     )
   }
   const topStory = articles.filter(article => {
-    return article.meta_box.news_top_story === "1"
+    return article.categories[0] === 3
   })[0] || articles[0]
 
-  const sideArticles = articles.filter(article => {
-    return article.meta_box.news_side_bar === "1"
-  })
+  const sideArticles = []
+  const addToSide = (articles, cat) => {
+    const newArticle = articles.filter(article => {
+      return article.categories[0] === cat
+    })[0]
+    if (newArticle) {
+      sideArticles.push(newArticle)
+    }
+  }
+  addToSide(articles, 3)
+  addToSide(articles, 6)
+  addToSide(articles, 8)
+  addToSide(articles, 9)
+  addToSide(articles, 4)
+
 
   const topStoryCat = categories.filter(category => {
     return category.id === topStory.categories[0]
@@ -44,9 +59,7 @@ const Home = props => {
       (
         article.categories.indexOf(3) !== -1
         &&
-        article.meta_box.news_side_bar !== "1"
-        &&
-        article.meta_box.news_top_story !== "1"
+        article.id !== topStory.id
       )
     )
   })
@@ -63,13 +76,13 @@ const Home = props => {
         <style jsx>
           {
             `
-            div{
-              width: 100%;
-              height: 2px;
-              background: #edf0f1;
-              margin-bottom: 14px;
-            }
-`
+              div {
+                width: 100%;
+                height: 2px;
+                background: #edf0f1;
+                margin-bottom: 14px;
+              }
+            `
           }
         </style>
       </React.Fragment>
@@ -80,9 +93,7 @@ const Home = props => {
     return (
       article.categories.indexOf(6) !== -1
       &&
-      article.meta_box.news_side_bar !== "1"
-      &&
-      article.meta_box.news_top_story !== "1"
+      article.id !== topStory.id
     )
   })
   onlyNews.length = onlyNews.length > 6 ? 6 : onlyNews.length
@@ -99,13 +110,13 @@ const Home = props => {
         <style jsx>
           {
             `
-            div{
-              width: 100%;
-              height: 2px;
-              background: #edf0f1;
-              margin-bottom: 14px;
-            }
-`
+              div {
+                width: 100%;
+                height: 2px;
+                background: #edf0f1;
+                margin-bottom: 14px;
+              }
+            `
           }
         </style>
       </React.Fragment>
@@ -149,45 +160,50 @@ const Home = props => {
         </div>
       </HomeLayout>
       <style jsx>{`
-      .hero {
-        width: 100%;
-        color: #333;
-      }
-      .contents{
-            display: flex;
-            max-width: 100%;
-            box-sizing: border-box;
-            width: 1600px;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: flex-start;
-            margin-left: auto;
-            margin-right: auto;
-      }
-      .news-section {
-            box-sizing: border-box;
-            padding: 21px;
-            max-width: 100%;
-            width: 1060px;
-            margin-right: 14px;
-            display: flex;
-            flex-wrap: wrap;
-            flex-grow: 1;
-      }
-      .news-section__col{
-        width: 300px;
-        min-width: 45%;
-        max-width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      .news-section__header--news{
-        color: ${categoryColor['News']};
-      }      
-      .news-section__header--sports{
-        color: ${categoryColor['Sports']};
-      }
-    `}</style>
+        .hero {
+          width: 100%;
+          color: #333;
+        }
+
+        .contents {
+          display: flex;
+          max-width: 100%;
+          box-sizing: border-box;
+          width: 1600px;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: flex-start;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .news-section {
+          box-sizing: border-box;
+          padding: 21px;
+          max-width: 100%;
+          width: 1060px;
+          margin-right: 14px;
+          display: flex;
+          flex-wrap: wrap;
+          flex-grow: 1;
+        }
+
+        .news-section__col {
+          width: 300px;
+          min-width: 45%;
+          max-width: 100%;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .news-section__header--news {
+          color: ${categoryColor['News']};
+        }
+
+        .news-section__header--sports {
+          color: ${categoryColor['Sports']};
+        }
+      `}</style>
     </div>
   )
 }
@@ -225,8 +241,8 @@ export async function getStaticProps() {
           promotionInfo.smallImage = promotion.meta_box.event_square_image[0].full_url
         }
 
-        promotionInfo.showOnSlider = !!parseInt(promotion.meta_box.event_show_on_home_page);
-        promotionInfo.showBelowSlider = !!parseInt(promotion.meta_box.event_show_below_slider);
+        promotionInfo.showOnSlider = !!parseInt(promotion.meta_box.event_show_on_home_page)
+        promotionInfo.showBelowSlider = !!parseInt(promotion.meta_box.event_show_below_slider)
         if (promotion.type === 'slideshowimageonly') {
           promotionInfo.slideIsImageOnly = true
         }
