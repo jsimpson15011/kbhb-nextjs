@@ -37,7 +37,7 @@ const Home = props => {
   const sideArticles = []
   const addToSide = (articles, cat) => {
     const newArticle = articles.filter(article => {
-      return article.categories[0] === cat
+      return article.categories[0] === cat && article.id !== topStory.id
     })[0]
     if (newArticle) {
       sideArticles.push(newArticle)
