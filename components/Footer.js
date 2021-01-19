@@ -44,6 +44,7 @@ const Footer = () => {
           }
           .ad-wrapper{
             width: 100%;
+            margin-bottom: 28px;
           }
           .contact a{
             color: black;
