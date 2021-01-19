@@ -146,7 +146,8 @@ const Home = props => {
         <Waypoint onEnter={() => handleFloatUpReveal('slide-show')}/>
         <SlideShow slides={props.slides}/>
         <Ad
-          style={{display: "block", width:"728px", height:"90px"}}
+          class="adsbygoogle"
+          style={{display: "block", width:"728px", maxWidth: "100%",height:"90px"}}
           slot="7834969863"
         />
         <div className="contents">
