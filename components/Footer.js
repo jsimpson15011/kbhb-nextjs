@@ -4,10 +4,17 @@ import mainTheme from "../styles/katTheme"
 import Link from "next/link"
 import {email, phone, siteTitle} from "../site-settings"
 import Image from "next/image"
+import Ad from "./Ad"
 
 const Footer = () => {
   return (
     <div id='footer' className='footer'>
+      <Ad
+        style={{display: "block"}}
+        slot="8368186869"
+        format="auto"
+        responsive="true"
+      />
       <MaxWidthWrapper display='flex' className='max-width-wrapper'>
         <div className='contact'>
           <p>Phone number: <a href={`tel:${phone}`}>{phone}</a></p>

@@ -12,6 +12,7 @@ import {fetcher, useArticles} from "../utils/cachedData"
 import SideBar from "../components/SideBar"
 import NewsArticle from "../components/NewsArticle"
 import {categoryColor} from "../utils/articleFunctions"
+import Ad from "../components/Ad"
 
 const Home = props => {
   const categories = props.categories
@@ -144,6 +145,10 @@ const Home = props => {
       <HomeLayout menuItems={props.menuItems}>
         <Waypoint onEnter={() => handleFloatUpReveal('slide-show')}/>
         <SlideShow slides={props.slides}/>
+        <Ad
+          style={{display: "inline-block", width:"728px", height:"90px"}}
+          slot="7834969863"
+        />
         <div className="contents">
           <div className="news-section">
             <NewsArticle topStory article={topStory} category={topStoryCat?.name}/>
@@ -151,6 +156,12 @@ const Home = props => {
               <h2 className="news-section__header news-section__header--news">News</h2>
               {newsArticles}
             </div>
+            <Ad
+              style={{display: "block"}}
+              slot="8368186869"
+              format="auto"
+              responsive="true"
+            />
             <div className="news-section__col">
               <h2 className="news-section__header news-section__header--sports">Sports</h2>
               {sportsArticles}
