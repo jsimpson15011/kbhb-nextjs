@@ -204,12 +204,13 @@ const Home = props => {
 
         <div className="contents">
           <StationMessage/>
-{/*          <Ad
+         <Ad
             class="adsbygoogle"
-            style={{display: "block", width: "728px", maxWidth: "100%", height: "90px"}}
+            style={{display: "block"}}
             slot="7834969863"
+            format="auto"
             responsive="true"
-          />*/}
+          />
           <div className="news-section">
             <SlideShow slides={props.slides}/>
             <NewsArticle topStory article={topStory} category={topStoryCat?.name}/>
