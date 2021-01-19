@@ -145,24 +145,25 @@ const Home = props => {
       <HomeLayout menuItems={props.menuItems}>
         <Waypoint onEnter={() => handleFloatUpReveal('slide-show')}/>
         <SlideShow slides={props.slides}/>
-        <Ad
-          class="adsbygoogle"
-          style={{display: "block", width:"728px", maxWidth: "100%",height:"90px"}}
-          slot="7834969863"
-        />
+
         <div className="contents">
+          <Ad
+            class="adsbygoogle"
+            style={{display: "block", width: "728px", maxWidth: "100%", height: "90px"}}
+            slot="7834969863"
+          />
           <div className="news-section">
             <NewsArticle topStory article={topStory} category={topStoryCat?.name}/>
             <div className="news-section__col">
               <h2 className="news-section__header news-section__header--news">News</h2>
               {newsArticles}
             </div>
-            <Ad
+{/*            <Ad
               style={{display: "block"}}
               slot="8368186869"
               format="auto"
               responsive="true"
-            />
+            />*/}
             <div className="news-section__col">
               <h2 className="news-section__header news-section__header--sports">Sports</h2>
               {sportsArticles}

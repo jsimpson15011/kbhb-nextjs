@@ -9,13 +9,15 @@ import Ad from "./Ad"
 const Footer = () => {
   return (
     <div id='footer' className='footer'>
-      <Ad
-        style={{display: "block"}}
-        slot="8368186869"
-        format="auto"
-        responsive="true"
-      />
       <MaxWidthWrapper display='flex' className='max-width-wrapper'>
+        <div className='ad-wrapper'>
+          <Ad
+            style={{display: "block"}}
+            slot="8368186869"
+            format="auto"
+            responsive="true"
+          />
+        </div>
         <div className='contact'>
           <p>Phone number: <a href={`tel:${phone}`}>{phone}</a></p>
           <p>E-Mail: <a href={`mailto:${email}`}>{email}</a></p>
@@ -39,6 +41,9 @@ const Footer = () => {
             background: ${mainTheme.brand};
             box-sizing: border-box;
             padding: 40px 15px;
+          }
+          .ad-wrapper{
+            width: 100%;
           }
           .contact a{
             color: black;
