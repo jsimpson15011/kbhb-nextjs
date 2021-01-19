@@ -13,6 +13,62 @@ import SideBar from "../components/SideBar"
 import NewsArticle from "../components/NewsArticle"
 import {categoryColor} from "../utils/articleFunctions"
 import Ad from "../components/Ad"
+import {belowSlidesMessage, listenLiveUrl} from "../site-settings"
+import mainTheme from "../styles/katTheme"
+
+const StationMessage = () => {
+  return (
+    <div>
+      <h2>{belowSlidesMessage}</h2>
+      <a href={listenLiveUrl} className='listen-online'>Listen Online Now</a>
+      <a href="https://thehomeslicegroup.com/" className='homeslice-media'>Homeslice Media Group</a>
+      <style jsx>{`
+        div {
+          background: ${mainTheme.accent};
+          color: white;
+          display: flex;
+          flex-wrap: wrap;
+          text-transform: uppercase;
+          align-items: center;
+          font-weight: bold;
+          letter-spacing: 2px;
+          margin-bottom: 14px;
+          margin-top: 14px;
+          width: 100%;
+        }
+
+        a:hover, a:focus {
+          background: ${mainTheme.accent};
+          border: 1px solid
+        }
+
+        h2 {
+          margin-left: auto;
+          margin-right: 3em;
+          margin-bottom: 0;
+          font-size: 1em;
+        }
+
+        .listen-online {
+          background: black;
+          border: 1px solid black;
+        }
+
+        .homeslice-media {
+          background: #104b7d;
+          border: 1px solid #104b7d;
+          margin-right: 2em;
+        }
+
+        .listen-online, .homeslice-media {
+          color: white;
+          text-decoration: none;
+          padding: .3em .8em;
+        }
+      `}</style>
+    </div>
+  )
+}
 
 const Home = props => {
   const categories = props.categories
@@ -144,9 +200,10 @@ const Home = props => {
       </Head>
       <HomeLayout menuItems={props.menuItems}>
         <Waypoint onEnter={() => handleFloatUpReveal('slide-show')}/>
-        <SlideShow slides={props.slides}/>
+
 
         <div className="contents">
+          <StationMessage/>
 {/*          <Ad
             class="adsbygoogle"
             style={{display: "block", width: "728px", maxWidth: "100%", height: "90px"}}
@@ -154,6 +211,7 @@ const Home = props => {
             responsive="true"
           />*/}
           <div className="news-section">
+            <SlideShow slides={props.slides}/>
             <NewsArticle topStory article={topStory} category={topStoryCat?.name}/>
             <div className="news-section__col">
               <h2 className="news-section__header news-section__header--news">News</h2>
