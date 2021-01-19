@@ -151,6 +151,7 @@ const Home = props => {
             class="adsbygoogle"
             style={{display: "block", width: "728px", maxWidth: "100%", height: "90px"}}
             slot="7834969863"
+            responsive="true"
           />
           <div className="news-section">
             <NewsArticle topStory article={topStory} category={topStoryCat?.name}/>
