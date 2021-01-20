@@ -10,7 +10,7 @@ const LiveSchedule = () => {
 
   if (isLoading && !isError) {
     return (
-      <a href={`${listenLiveUrl}/#listen-live`} className="listen-live">
+      <a href={`${listenLiveUrl}`} className="listen-live">
         <div className="personality-placeholder"/>
         <Image width={79} height={79} alt='' src='/img/sound-wave.png' className="listen-live__icon"/>
         <div className="listen-live__text">
@@ -96,7 +96,7 @@ const LiveSchedule = () => {
     )
   }
   return (
-    <a href={`${listenLiveUrl}/#listen-live`} className="listen-live">
+    <a href={`${listenLiveUrl}`} className="listen-live">
       {
         data[0].meta_box.schedule_square_image[0] ?
           <div className="image-wrapper">
