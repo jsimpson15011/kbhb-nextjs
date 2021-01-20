@@ -119,7 +119,7 @@ const Menu = ({links}) => {
         padding: 0 14px;
         box-sizing: border-box;
         font-size: 1.1em;
-        min-width: 130px;
+        min-width: 80px;
       }
       
       a:hover, a:focus, .active-link {
