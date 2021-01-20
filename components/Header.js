@@ -93,7 +93,7 @@ const Header = ({menuItems}) => {
           background: url("/img/windmill-background.webp");
           background-position: 80% 20%;
           padding: 0;
-          height: 700px;
+          height: 425px;
           display: flex;
           flex-direction: column;
           margin-bottom: 100px;
