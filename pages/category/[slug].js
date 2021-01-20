@@ -16,14 +16,15 @@ const Category = props => {
       <h2>Loading...</h2>
     )
   }
-  const {articles, isLoading, isError} = useArticles({url: `${baseUrl}/wp-json/wp/v2/posts?per_page=10&categories=${props.category.id}`,initialData: props.articles})
+ /* const {articles, isLoading, isError} = useArticles({url: `${baseUrl}/wp-json/wp/v2/posts?per_page=10&categories=${props.category.id}`,initialData: props.articles})
 
   if (isLoading){
     return (
       <h2>Loading...</h2>
     )
-  }
+  }*/
 
+  const articles = props.articles
 
   const perPage = 10
   const [newsArticles, setNewsArticles] = useState(articles)
