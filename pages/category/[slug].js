@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import MainLayout from "../../components/MainLayout"
 import Head from "next/dist/next-server/lib/head"
 import {baseUrl, siteTitle} from "../../site-settings"
@@ -9,29 +9,29 @@ import {useRouter} from "next/router"
 
 
 const Category = props => {
-  const router = useRouter()
 
   if (!props.articles || !props.category) {
     return (
       <h2>Loading...</h2>
     )
   }
- /* const {articles, isLoading, isError} = useArticles({url: `${baseUrl}/wp-json/wp/v2/posts?per_page=10&categories=${props.category.id}`,initialData: props.articles})
+
+  const {articles, isLoading, isError} = useArticles({url: `${baseUrl}/wp-json/wp/v2/posts?per_page=10&categories=${props.category.id}`,initialData: props.articles})
 
   if (isLoading){
     return (
       <h2>Loading...</h2>
     )
-  }*/
+  }
 
-  const articles = props.articles
+  //const articles = props.articles
 
   const perPage = 10
   const [newsArticles, setNewsArticles] = useState(articles)
   const [offset, setOffset] = useState(perPage)
   const [loadButtonState, setLoadButtonState] = useState('block')
 
-  useEffect(() => {
+/*  useEffect(() => {
     const articles = fetcher(`${baseUrl}/wp-json/wp/v2/posts?per_page=${perPage}&categories=${props.category.id}`)
     articles.then(articles => {
       setNewsArticles(articles)
@@ -39,7 +39,7 @@ const Category = props => {
       setOffset(perPage)
       }
     )
-  }, [router.asPath, articles])
+  }, [router.asPath])*/
 
   const articleJSX = newsArticles.map(article => {
     return (
@@ -136,7 +136,7 @@ export async function getStaticProps({params, preview = false, previewData}) {
       props: {
         articles: articles,
         category: categories[0],
-        key: categories[0]
+        key: categories[0].id
       },
       revalidate: 5
     }
