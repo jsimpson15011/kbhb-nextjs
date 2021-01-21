@@ -39,13 +39,13 @@ const Button = (props) => {
                 text-decoration: none;
                 background: ${props.outline ? "none" : mainTheme.accent};
                 color: white;
-                font-size: 1.1rem;
                 margin-bottom: 14px;
                 padding: 5px 0;
                 width: ${props.width ? props.width : "auto"};
                 max-width: 100%;
                 display: block;
                 text-align: center;
+                font-size: 1.1rem;
                 font-family: 'Montserrat', sans-serif;
                 text-transform: uppercase;
                 letter-spacing: 2px;
@@ -62,11 +62,15 @@ const Button = (props) => {
               a:hover .button__overline, a:focus .button__overline{
                 color: ${mainTheme.accent};
               }
+              @media all and (min-width: 520px) {
+                font-size: 1.1rem;
+              }
               .button__overline{
                 font-weight:bold;
               }
               .button-container{
                 display: flex;
+                flex-shrink: 1;
               }
 `}
             </style>

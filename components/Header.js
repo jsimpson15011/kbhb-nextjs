@@ -54,14 +54,13 @@ const HeaderLogoContainer = () => {
           
           h1{
             margin-bottom: 14px;
-            width: 320px;
             max-width: 100%;
           }
           .button-container{
-         
             display: flex;
-            flex-wrap: wrap;
             justify-content: space-around;
+            flex-shrink: 1;
+            width: 100%;
           }
 `}
       </style>
