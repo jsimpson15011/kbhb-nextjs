@@ -242,9 +242,7 @@ const Home = props => {
 
         .ad-wrapper {
           width: 75%;
-          margin-left: auto;
-          margin-right: auto;
-          margin-bottom: 14px;
+          margin: 14px auto;
         }
 
         .contents {
