@@ -58,6 +58,7 @@ const HeaderLogoContainer = () => {
           }
           .button-container{
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-around;
             flex-shrink: 1;
             width: 100%;
