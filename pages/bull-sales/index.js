@@ -15,13 +15,16 @@ const BullSalesPage = props => {
       <div className="item" key={item.id}>
         <h3 dangerouslySetInnerHTML={{__html: item.title.rendered}}/>
         <div className="images">
-          <Image
-            src={item.images[0]}
-            width={item.images[1]/2}
-            height={item.images[2]/2}
-            layout="responsive"
-            alt=""
-          />
+          {item.images[0] ?
+            <Image
+              src={item.images[0]}
+              width={item.images[1]/2}
+              height={item.images[2]/2}
+              layout="responsive"
+              alt=""
+            /> : ""
+          }
+
         </div>
           <div className="content" dangerouslySetInnerHTML={{__html: item.content.rendered}}/>
         <style jsx>
@@ -105,7 +108,7 @@ const BullSalesPage = props => {
 export async function getStaticProps() {
   try {
     const [sales] = await Promise.all([
-      fetcher(`${baseUrl}/wp-json/wp/v2/bull-sale?per_page=100`)
+      fetcher(`${baseUrl}/wp-json/wp/v2/bull-sale?per_page=100&orderby=menu_order&order=asc`)
     ])
 
     return {
