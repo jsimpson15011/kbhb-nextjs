@@ -291,7 +291,7 @@ const Home = props => {
 export async function getStaticProps() {
   try {
     const [promoRes, menuItems, categories, articles] = await Promise.all([
-      fetch(`${baseUrl}/wp-json/wp/v2/promotions?_embed&per_page=100&order=asc`),
+      fetch(`${baseUrl}/wp-json/wp/v2/promotions?_embed&per_page=100&orderby=menu_order&order=asc`),
       fetcher(`${baseUrl}/wp-json/menus/v1/menus/main-navigation`),
       fetcher(`${baseUrl}/wp-json/wp/v2/categories`),
       fetcher(`${baseUrl}/wp-json/wp/v2/posts?per_page=100`)
