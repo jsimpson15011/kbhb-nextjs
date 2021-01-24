@@ -1,13 +1,12 @@
 import React from "react"
 import {withRedux} from "../lib/redux"
-import {useSelector} from "react-redux"
 import Link from "next/link"
 import mainTheme from "../styles/katTheme"
 import {useAnnouncements, useClosures} from "../utils/cachedData"
 
 const Announcements = () => {
   const {announcementItems, isLoading, isError} = useAnnouncements()
-  const {closureItems , closureIsLoading, closureIsError} = useClosures()
+  const {closureItems , closureIsLoading} = useClosures("https://psa.homesliceweb.com/wp-json/wp/v2/closures")
 
   if (isLoading || closureIsLoading || !closureItems) {
     return (

@@ -132,8 +132,8 @@ export function useAnnouncements () {
   }
 }
 
-export function useClosures () {
-  const { data, error } = useSWR(`https://psa.homesliceweb.com/wp-json/wp/v2/closures`, closureFetcher)
+export function useClosures ({url=`https://psa.homesliceweb.com/wp-json/wp/v2/closures`,initialData= null}) {
+  const { data, error } = useSWR(url, closureFetcher, {initialData: initialData})
 
   return {
     closureItems: data,
