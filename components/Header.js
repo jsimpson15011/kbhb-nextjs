@@ -292,6 +292,24 @@ const Header = ({menuItems}) => {
             margin-bottom: .5em;
           }
 
+          .aligncenter {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+          }
+          
+          .alignleft{
+            float: left;
+            margin-right: 14px;
+            margin-bottom: 14px;
+          }
+          
+          .alignright{
+            float: right;
+            margin-left: 14px;
+            margin-bottom: 14px;
+          }
+
         `}
       </style>
     </div>
