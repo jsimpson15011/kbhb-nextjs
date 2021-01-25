@@ -17,12 +17,12 @@ const NewsArticle = (props) => {
                 {
                   mainImg ?
                     <Image
-                    src={mainImg[0]}
-                    width={mainImg[1]}
-                    height={mainImg[2]}
-                    alt=""
-                    layout="responsive"
-                  /> :
+                      src={mainImg[0]}
+                      width={mainImg[1]}
+                      height={mainImg[2]}
+                      alt=""
+                      layout="responsive"
+                    /> :
                     ""
                 }
               </div>
@@ -46,7 +46,7 @@ const NewsArticle = (props) => {
         </Link>
         <style jsx>
           {`
-            article{
+            article {
               color: #3E3E3E;
               display: flex;
               flex-wrap: wrap;
@@ -54,44 +54,51 @@ const NewsArticle = (props) => {
               font-size: 1.2rem;
               align-items: flex-start;
             }
-            a{
+
+            a {
               text-decoration: none;
               flex-grow: 1;
               margin-bottom: 76px;
               width: 100%;
             }
-            .top-story{
+
+            .top-story {
               color: #3B73B1;
               font-size: 2em;
               text-transform: none;
             }
-            .image-col{
+
+            .image-col {
               width: 400px;
               max-width: 100%;
               margin-right: 14px;
               min-width: 39%;
             }
-            .text-col{
+
+            .text-col {
               width: 600px;
               max-width: 100%;
               min-width: 59%;
             }
-           
-            h3{
+
+            h3 {
               color: #141414;
               font-size: 2em;
               line-height: 1.1;
             }
-            .date{
+
+            .date {
               font-size: .9em;
               color: #676767;
             }
-            .category{
+
+            .category {
               font-weight: bold;
               margin-left: 7px;
               text-transform: uppercase;
             }
-            .date-headline{
+
+            .date-headline {
               font-size: 1.3em;
             }
           `}
@@ -99,7 +106,7 @@ const NewsArticle = (props) => {
       </>
     )
   }
-  if (props.sideBar){
+  if (props.sideBar) {
     return (
       <>
         <Link href={`/news/${encodeURIComponent(props.article.slug)}`}>
@@ -112,63 +119,127 @@ const NewsArticle = (props) => {
                   >
               {props.category === "Uncategorized" ? "News" : props.category}
             </span>
-                <h3 dangerouslySetInnerHTML={{__html: props.article.title.rendered}}/>
+            <h3 dangerouslySetInnerHTML={{__html: props.article.title.rendered}}/>
           </a>
         </Link>
         <style jsx>
           {`
-            a{
+            a {
               color: #3E3E3E;
               display: block;
               width: 300px;
               text-decoration: none;
               font-size: 1.2em;
             }
-            h3{
+
+            h3 {
               color: #141414;
               font-size: 1.1em;
               line-height: 1.1;
             }
-            .category{
+
+            .category {
               font-weight: bold;
               text-transform: uppercase;
-              
+
             }
           `}
         </style>
       </>
     )
   }
-  if (props.summary){
+  if (props.summary) {
+    const mainImg = props.article.images[0] ? props.article.images[0].news_photo_large : false
     return (
       <>
         <Link href={`/news/${encodeURIComponent(props.article.slug)}`}>
           <a>
-            <span className="date">{articleDate(props.article.date)}</span>
-            <h3 dangerouslySetInnerHTML={{__html: props.article.title.rendered}}/>
-            <div className="content" dangerouslySetInnerHTML={{__html: props.article.excerpt.rendered}}/>
+            <article>
+              {
+                mainImg ?
+                  <div className="image-col">
+                    <Image
+                      src={mainImg[0]}
+                      width={mainImg[1]}
+                      height={mainImg[2]}
+                      alt=""
+                    />
+                    <div className="date-headline">
+                      <span className="date">{articleDate(props.article.date)}</span>
+                      <h3 dangerouslySetInnerHTML={{__html: props.article.title.rendered}}/>
+                    </div>
+                  </div>
+                  : ''
+              }
+
+              <div className="text-col">
+                <div className="content" dangerouslySetInnerHTML={{__html: props.article.excerpt.rendered}}/>
+              </div>
+            </article>
           </a>
         </Link>
         <style jsx>
           {`
-            a{
+            article {
               color: #3E3E3E;
-              display: block;
+              display: flex;
+              flex-wrap: wrap;
               width: 100%;
-              text-decoration: none;
-              font-size: 1.2em;
+              font-size: 1.1rem;
             }
-            h3{
+
+            a {
+              text-decoration: none;
+              flex-grow: 1;
+              margin-bottom: 76px;
+              width: 100%;
+            }
+
+            .image-col {
+              width: 100%;
+              margin-right: 14px;
+              display: flex;
+              align-items: flex-start;
+              flex-wrap: wrap;
+            }
+            
+            .text-col {
+              width: ${mainImg ? "600px" : "100%"};
+              flex-grow: 1;
+              max-width: 100%;
+              min-width: 59%;
+            }
+
+            h3 {
               color: #141414;
               font-size: 1.1em;
               line-height: 1.1;
             }
-            .category{
+
+            .date {
+              font-size: .9em;
+              color: #676767;
+            }
+
+            .category {
               font-weight: bold;
+              margin-left: 7px;
               text-transform: uppercase;
             }
-            .content{
-              font-size: .9rem;
+
+            .date-headline {
+              font-size: 1.3em;
+              margin-left: 0;
+            }
+            
+            @media all and (min-width: 1000px) {
+              .image-col {
+                flex-wrap: nowrap;
+                margin-bottom: 14px;
+              }
+              .date-headline {
+                margin-left: 14px;
+              }
             }
           `}
         </style>
@@ -182,18 +253,18 @@ const NewsArticle = (props) => {
         <Link href={`/news/${encodeURIComponent(props.article.slug)}`}>
           <a>
             <article>
-                {
-                  mainImg ?
-                    <div className="image-col">
+              {
+                mainImg ?
+                  <div className="image-col">
                     <Image
-                    src={mainImg[0]}
-                    width={mainImg[1]}
-                    height={mainImg[2]}
-                    alt=""
-                  />
-                    </div>
+                      src={mainImg[0]}
+                      width={mainImg[1]}
+                      height={mainImg[2]}
+                      alt=""
+                    />
+                  </div>
                   : ''
-                }
+              }
 
               <div className="text-col">
                 <div className="date-headline">
@@ -207,60 +278,66 @@ const NewsArticle = (props) => {
         </Link>
         <style jsx>
           {`
-            article{
+            article {
               color: #3E3E3E;
               display: flex;
               flex-wrap: wrap;
               width: 100%;
               font-size: 1.2rem;
             }
-            a{
+
+            a {
               text-decoration: none;
               flex-grow: 1;
               margin-bottom: 76px;
               width: 100%;
             }
-            .top-story{
+
+            .top-story {
               color: #3B73B1;
               font-size: 2em;
               text-transform: none;
             }
-            .image-col{
+
+            .image-col {
               width: 400px;
               max-width: 100%;
               margin-right: 14px;
               min-width: 39%;
             }
-            .text-col{
+
+            .text-col {
               width: ${mainImg ? "600px" : "100%"};
               flex-grow: 1;
               max-width: 100%;
               min-width: 59%;
             }
-           
-            h3{
+
+            h3 {
               color: #141414;
               font-size: 2em;
               line-height: 1.1;
             }
-            .date{
+
+            .date {
               font-size: .9em;
               color: #676767;
             }
-            .category{
+
+            .category {
               font-weight: bold;
               margin-left: 7px;
               text-transform: uppercase;
             }
-            .date-headline{
+
+            .date-headline {
               font-size: 1.3em;
             }
           `}
         </style>
       </>
     )
-  }
-  else {//the default article
+  } else {//the default article
     const images = props.article.images ? props.article.images.map(image => {
       const fileInfo = image.news_photo_full
 
@@ -286,32 +363,35 @@ const NewsArticle = (props) => {
             </figcaption>
             <style jsx>
               {`
-              figure{
-                font-size: .8rem;
-                font-style: italic;
-                margin-bottom: 14px;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                max-width: 100%;
-              }
-              figcaption{
-                margin-top: 7px;
-                width: 600px;
-                max-width: 100%;
-                text-align: center;
-              }
-              .source{
-                display: block;
-                text-align: center;
-                font-weight: bold;
-              }
-              .caption{
-                display: block;
-                text-align: center;
-              }
-`
+                figure {
+                  font-size: .8rem;
+                  font-style: italic;
+                  margin-bottom: 14px;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+                  max-width: 100%;
+                }
+
+                figcaption {
+                  margin-top: 7px;
+                  width: 600px;
+                  max-width: 100%;
+                  text-align: center;
+                }
+
+                .source {
+                  display: block;
+                  text-align: center;
+                  font-weight: bold;
+                }
+
+                .caption {
+                  display: block;
+                  text-align: center;
+                }
+              `
               }
             </style>
           </figure>
@@ -359,17 +439,19 @@ const NewsArticle = (props) => {
         </article>
         <style jsx>
           {`
-            article{
+            article {
               color: #3E3E3E;
               display: flex;
               flex-wrap: wrap;
               width: 100%;
               font-size: 1.2rem;
             }
-            a{
+
+            a {
               text-decoration: none;
             }
-            .image-col{
+
+            .image-col {
               width: 100%;
               max-width: 100%;
               margin-right: 14px;
@@ -378,34 +460,39 @@ const NewsArticle = (props) => {
               flex-wrap: wrap;
               justify-content: center;
             }
-            .text-col{
+
+            .text-col {
               width: 100%;
               max-width: 100%;
               min-width: 59%;
               margin-top: 28px;
             }
-           
-            h1{
+
+            h1 {
               color: #141414;
               font-size: 3rem;
               line-height: 1.1;
               width: 100%;
             }
-            .source{
+
+            .source {
               font-size: 1.1rem;
               color: #676767;
               display: block;
             }
-            .date{
+
+            .date {
               font-size: 1.1rem;
               color: #676767;
             }
-            .category{
+
+            .category {
               font-weight: bold;
               margin-left: 7px;
               text-transform: uppercase;
             }
-            .date-headline{
+
+            .date-headline {
               margin-bottom: 28px;
               width: 100%;
             }
