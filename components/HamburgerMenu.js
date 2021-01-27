@@ -56,11 +56,7 @@ const HamburgerMenu = ({navItems}) => {
                     } else {
                       return (
                         <li key={item.url}>
-                          <Link
-                            href={item.object === "page" ? `/[slug]` : `/${item.object}/[slug]`}
-                            as={item.object === "page" ? `/${item.slug}` : `/${item.object}/${item.slug}`}
-                            passHref
-                          >
+                          <Link href={item.object === "page" ? `/${item.slug}` : `/${item.object}/${item.slug}`}>
                             <a>
                               {decodeHtmlSpecialChars(item.title)}
                             </a>
