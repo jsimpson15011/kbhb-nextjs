@@ -25,7 +25,6 @@ const OnDemandPage = props => {
     }
   })
 
-
   const players = articlesByCategory.map(audioFiles => {
       return <div key={audioFiles.title}>
         <h2>{audioFiles.title}</h2>
