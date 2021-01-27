@@ -93,7 +93,7 @@ const closureFetcher = (...args) => {
 }
 
 export function useNav () {
-  const { data, error } = useSWR(`${baseUrl}/wp-json/menus/v1/menus/main-navigation`, fetcher)
+  const { data, error } = useSWR(`${baseUrl}/wp-json/menus/v1/menus/main-navigation`, fetcher, undefined)
 
   return {
     data: data,
@@ -103,7 +103,7 @@ export function useNav () {
 }
 
 export function useBannerAds () {
-  const { data, error } = useSWR(`${baseUrl}/wp-json/wp/v2/banner_ad?_embed&per_page=10`, fetcher)
+  const { data, error } = useSWR(`${baseUrl}/wp-json/wp/v2/banner_ad?_embed&per_page=10`, fetcher, undefined)
 
   return {
     data: data,
@@ -113,7 +113,7 @@ export function useBannerAds () {
 }
 
 export function useSchedule () {
-  const { data, error } = useSWR(`${baseUrl}/wp-json/wp/v2/listenliveschedule?per_page=100`, scheduleFetcher)
+  const { data, error } = useSWR(`${baseUrl}/wp-json/wp/v2/listenliveschedule?per_page=100`, scheduleFetcher, undefined)
 
   return {
     data: data,
@@ -123,7 +123,7 @@ export function useSchedule () {
 }
 
 export function useAnnouncements () {
-  const { data, error } = useSWR(`https://psa.homesliceweb.com/wp-json/wp/v2/psas`, announcementFetcher)
+  const { data, error } = useSWR(`https://psa.homesliceweb.com/wp-json/wp/v2/psas`, announcementFetcher, undefined)
 
   return {
     announcementItems: data,
