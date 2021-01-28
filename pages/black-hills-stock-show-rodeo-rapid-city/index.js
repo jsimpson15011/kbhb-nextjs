@@ -82,7 +82,7 @@ export async function getStaticProps() {
     return {
       props: {
         articles: articles,
-        categories: categories.filter(category => {return category.meta_box['hide_on_main'] === '1'})
+        categories: categories.filter(category => {return category.slug === 'rodeo-rapid-city' || category.slug === 'black-hills-stock-show'})
       },
       revalidate: 1
     }
