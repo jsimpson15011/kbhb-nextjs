@@ -204,23 +204,31 @@ const AudioPlayer = props => {
 
           .thumbnail-and-track {
             background: ${currentTrack.thumbnail ? `url(${currentTrack.thumbnail[0]})` : "url(/img/audio-player-default-thumb.png)"};
-            background-size: cover;
+            background-size: contain;
             background-position: center;
+            background-repeat: no-repeat;
+            background-color: #fafafa;
             text-align: left;
             font-weight: bold;
             font-size: 1.2em;
             color: #0d2d4e;
             width: 100%;
-            height: 380px;
+            padding-top: 62%;
             display: flex;
             flex-direction: column;
+            position: relative;
           }
 
           .current-track {
             margin-top: auto;
-            background: rgba(255, 255, 255, .7);
+            background: rgba(255, 255, 255, .9);
             padding: 14px;
+            font-size: 1.2rem;
             box-sizing: border-box;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
           }
 
           audio {
