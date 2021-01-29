@@ -8,7 +8,7 @@ import anime from "animejs"
 import {activeItemsOnly} from "../utils/eventHelpers"
 
 import {baseUrl, metaDescription, siteTitle} from "../site-settings"
-import {fetcher, useArticles} from "../utils/cachedData"
+import {fetcher} from "../utils/cachedData"
 import SideBar from "../components/SideBar"
 import NewsArticle from "../components/NewsArticle"
 import {categoryColor} from "../utils/articleFunctions"
@@ -72,7 +72,8 @@ const StationMessage = () => {
 
 const Home = props => {
   const categories = props.categories
-  const {articles, isLoading, isError} = useArticles({
+  const articles = props.articles
+/*  const {articles, isLoading, isError} = useArticles({
     url: `${baseUrl}/wp-json/wp/v2/posts?per_page=100`,
     initialData: props.articles
   })
@@ -86,9 +87,9 @@ const Home = props => {
       <>
       </>
     )
-  }
+  }*/
   const topStory = articles.filter(article => {
-    return article.categories[0] === 3
+    return article.categories.indexOf(3) !== -1
   })[0] || articles[0]
 
   const sideArticles = []
