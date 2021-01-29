@@ -297,17 +297,29 @@ const Header = ({menuItems}) => {
             margin-left: auto;
             margin-right: auto;
           }
-          
-          .alignleft{
+
+          .alignleft {
             float: left;
             margin-right: 14px;
             margin-bottom: 14px;
           }
-          
-          .alignright{
+
+          .alignright {
             float: right;
             margin-left: 14px;
             margin-bottom: 14px;
+          }
+
+          .wp-caption-text {
+            font-size: .8rem;
+            font-style: italic;
+            margin-bottom: 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-width: 100%;
+            margin-top: 7px;
           }
 
         `}
