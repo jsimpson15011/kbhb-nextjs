@@ -13,6 +13,26 @@ module.exports = {
         source: '/news',
         destination: '/category/news',
         permanent: false
+      },
+      {
+        source: '/sports',
+        destination: '/category/sports',
+        permanent: false
+      },
+      {
+        source: '/local',
+        destination: '/category/local',
+        permanent: false
+      },
+      {
+        source: '/business',
+        destination: '/category/business',
+        permanent: false
+      },
+      {
+        source: '/agriculture-news',
+        destination: '/category/agriculture-news',
+        permanent: false
       }
     ]
   }
