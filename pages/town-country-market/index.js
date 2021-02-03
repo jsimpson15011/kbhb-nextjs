@@ -16,9 +16,9 @@ const Page = props => {
         <h3 dangerouslySetInnerHTML={{__html: item.title.rendered}}/>
         <div className="images">
           <Image
-            src={item.images[0]}
-            width={item.images[1]/2}
-            height={item.images[2]/2}
+            src={item.images[0] ?? "https://kbhbcms.homesliceweb.com/wp-content/uploads/townandcountrymarket_13595.jpg"}
+            width={item.images[1]/2 ?? 250}
+            height={item.images[2]/2 ?? 250}
             layout="responsive"
             alt=""
           />
