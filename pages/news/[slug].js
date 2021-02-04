@@ -30,7 +30,7 @@ const NewsPage = props => {
     return category.id === articles[0].categories[0]
   })
   return (
-    <MainLayout>
+    <MainLayout menuItems{props.menuItems}>
       <Head>
         <title>{siteTitle} - {articles[0].title.rendered}</title>
         <script
@@ -100,15 +100,17 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({params, preview = false, previewData}) {
   try {
-    const [categories, articles] = await Promise.all([
+    const [categories, articles, menuItems] = await Promise.all([
       fetcher(`${baseUrl}/wp-json/wp/v2/categories`),
-      fetcher(`${baseUrl}/wp-json/wp/v2/posts?slug=${params.slug}`)
+      fetcher(`${baseUrl}/wp-json/wp/v2/posts?slug=${params.slug}`),
+      fetcher(`${baseUrl}/wp-json/menus/v1/menus/main-navigation`),
     ])
 
     return {
       props: {
         articles: articles,
-        categories: categories
+        categories: categories,
+        menuItems: menuItems
       },
       revalidate: 5
     }
