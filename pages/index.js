@@ -206,7 +206,7 @@ const Home = props => {
           <div className="ad-wrapper">
             <Ad
               class="adsbygoogle"
-              style={{display: "block"}}
+              style={{display: "block", minHeight: "280px"}}
               slot="7834969863"
               format="auto"
               responsive="true"
