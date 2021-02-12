@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import mainTheme from "../styles/katTheme"
 import Button from "./Button"
 import Link from "next/link"
@@ -8,8 +8,14 @@ import HamburgerMenu from "./HamburgerMenu"
 import Image from "next/image"
 import {facebookUrl} from "../site-settings"
 import BannerAd from "./BannerAd"
+import ClosureNotification from "./ClosureNotification"
+import {mutate} from "swr"
 
 const HeaderLogoContainer = () => {
+  useEffect(() => {
+    mutate("https://psa.homesliceweb.com/wp-json/wp/v2/closures").then(test => {
+    })
+  }, [])
 
   return (
     <div className="header-logo">
@@ -26,6 +32,7 @@ const HeaderLogoContainer = () => {
           <Button overLine="KBHB" text="On Demand" spacing="14px" width="200px" internalLink href="/on-demand"/>
           <Button overLine="Follow Us" text="On Facebook" outline spacing="14px" width="200px" href={facebookUrl}/>
         </div>
+        <ClosureNotification/>
       </div>
       <style jsx>
         {`
