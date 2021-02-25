@@ -68,7 +68,7 @@ const AudioPlayer = props => {
   const [currentTrackNumber, setCurrentTrackNumber] = useState(0)
   const [currentTrack, setCurrentTrack] = useState(props.audio[currentTrackNumber])
   const [autoplayIsOn, setAutoPlay] = useState(false)
-  const [showPlayList, setPlayListVisibility] = useState(false)
+  const [showPlayList, setPlayListVisibility] = useState(true)
 
   const updateTrackNumberAndUrl = (trackNumber) => {
     setCurrentTrack(props.audio[trackNumber])
