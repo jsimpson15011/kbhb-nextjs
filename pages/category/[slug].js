@@ -5,19 +5,20 @@ import {baseUrl, siteTitle} from "../../site-settings"
 import {fetcher, useArticles} from "../../utils/cachedData"
 import NewsArticle from "../../components/NewsArticle"
 import {categoryColor} from "../../utils/articleFunctions"
+import {useRouter} from "next/router"
 
 
 const Category = props => {
 
-/*  if (!props.articles || !props.category) {
+  if (!props.articles || !props.category) {
     return (
       <h2>Loading...</h2>
     )
-  }*/
+  }
 
   const {articles, isLoading, isError} = useArticles({url: `${baseUrl}/wp-json/wp/v2/posts?per_page=10&categories=${props.category.id}`,initialData: props.articles})
 
-  if (isLoading || isError){
+  if (isLoading){
     return (
       <h2>Loading...</h2>
     )
