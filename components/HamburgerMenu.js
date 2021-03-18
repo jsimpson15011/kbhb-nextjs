@@ -97,13 +97,12 @@ const HamburgerMenu = ({navItems}) => {
           @media all and (max-width: ${mainTheme.menuBreakPoint}){
             button{
               z-index: 5;
-              display: block;
-              position: fixed;
-              top: 14px;
-              right: 14px;
+              display: flex;
               background: white;
               border: none;
               padding: 7px;
+              margin-left: auto;
+              align-items: center;
           }
           }
 

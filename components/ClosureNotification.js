@@ -54,6 +54,7 @@ const ClosureNotification = () => {
             z-index: 2;
             display: flex;
             flex-wrap: wrap;
+            margin-left: 14px;
           }
 
           /*@media all and (min-width: 1217px){
@@ -65,11 +66,10 @@ const ClosureNotification = () => {
             background: #b70b0b;
             padding: 7px;
             font-weight: bold;
-            font-size: 1.5em;
             text-decoration: none;
             color: white;
             filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.65));
-            margin: auto;
+            margin: auto auto 0;
           }
 
           a:hover, a:focus {

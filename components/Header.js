@@ -32,7 +32,6 @@ const HeaderLogoContainer = () => {
           <Button overLine="KBHB" text="On Demand" spacing="14px" width="200px" internalLink href="/on-demand"/>
           <Button overLine="Follow Us" text="On Facebook" outline spacing="14px" width="200px" href={facebookUrl}/>
         </div>
-        <ClosureNotification/>
       </div>
       <style jsx>
         {`
@@ -50,7 +49,7 @@ const HeaderLogoContainer = () => {
           }
 
           .header-logo__wrapper {
-            display: flex;
+            display: none;
             flex-direction: column;
             align-items: center;
             padding-left: 21px;
@@ -71,6 +70,12 @@ const HeaderLogoContainer = () => {
             flex-shrink: 1;
             width: 100%;
           }
+
+          @media all and (min-width: ${mainTheme.menuBreakPoint}) {
+            .header-logo__wrapper {
+              display: flex;
+            }
+          }
         `}
       </style>
     </div>
@@ -82,20 +87,36 @@ const Header = ({menuItems}) => {
   return (
     <div className='main-header'>
       <Nav navItems={menuItems ? menuItems.items : null}/>
+      <h1 className="tiny-logo hide-on-desktop">
+        <Link href="/">
+          <a>
+            <Image width={64} height={43} className="header-logo__img" alt="Big 81 Ranch Radio KBHB"
+                   src="/img/tiny-logo.png"/>
+          </a>
+        </Link>
+      </h1>
       <div className="main-header__content-wrapper">
         <HeaderLogoContainer/>
+
         <div className="main-header__bottom">
+
           <div className="schedule-announcements">
             <LiveSchedule/>
             <div className="outer-wrapper">
+              <ClosureNotification/>
               <Link href={'/category/obituaries'}>
                 <a>Obituaries</a>
               </Link>
               <Link href={'/auctions'}>
                 <a>Auctions</a>
               </Link>
+              <Link href={'/on-demand'}>
+                <a className="hide-on-desktop">On Demand</a>
+              </Link>
+
             </div>
             {/*<Announcements/>*/}
+
           </div>
           <div className="banner-wrapper">
             <BannerAd position="header"/>
@@ -106,13 +127,20 @@ const Header = ({menuItems}) => {
       <style jsx>
         {`
           .main-header {
-            background: url("/img/windmill-background.webp");
-            background-position: 80% 20%;
+            background: #111010;
             padding: 0;
-            height: 450px;
+            height: auto;
             display: flex;
-            flex-direction: column;
-            margin-bottom: 100px;
+            flex-direction: row;
+            position: sticky;
+            top: 0;
+            z-index: 500;
+          }
+
+          .tiny-logo {
+            flex-shrink: 0;
+            padding-top: 4px;
+            padding-bottom: 4px;
           }
 
           .outer-wrapper {
@@ -121,7 +149,9 @@ const Header = ({menuItems}) => {
             max-width: 100%;
             z-index: 2;
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
+            flex-shrink: 1;
+            overflow-x: auto;
           }
 
           /*@media all and (min-width: 1217px){
@@ -130,19 +160,15 @@ const Header = ({menuItems}) => {
             }
           }*/
           a {
-            background: ${mainTheme.background};
-            padding: 7px;
-            font-weight: bold;
+            background: transparent;
+            padding: 4px;
+            font-weight: normal;
             text-decoration: none;
-            color: ${mainTheme.accent};
+            color: white;
             filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.65));
             margin-left: 14px;
             margin-top: 7px;
-          }
-
-          a:hover, a:focus {
-            background: ${mainTheme.accent};
-            color: white;
+            white-space: nowrap;
           }
 
           @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
@@ -164,41 +190,105 @@ const Header = ({menuItems}) => {
             align-items: flex-start;
           }
 
-          @media all and (min-width: 1220px) {
-            .main-header__bottom {
-              transform: translateY(65%);
-              margin-top: -60px;
-            }
-          }
+          /*          @media all and (min-width: 1220px) {
+                      .main-header__bottom {
+                        transform: translateY(65%);
+                        margin-top: -60px;
+                      }
+                    }*/
 
           .banner-wrapper {
             width: 600px;
             max-width: 100%;
             min-width: 48%;
-            display: flex;
             align-items: flex-start;
             flex-wrap: wrap;
             position: relative;
+            display: none;
           }
 
           .schedule-announcements {
-            width: 600px;
+            width: auto;
             max-width: 100%;
-            min-width: 48%;
+            min-width: 0;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             justify-content: flex-start;
             flex-wrap: wrap;
             position: relative;
-            margin-bottom: 14px;
+            margin-bottom: 0;
           }
 
           .main-header__content-wrapper {
-            display: flex;
             flex-direction: column;
-            flex-grow: 1;
+            flex-grow: 0;
+            flex-shrink: 1;
+            display: flex;
+            width: 100%;
+            overflow-x: auto;
           }
+
+          @media all and (min-width: ${mainTheme.menuBreakPoint}) {
+            .main-header {
+              background: url("/img/windmill-background.webp");
+              background-position: 80% 20%;
+              padding: 0;
+              height: 450px;
+              display: flex;
+              flex-direction: column;
+              margin-bottom: 100px;
+              position: relative;
+            }
+
+            .main-header__content-wrapper {
+              display: flex;
+              overflow: visible;
+            }
+
+            .outer-wrapper {
+              overflow: visible;
+            }
+
+            .banner-wrapper {
+              display: flex;
+            }
+
+            a {
+              background: ${mainTheme.background};
+              padding: 7px;
+              font-weight: bold;
+              text-decoration: none;
+              color: ${mainTheme.accent};
+              filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.65));
+              margin-left: 14px;
+              margin-top: 7px;
+              white-space: nowrap;
+            }
+
+            a:hover, a:focus {
+              background: ${mainTheme.accent};
+              color: white;
+            }
+
+            .schedule-announcements {
+              width: 600px;
+              max-width: 100%;
+              min-width: 48%;
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              justify-content: flex-start;
+              flex-wrap: wrap;
+              position: relative;
+              margin-bottom: 14px;
+            }
+
+            .hide-on-desktop {
+              display: none;
+            }
+          }
+
         `}
       </style>
       <style jsx global>

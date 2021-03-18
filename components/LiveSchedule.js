@@ -21,71 +21,78 @@ const LiveSchedule = () => {
         </div>
         <style jsx>
           {`
-          .listen-live {
-            display: flex;
-            align-items: center;
-            background: ${mainTheme.background};
-            color: ${mainTheme.accent};
-            text-decoration: none;
-            border-bottom-right-radius: 21px;
-            border-top-right-radius: 21px;
-            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.65));
-            height: 95px;
-          }
-          .personality-placeholder{
-            width: 95px;
-            height: 95px;
-          }
-
-          .image-wrapper {
-            align-self: stretch;
-            width: 95px;
-            margin-right: 7px;
-          }
-
-          .listen-live__personality-image {
-            min-height: 100%;
-            width: 100%;
-            height: auto;
-          }
-
-          .listen-live__icon {
-            margin-left: 21px;
-            display: none;
-          }
-
-          .listen-live__text {
-            margin-left: 21px;
-            padding-top: 7px;
-            flex-shrink: 0;
-            font-size: .7rem;
-          }
-
-          h3 {
-            font-weight: bold;
-            font-size: 2.3em;
-            margin-bottom: 0;
-          }
-
-          p {
-            margin-right: 21px;
-            margin-bottom: 7px;
-          }
-
-          @media all and (min-width: 550px) {
-            .listen-live__icon {
-              display: block;
+            .listen-live {
+              align-items: center;
+              background: ${mainTheme.background};
+              color: ${mainTheme.accent};
+              text-decoration: none;
+              border-bottom-right-radius: 21px;
+              border-top-right-radius: 21px;
+              filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.65));
+              height: 95px;
+              display: none;
             }
 
-            p {
+            .personality-placeholder {
+              width: 95px;
+              height: 95px;
+            }
+
+            .image-wrapper {
+              align-self: stretch;
+              width: 95px;
+              margin-right: 7px;
+            }
+
+            .listen-live__personality-image {
+              min-height: 100%;
+              width: 100%;
+              height: auto;
+            }
+
+            .listen-live__icon {
               margin-left: 21px;
+              display: none;
             }
 
             .listen-live__text {
-              font-size: 1rem;
+              margin-left: 21px;
+              padding-top: 7px;
+              flex-shrink: 0;
+              font-size: .7rem;
             }
-          }
-        `}
+
+            h3 {
+              font-weight: bold;
+              font-size: 2.3em;
+              margin-bottom: 0;
+            }
+
+            p {
+              margin-right: 21px;
+              margin-bottom: 7px;
+            }
+
+            @media all and (min-width: 550px) {
+              .listen-live__icon {
+                display: block;
+              }
+
+              p {
+                margin-left: 21px;
+              }
+
+              .listen-live__text {
+                font-size: 1rem;
+              }
+            }
+
+            @media all and (min-width: ${mainTheme.menuBreakPoint}) {
+              .listen-live {
+                display: flex;
+              }
+            }
+          `}
         </style>
       </a>
     )
@@ -119,15 +126,16 @@ const LiveSchedule = () => {
       <style jsx>
         {`
           .listen-live {
-            display: flex;
             align-items: center;
             background: ${mainTheme.background};
             color: ${mainTheme.accent};
             text-decoration: none;
             filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.65));
+            display: none;
           }
-          @media all and (min-width: 616px){
-            .listen-live{
+
+          @media all and (min-width: 616px) {
+            .listen-live {
               border-bottom-right-radius: 21px;
               border-top-right-radius: 21px;
             }
@@ -179,6 +187,12 @@ const LiveSchedule = () => {
 
             .listen-live__text {
               font-size: 1rem;
+            }
+          }
+
+          @media all and (min-width: ${mainTheme.menuBreakPoint}) {
+            .listen-live {
+              display: flex;
             }
           }
         `}
