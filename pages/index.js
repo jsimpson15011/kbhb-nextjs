@@ -317,10 +317,10 @@ export async function getStaticProps() {
           promotionInfo.externalLink = promotion.meta_box.event_external_link
         }
 
-        if (promotion.meta_box.event_home_slide && promotion.meta_box.event_home_slide[0]) {
-          promotionInfo.image = promotion.meta_box.event_home_slide[0].sizes.large?.url
-          promotionInfo.imageWidth = promotion.meta_box.event_home_slide[0].sizes.large?.width
-          promotionInfo.imageHeight = promotion.meta_box.event_home_slide[0].sizes.large?.height
+        if (promotion.meta_box.event_home_slide && promotion.meta_box.event_home_slide[0] && promotion.meta_box.event_home_slide[0].sizes.medium) {
+          promotionInfo.image = promotion.meta_box.event_home_slide[0].sizes.medium?.url
+          promotionInfo.imageWidth = promotion.meta_box.event_home_slide[0].sizes.medium?.width
+          promotionInfo.imageHeight = promotion.meta_box.event_home_slide[0].sizes.medium?.height
         }
 
         if (promotion.meta_box.event_square_image && promotion.meta_box.event_square_image[0]) {

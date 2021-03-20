@@ -77,9 +77,11 @@ const SlideShow = ({slides}) => {
         .slide-show{
           opacity: 0;
           transform: translateY(-50%);
-          max-width: 950px;
+          max-width: 750px;
           width: 100%;
           margin-bottom: 14px;
+          margin-left: auto;
+          margin-right: auto;
         }
         .slide-container{
           display: block;
