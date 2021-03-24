@@ -115,7 +115,7 @@ const Auction = props => {
 export async function getStaticProps() {
   const [res, auctionItems, menuItems] = await Promise.all([
     await fetch(`${baseUrl}/wp-json/wp/v2/pages?slug=auctions&_embed`),
-    fetcher("https://blackhillsstore.com/wp-json/wp/v2/auction-item?orderby=menu_order&order=asc&per_page=200"),
+    fetcher("https://blackhillsstore.com/wp-json/wp/v2/auction-item?orderby=menu_order&order=asc&per_page=100"),
     fetcher(`${baseUrl}/wp-json/menus/v1/menus/main-navigation`)
   ])
 
