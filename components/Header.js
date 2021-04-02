@@ -135,6 +135,7 @@ const Header = ({menuItems}) => {
             position: sticky;
             top: 0;
             z-index: 500;
+            box-shadow: 0 4px 7px -1px rgb(14 14 14), 0 4px 4px 0 rgb(100 100 100), 0 1px 3px 0 rgb(0 0 0);
           }
 
           .tiny-logo {
