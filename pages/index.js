@@ -12,10 +12,10 @@ import {fetcher} from "../utils/cachedData"
 import SideBar from "../components/SideBar"
 import NewsArticle from "../components/NewsArticle"
 import {categoryColor} from "../utils/articleFunctions"
-import Ad from "../components/Ad"
 import {belowSlidesMessage, listenLiveUrl} from "../site-settings"
 import mainTheme from "../styles/katTheme"
 import Button from "../components/Button"
+import BannerAd from "../components/BannerAd"
 
 const StationMessage = () => {
   return (
@@ -203,15 +203,7 @@ const Home = props => {
       <HomeLayout menuItems={props.menuItems}>
         <Waypoint onEnter={() => handleFloatUpReveal('slide-show')}/>
         <div className="contents">
-          <div className="ad-wrapper">
-            <Ad
-              class="adsbygoogle"
-              style={{display: "block", minHeight: "280px"}}
-              slot="7834969863"
-              format="auto"
-              responsive="true"
-            />
-          </div>
+          <BannerAd position="top" googleFallback/>
           <StationMessage/>
 
           <div className="news-section">

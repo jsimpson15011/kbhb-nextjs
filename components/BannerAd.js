@@ -2,8 +2,9 @@ import React from 'react'
 import {useRouter} from "next/router"
 import {useBannerAds} from "../utils/cachedData"
 import Image from "next/image"
+import Ad from "./Ad"
 
-const BannerAd = ({position}) => {
+const BannerAd = ({position, googleFallback}) => {
   const router = useRouter()
   const currentSlug = router.query.slug || router.route.replace('/','')
   const {data, isLoading, isError} = useBannerAds()
@@ -14,12 +15,19 @@ const BannerAd = ({position}) => {
     )
   }
 
+  console.log(data)
+
   let filteredAds =  data.filter(bannerAd =>  {
     return bannerAd.meta_box.banner_location.indexOf(position) !== -1
   })
 
+  console.log(filteredAds)
+
   if (position !== "header"){
     filteredAds = filteredAds.filter(bannerAd => {
+      if (!currentSlug){
+        return bannerAd['page-slugs'].indexOf("home") !== -1
+      }
       return bannerAd['page-slugs'].indexOf(currentSlug) !== -1
     })
   }
@@ -34,6 +42,17 @@ const BannerAd = ({position}) => {
 
   const currentBanner = filteredAds[randomInt]
 
+  if (!currentBanner && googleFallback){
+    return <div className="ad-wrapper">
+      <Ad
+        class="adsbygoogle"
+        style={{display: "block", minHeight: "280px"}}
+        slot="7834969863"
+        format="auto"
+        responsive="true"
+      />
+    </div>
+  }
   if (!currentBanner){
     return <></>
   }
