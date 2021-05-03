@@ -15,6 +15,7 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          <meta name="facebook-domain-verification" content="svsx11tfrh48b66udql6z5j48zixha" />
           <script
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
