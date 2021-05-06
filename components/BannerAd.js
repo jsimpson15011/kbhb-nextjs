@@ -47,6 +47,13 @@ const BannerAd = ({position, googleFallback}) => {
         format="auto"
         responsive="true"
       />
+      <style jsx>
+        {`
+        .ad-wrapper{
+          width: 100%;
+        }
+`}
+      </style>
     </div>
   }
   if (!currentBanner){
