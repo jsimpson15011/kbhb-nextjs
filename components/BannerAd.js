@@ -40,16 +40,10 @@ const BannerAd = ({position, googleFallback}) => {
 
   if (!currentBanner && googleFallback){
     return <div className="ad-wrapper">
-{/*      <Ad
+     <Ad
         class="adsbygoogle"
-        style={{display: "block", minHeight: "280px"}}
+        style={{display: "block", minHeight: "280px", width: "100%"}}
         slot="7834969863"
-        format="auto"
-        responsive="true"
-      />*/}
-      <Ad
-        style={{display: "block"}}
-        slot="8368186869"
         format="auto"
         responsive="true"
       />
