@@ -15,13 +15,9 @@ const BannerAd = ({position, googleFallback}) => {
     )
   }
 
-  console.log(data)
-
   let filteredAds =  data.filter(bannerAd =>  {
     return bannerAd.meta_box.banner_location.indexOf(position) !== -1
   })
-
-  console.log(filteredAds)
 
   if (position !== "header"){
     filteredAds = filteredAds.filter(bannerAd => {
@@ -44,10 +40,16 @@ const BannerAd = ({position, googleFallback}) => {
 
   if (!currentBanner && googleFallback){
     return <div className="ad-wrapper">
-      <Ad
+{/*      <Ad
         class="adsbygoogle"
         style={{display: "block", minHeight: "280px"}}
         slot="7834969863"
+        format="auto"
+        responsive="true"
+      />*/}
+      <Ad
+        style={{display: "block"}}
+        slot="8368186869"
         format="auto"
         responsive="true"
       />
