@@ -103,9 +103,9 @@ const Home = props => {
     }
   }
   addToSide(articles, 3)
+  addToSide(articles, 9)
   addToSide(articles, 6)
   addToSide(articles, 8)
-  addToSide(articles, 9)
   addToSide(articles, 4)
 
 

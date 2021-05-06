@@ -110,6 +110,9 @@ const Header = ({menuItems}) => {
               <Link href={'/auctions'}>
                 <a>Auctions</a>
               </Link>
+              <Link href={'/bull-sales'}>
+                <a>Bull Sale Calendar</a>
+              </Link>
               <Link href={'/on-demand'}>
                 <a className="hide-on-desktop">On Demand</a>
               </Link>
