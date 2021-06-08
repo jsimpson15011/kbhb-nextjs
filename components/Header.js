@@ -122,6 +122,7 @@ const Header = ({menuItems}) => {
 
           </div>
           <div className="banner-wrapper">
+            <a className="auction-button" href="https://blackhillsstore.com/">Summer Fun Auction</a>
             <BannerAd position="header"/>
           </div>
         </div>
@@ -174,6 +175,23 @@ const Header = ({menuItems}) => {
             margin-top: 7px;
             white-space: nowrap;
           }
+          .auction-button{
+          color: white;
+            margin-bottom: .5rem;
+            padding: .5rem;
+            border-radius: .5rem;
+            font-size: 1.5rem;
+            background: rgb(58,123,185);
+background: -moz-radial-gradient(circle, rgba(58,123,185,1) 0%, rgba(29,45,99,1) 100%);
+background: -webkit-radial-gradient(circle, rgba(58,123,185,1) 0%, rgba(29,45,99,1) 100%);
+background: radial-gradient(circle, rgba(58,123,185,1) 0%, rgba(29,45,99,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3a7bb9",endColorstr="#1d2d63",GradientType=1);
+transition: color .2s, background-color .2s;
+          }
+          .auction-button:hover{
+            background: white;
+            color: #2F629B;
+          }
 
           @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
             .main-header {
@@ -205,10 +223,12 @@ const Header = ({menuItems}) => {
             width: 600px;
             max-width: 100%;
             min-width: 48%;
-            align-items: flex-start;
+            align-items: center;
             flex-wrap: wrap;
             position: relative;
             display: none;
+            flex-direction: column;
+            justify-content: center;
           }
 
           .schedule-announcements {
