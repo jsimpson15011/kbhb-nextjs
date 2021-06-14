@@ -122,7 +122,7 @@ const Header = ({menuItems}) => {
 
           </div>
           <div className="banner-wrapper">
-            <a className="auction-button" href="https://blackhillsstore.com/">Summer Fun Auction</a>
+            {/*<a className="auction-button" href="https://blackhillsstore.com/">Summer Fun Auction</a>*/}
             <BannerAd position="header"/>
           </div>
         </div>
