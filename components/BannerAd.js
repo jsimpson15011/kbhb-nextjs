@@ -24,7 +24,7 @@ const BannerAd = ({position, googleFallback}) => {
       if (!currentSlug){
         return bannerAd['page-slugs'].indexOf("home") !== -1
       }
-      return bannerAd['page-slugs'].indexOf(currentSlug) !== -1
+      return bannerAd['page-slugs'].indexOf(currentSlug) !== -1 || bannerAd.meta_box.banner_category[0]?.slug === currentSlug
     })
   }
 
