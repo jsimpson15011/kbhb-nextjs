@@ -23,7 +23,7 @@ const HeaderLogoContainer = () => {
         <h1>
           <Link href="/">
             <a>
-              <Image width={275} height={182} className="header-logo__img" alt="Big 81 Ranch Radio KBHB"
+              <Image width={275} height={182} className="header-logo__img" alt="Big 81 Ranch Radio KBHB."
                      src="/img/logo.png"/>
             </a>
           </Link>
