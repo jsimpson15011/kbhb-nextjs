@@ -14,12 +14,16 @@ const Closures = (props) => {
   //const closure = closureItems[0]
   const closure = props.closures[0]
 
+  console.log(closure.modified);
+
+
   return (
     <MainLayout>
       <Head>
         <title>{siteTitle} - {closure.title.rendered}</title>
         <link rel='icon' href='/favicon.ico'/>
       </Head>
+      <i>Updated {new Date(closure.modified).toLocaleString()}</i>
       <DynamicContent content={closure}/>
     </MainLayout>
   )

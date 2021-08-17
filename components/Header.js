@@ -372,7 +372,7 @@ transition: color .2s, background-color .2s;
           }
 
           img {
-            display: block;
+            //display: block;
             max-width: 100%;
             height: auto;
           }

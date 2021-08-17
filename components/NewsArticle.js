@@ -444,7 +444,11 @@ const NewsArticle = (props) => {
               display: flex;
               flex-wrap: wrap;
               width: 100%;
-              font-size: 1.2rem;
+              font-size: 1.1rem;
+            }
+            
+            img{
+              display: inline;
             }
 
             a {
