@@ -140,6 +140,12 @@ const Menu = ({links}) => {
       .sub-menu a{
         width: 100%;
       }
+      :global(blockquote){
+          //background: #f9f9f9;
+    border-left: 7px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+      }
     `}</style>
     </nav>
   )
