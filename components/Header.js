@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import mainTheme from "../styles/katTheme"
 import Button from "./Button"
 import Link from "next/link"
@@ -9,13 +9,12 @@ import Image from "next/image"
 import {facebookUrl} from "../site-settings"
 import BannerAd from "./BannerAd"
 import ClosureNotification from "./ClosureNotification"
-import {mutate} from "swr"
 
 const HeaderLogoContainer = () => {
-  useEffect(() => {
+/*  useEffect(() => {
     mutate("https://psa.homesliceweb.com/wp-json/wp/v2/closures").then(test => {
     })
-  }, [])
+  }, [])*/
 
   return (
     <div className="header-logo">
@@ -362,8 +361,11 @@ transition: color .2s, background-color .2s;
 
           blockquote:before, blockquote:after,
           q:before, q:after {
-            content: '';
             content: none;
+          }
+          
+          .wp-caption{
+           max-width: 100%;
           }
 
           table {

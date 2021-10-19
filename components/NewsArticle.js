@@ -202,7 +202,7 @@ const NewsArticle = (props) => {
               align-items: flex-start;
               flex-wrap: wrap;
             }
-            
+
             .text-col {
               width: ${mainImg ? "600px" : "100%"};
               flex-grow: 1;
@@ -231,12 +231,13 @@ const NewsArticle = (props) => {
               font-size: 1.3em;
               margin-left: 0;
             }
-            
+
             @media all and (min-width: 1000px) {
               .image-col {
                 flex-wrap: nowrap;
                 margin-bottom: 14px;
               }
+
               .date-headline {
                 margin-left: 14px;
               }
@@ -446,8 +447,8 @@ const NewsArticle = (props) => {
               width: 100%;
               font-size: 1.1rem;
             }
-            
-            img{
+
+            img {
               display: inline;
             }
 
@@ -474,9 +475,15 @@ const NewsArticle = (props) => {
 
             h1 {
               color: #141414;
-              font-size: 3rem;
+              font-size: 2rem;
               line-height: 1.1;
               width: 100%;
+            }
+
+            @media all and (min-width: 600px) {
+              h1 {
+                font-size: 3rem;
+              }
             }
 
             .source {
