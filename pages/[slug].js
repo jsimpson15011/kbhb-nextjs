@@ -38,6 +38,11 @@ export async function getStaticProps(context) {
 
   const data = await res.json()
 
+  if(!data[0]){
+    return {
+      notFound: true
+    }
+  }
 
   return {
     props: {
@@ -59,7 +64,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false
+    fallback: true
   }
 }
 
