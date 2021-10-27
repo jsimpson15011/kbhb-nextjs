@@ -1,4 +1,7 @@
 module.exports = {
+  generateBuildId: async () => {
+    return 'KBHB-Radio-Next-JS'
+  },
   images: {
     domains: ['kbhbcms.homesliceweb.com','blackhillsstore.com','api.weather.gov']
   },
