@@ -39,7 +39,7 @@ const Layout = props => {
             box-sizing: border-box;
             padding: 21px;
             max-width: 100%;
-            width: 1100px;
+            width: ${props.width ? props.width : "1100px"};
             margin-right: 14px;
           }
 `

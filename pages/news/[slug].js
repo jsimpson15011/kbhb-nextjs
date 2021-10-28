@@ -30,7 +30,7 @@ const NewsPage = props => {
     return category.id === articles[0].categories[0]
   })
   return (
-    <MainLayout menuItems={props.menuItems}>
+    <MainLayout menuItems={props.menuItems} width={"850px"}>
       <Head>
         <title>{siteTitle} - {articles[0].title.rendered}</title>
         <script

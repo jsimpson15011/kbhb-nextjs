@@ -158,12 +158,15 @@ const NewsArticle = (props) => {
               {
                 mainImg ?
                   <div className="image-col">
-                    <Image
-                      src={mainImg[0]}
-                      width={mainImg[1]}
-                      height={mainImg[2]}
-                      alt=""
-                    />
+                    <div className="image-container">
+                      <Image
+                        src={mainImg[0]}
+                        width={mainImg[1]}
+                        height={mainImg[2]}
+                        layout="responsive"
+                        alt=""
+                      />
+                    </div>
                     <div className="date-headline">
                       <span className="date">{articleDate(props.article.date)}</span>
                       <h3 dangerouslySetInnerHTML={{__html: props.article.title.rendered}}/>
@@ -185,7 +188,7 @@ const NewsArticle = (props) => {
               display: flex;
               flex-wrap: wrap;
               width: 100%;
-              font-size: 1.1rem;
+              font-size: .9rem;
             }
 
             a {
@@ -202,6 +205,10 @@ const NewsArticle = (props) => {
               align-items: flex-start;
               flex-wrap: wrap;
             }
+            
+            .image-container{
+              width: 450px;
+            }
 
             .text-col {
               width: ${mainImg ? "600px" : "100%"};
@@ -212,7 +219,7 @@ const NewsArticle = (props) => {
 
             h3 {
               color: #141414;
-              font-size: 1.1em;
+              font-size: 1.4em;
               line-height: 1.1;
             }
 
@@ -284,7 +291,7 @@ const NewsArticle = (props) => {
               display: flex;
               flex-wrap: wrap;
               width: 100%;
-              font-size: 1.2rem;
+             //font-size: 1.2rem;
             }
 
             a {
@@ -338,7 +345,8 @@ const NewsArticle = (props) => {
         </style>
       </>
     )
-  } else {//the default article
+  }
+  else {//the default article
     const images = props.article.images ? props.article.images.map(image => {
       const fileInfo = image.news_photo_full
 
@@ -445,7 +453,7 @@ const NewsArticle = (props) => {
               display: flex;
               flex-wrap: wrap;
               width: 100%;
-              font-size: 1.1rem;
+              //font-size: 1.1rem;
             }
 
             img {
