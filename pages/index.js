@@ -155,8 +155,17 @@ const Home = props => {
       article.id !== topStory.id
     )
   })
+  const onlyAg = articles.filter(article => {
+    return (
+      article.categories.indexOf(9) !== -1
+      &&
+      article.id !== topStory.id
+    )
+  })
+
   onlyNews.length = onlyNews.length > 6 ? 6 : onlyNews.length
   onlySports.length = onlySports.length > 6 ? 6 : onlySports.length
+  onlyAg.length = onlyAg.length > 6 ? 6 : onlyAg.length
   const sportsArticles = onlySports.map(article => {
     return (
       <React.Fragment key={article.id}>
@@ -164,6 +173,31 @@ const Home = props => {
           summary
           article={article}
           category="Sports"
+        />
+        <div/>
+        <style jsx>
+          {
+            `
+              div {
+                width: 100%;
+                height: 2px;
+                background: #edf0f1;
+                margin-bottom: 14px;
+              }
+            `
+          }
+        </style>
+      </React.Fragment>
+    )
+  })
+
+  const agArticles = onlyAg.map(article => {
+    return (
+      <React.Fragment key={article.id}>
+        <NewsArticle
+          summary
+          article={article}
+          category="Agriculture News"
         />
         <div/>
         <style jsx>
@@ -228,6 +262,12 @@ const Home = props => {
               <Button overLine="View More" text="Sports" spacing="auto" width="90%" internalLink
                       href="/category/sports"/>
             </div>
+            <div className="news-section__col">
+              <h2 className="news-section__header news-section__header--ag">Agricultural News</h2>
+              {agArticles}
+              <Button overLine="View More" text="Agriculture News" spacing="auto" width="90%" internalLink
+                      href="/category/agriculture-news"/>
+            </div>
           </div>
           <SideBar articles={sideArticles} categories={props.categories}/>
         </div>
@@ -267,19 +307,25 @@ const Home = props => {
         }
 
         .news-section__col {
-          width: 300px;
-          min-width: 45%;
+          width: 200px;
+          flex-grow: 1;
+          min-width: 22%;
           max-width: 100%;
-          margin-left: auto;
-          margin-right: auto;
+          margin: 2rem;
         }
-
+        
+        .news-section__header{
+          font-size: 1.5rem;
+        }
         .news-section__header--news {
           color: ${categoryColor['News']};
         }
 
         .news-section__header--sports {
           color: ${categoryColor['Sports']};
+        }
+        .news-section__header--ag{
+          color: ${categoryColor['News']};
         }
       `}</style>
     </div>

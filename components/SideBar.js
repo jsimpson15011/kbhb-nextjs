@@ -9,7 +9,6 @@ const SideBar = (props) => {
     const category = props.categories.filter(category => {
       return category.id === article.categories[0]
     })[0]
-
     return (
       <React.Fragment key={article.id}>
         <BannerAd position="side"/>
