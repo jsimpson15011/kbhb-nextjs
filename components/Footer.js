@@ -21,7 +21,7 @@ const Footer = () => {
         <div className='contact'>
           <p>Phone number: <a href={`tel:${phone}`}>{phone}</a></p>
           <p>E-Mail: <a href={`mailto:${email}`}>{email}</a></p>
-          <p>1612 Junction Avenue, Suite #1</p>
+          <p>1612 Junction Avenue, Suite #4</p>
           <p>Sturgis, SD 57785</p>
         </div>
         <div className='logos'>
