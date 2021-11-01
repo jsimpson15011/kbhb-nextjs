@@ -134,8 +134,9 @@ const NewsArticle = (props) => {
 
             h3 {
               color: #141414;
-              font-size: 1.1em;
+              font-size: 1em;
               line-height: 1.1;
+              font-weight: normal;
             }
 
             .category {
