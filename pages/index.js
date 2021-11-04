@@ -315,8 +315,9 @@ const Home = props => {
         
         .news-section__header{
           font-size: 1.5rem;
+          color: ${categoryColor['News']};
         }
-        .news-section__header--news {
+       /* .news-section__header--news {
           color: ${categoryColor['News']};
         }
 
@@ -325,7 +326,7 @@ const Home = props => {
         }
         .news-section__header--ag{
           color: ${categoryColor['News']};
-        }
+        }*/
       `}</style>
     </div>
   )

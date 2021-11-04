@@ -5,6 +5,7 @@ import {baseUrl, siteTitle} from "../../site-settings"
 import {fetcher, useArticles} from "../../utils/cachedData"
 import NewsArticle from "../../components/NewsArticle"
 import {useRouter} from "next/router"
+import sanitizeHtml from 'sanitize-html'
 
 const NewsPage = props => {
   const router = useRouter()
@@ -29,6 +30,9 @@ const NewsPage = props => {
   const storyCat = props.categories.filter(category => {
     return category.id === articles[0].categories[0]
   })
+
+  const metaDescription = sanitizeHtml(articles[0].excerpt.rendered, {allowedTags: [], allowedAttributes: []})
+
   return (
     <MainLayout menuItems={props.menuItems} width={"850px"}>
       <Head>
@@ -41,25 +45,36 @@ const NewsPage = props => {
               "@type": "Article",
               "datePublished": articles[0]["date_gmt"],
               "headline": articles[0].title.rendered,
-              "image": articles[0].images[0] ? articles[0].images[0].news_photo_full[0] : "/img/logo.png"
-/*              "author": {
-                "@type": "Organization",
-                "name": "unknown"
+              "image": articles[0].images[0] ? articles[0].images[0].news_photo_full[0] : "/img/logo.png",
+              "author": {
+                "name": articles[0].meta_box.news_source
               },
               "publisher": {
                 "@type": "Organization",
                 "name": "KBHB Ranch Radio"
-              }*/
+              }
             })
           }}
         />
 
 
-        <link rel='icon' href='/favicon.ico'/>
+        <link rel="icon" href="/favicon.ico"/>
+
         <meta property="og:url"
               content={`https://www.kbhbradio.com${router.asPath}`}/>
-        <meta property="og:type" content="article"/>
+        <meta content={articles[0].meta_box.news_source} name="author"/>
         <meta property="og:title" content={articles[0].title.rendered}/>
+        <meta property="twitter:title" content={articles[0].title.rendered}/>
+        <meta content={metaDescription} property="og:description"/>
+        <meta content={metaDescription} name="description"/>
+        <meta content={metaDescription} name="twitter:description"/>
+        <meta content="KBHB Ranch Radio" property="og:site_name"/>
+
+
+        <meta content="summary_large_image" name="twitter:card"/>
+        <meta property="og:type" content="article"/>
+        <meta property="article:content-tier" content="free"/>
+
         {
           articles[0].images[0] ?
             <>
@@ -67,6 +82,11 @@ const NewsPage = props => {
                     content={articles[0].images[0].news_photo_full[0]}/>
               <meta property="og:width" content={articles[0].images[0].news_photo_full[1]}/>
               <meta property="og:height" content={articles[0].images[0].news_photo_full[2]}/>
+              <meta name="thumbnail"
+                    content={articles[0].images[0].news_photo_full[0]}/>
+              <meta name="twitter:image"
+                    content={articles[0].images[0].news_photo_full[0]}/>
+              <link rel="image_src" href={articles[0].images[0].news_photo_full[0]}/>
             </>
             :
             ""
