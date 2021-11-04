@@ -33,9 +33,9 @@ const NewsPage = props => {
 
   const metaDescription = sanitizeHtml(articles[0].excerpt.rendered, {allowedTags: [], allowedAttributes: []})
 
-  const tagNames = props.tags.map(tag => {
+/*  const tagNames = props.tags.map(tag => {
     return tag.name
-  })
+  })*/
 
   return (
     <MainLayout menuItems={props.menuItems} width={"850px"}>
@@ -75,7 +75,7 @@ const NewsPage = props => {
         <meta content="KBHB Ranch Radio" property="og:site_name"/>
 
         {
-          props.tags.length > 0 ?
+          false ?
             <meta content={tagNames} name="keywords"/> :
             ""
             }
@@ -136,18 +136,18 @@ export async function getStaticProps({params, preview = false, previewData}) {
       fetcher(`${baseUrl}/wp-json/menus/v1/menus/main-navigation`),
     ])
 
-    const tagPromises = articles[0].tags.map(tag => {
+  /*  const tagPromises = articles[0].tags.map(tag => {
       return fetcher(`${baseUrl}/wp-json/wp/v2/tags/${tag}`)
-    })
+    })*/
 
-    const resolvedTags = await Promise.all(tagPromises)
+    //const resolvedTags = await Promise.all(tagPromises)
 
     return {
       props: {
         articles: articles,
         categories: categories,
         menuItems: menuItems,
-        tags: resolvedTags
+        //tags: resolvedTags
       },
       revalidate: 5
     }
