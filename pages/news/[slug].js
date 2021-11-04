@@ -33,6 +33,10 @@ const NewsPage = props => {
 
   const metaDescription = sanitizeHtml(articles[0].excerpt.rendered, {allowedTags: [], allowedAttributes: []})
 
+  const tagNames = props.tags.map(tag => {
+    return tag.name
+  })
+
   return (
     <MainLayout menuItems={props.menuItems} width={"850px"}>
       <Head>
@@ -69,6 +73,12 @@ const NewsPage = props => {
         <meta content={metaDescription} name="description"/>
         <meta content={metaDescription} name="twitter:description"/>
         <meta content="KBHB Ranch Radio" property="og:site_name"/>
+
+        {
+          props.tags.length > 0 ?
+            <meta content={tagNames} name="keywords"/> :
+            ""
+            }
 
 
         <meta content="summary_large_image" name="twitter:card"/>
@@ -126,11 +136,18 @@ export async function getStaticProps({params, preview = false, previewData}) {
       fetcher(`${baseUrl}/wp-json/menus/v1/menus/main-navigation`),
     ])
 
+    const tagPromises = articles[0].tags.map(tag => {
+      return fetcher(`${baseUrl}/wp-json/wp/v2/tags/${tag}`)
+    })
+
+    const resolvedTags = await Promise.all(tagPromises)
+
     return {
       props: {
         articles: articles,
         categories: categories,
-        menuItems: menuItems
+        menuItems: menuItems,
+        tags: resolvedTags
       },
       revalidate: 5
     }
