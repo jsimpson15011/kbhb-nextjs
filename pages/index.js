@@ -15,7 +15,6 @@ import {categoryColor} from "../utils/articleFunctions"
 import {belowSlidesMessage, listenLiveUrl} from "../site-settings"
 import mainTheme from "../styles/katTheme"
 import Button from "../components/Button"
-import BannerAd from "../components/BannerAd"
 
 const StationMessage = () => {
   return (
@@ -237,7 +236,7 @@ const Home = props => {
       <HomeLayout menuItems={props.menuItems}>
         <Waypoint onEnter={() => handleFloatUpReveal('slide-show')}/>
         <div className="contents">
-          <BannerAd position="top" googleFallback/>
+          {/*<BannerAd position="top" googleFallback/>*/}
           <StationMessage/>
 
           <div className="news-section">

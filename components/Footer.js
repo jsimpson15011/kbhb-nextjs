@@ -4,20 +4,19 @@ import mainTheme from "../styles/katTheme"
 import Link from "next/link"
 import {email, phone, siteTitle} from "../site-settings"
 import Image from "next/image"
-import Ad from "./Ad"
 
 const Footer = () => {
   return (
     <div id='footer' className='footer'>
       <MaxWidthWrapper display='flex' className='max-width-wrapper'>
-        <div className='ad-wrapper'>
+        {/*<div className='ad-wrapper'>
           <Ad
             style={{display: "block"}}
             slot="8368186869"
             format="auto"
             responsive="true"
           />
-        </div>
+        </div>*/}
         <div className='contact'>
           <p>Phone number: <a href={`tel:${phone}`}>{phone}</a></p>
           <p>E-Mail: <a href={`mailto:${email}`}>{email}</a></p>
