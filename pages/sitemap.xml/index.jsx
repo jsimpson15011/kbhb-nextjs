@@ -8,6 +8,7 @@ export const getServerSideProps = async ({res}) => {
   const posts = await fetcher(`${baseUrl}/wp-json/wp/v2/posts?posts?after=${threeDaysAgo}&per_page=100`)
 
   const postsXml = posts.map(post => {
+    console.log(new Date().getTimezoneOffset()/60)
     return (
       `
 <url>
@@ -17,7 +18,7 @@ export const getServerSideProps = async ({res}) => {
         <news:name>KBHB Radio</news:name>
         <news:language>en</news:language>
     </news:publication>
-    <news:publication_date>${post.date}</news:publication_date>
+    <news:publication_date>${post.date}+0${new Date().getTimezoneOffset()/60}:00</news:publication_date>
     <news:title>${post.title.rendered}</news:title>
 </news:news>
 </url>
