@@ -43,6 +43,8 @@ const SideBar = (props) => {
             articles
             : ""
         }
+        <a className="social-icon" href="https://www.facebook.com/kbhbradio"><img width={32} height={32} alt="" src="/img/icons/facebook-32.png"/> Follow us on Facebook</a>
+        <a className="social-icon" href="https://twitter.com/KbhbNews"><img width={32} height={32} alt="" src="/img/icons/twitter-32.png"/> Follow us on Twitter</a>
         {
           props.noWeather ?
             "" :
@@ -82,6 +84,20 @@ const SideBar = (props) => {
                     }
                     a{
                       margin-bottom: 21px;
+                    }
+                    a.social-icon{
+                      display: flex;
+                      align-items: center;
+                      margin-bottom: 1rem;
+                      line-height: 1;
+                      color: #2F629B;
+                      text-decoration: underline;
+                      font-weight: bold;
+                    }
+                    .social-icon img{
+                      margin-right: .5rem;
+                      width: 28px;
+                      height: auto;
                     }
                   `
           }

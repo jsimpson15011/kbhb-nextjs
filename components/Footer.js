@@ -22,6 +22,8 @@ const Footer = () => {
           <p>E-Mail: <a href={`mailto:${email}`}>{email}</a></p>
           <p>1612 Junction Avenue, Suite #4</p>
           <p>Sturgis, SD 57785</p>
+          <a className="social-icon" href="https://www.facebook.com/kbhbradio"><img width={32} height={32} alt="" src="/img/icons/facebook-32.png"/> Follow us on Facebook</a>
+          <a className="social-icon" href="https://twitter.com/KbhbNews"><img width={32} height={32} alt="" src="/img/icons/twitter-32.png"/> Follow us on Twitter</a>
         </div>
         <div className='logos'>
           <Link href='/'>
@@ -40,6 +42,19 @@ const Footer = () => {
             background: ${mainTheme.brand};
             box-sizing: border-box;
             padding: 40px 15px;
+          }
+          .contact a.social-icon{
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            line-height: 1;
+            color: #2F629B;
+            text-decoration: underline;
+          }
+          .social-icon img{
+            margin-right: .5rem;
+            width: 28px;
+            height: auto;
           }
           .ad-wrapper{
             width: 100%;
