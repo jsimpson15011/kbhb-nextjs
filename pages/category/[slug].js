@@ -1,14 +1,16 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import MainLayout from "../../components/MainLayout"
 import Head from "next/dist/next-server/lib/head"
 import {baseUrl, siteTitle} from "../../site-settings"
 import {fetcher, useArticles} from "../../utils/cachedData"
 import NewsArticle from "../../components/NewsArticle"
 import {categoryColor} from "../../utils/articleFunctions"
-import {useRouter} from "next/router"
+import sessionStorage from "sessionstorage"
+import { useRouterScroll } from "@moxy/next-router-scroll"
 
 
 const Category = props => {
+  const { updateScroll } = useRouterScroll()
 
   if (!props.articles || !props.category) {
     return (
@@ -30,6 +32,35 @@ const Category = props => {
   const [newsArticles, setNewsArticles] = useState(articles)
   const [offset, setOffset] = useState(perPage)
   const [loadButtonState, setLoadButtonState] = useState('block')
+
+  const sessionCatID = "category-"+props.category.id
+
+  useEffect(() => {
+    if(sessionStorage.getItem(sessionCatID)){
+      const articleAndOffset = JSON.parse(sessionStorage.getItem(sessionCatID))
+
+      setNewsArticles(articleAndOffset.articles)
+      setOffset(articleAndOffset.offset)
+    }
+    else {
+      const articleAndOffset = {
+        offset: offset,
+        articles: newsArticles
+      }
+
+      sessionStorage.setItem(sessionCatID, JSON.stringify(articleAndOffset))
+    }
+    updateScroll()
+  }, [])
+
+  useEffect(() => {
+    const articleAndOffset = {
+      offset: offset,
+      articles: newsArticles
+    }
+
+    sessionStorage.setItem(sessionCatID, JSON.stringify(articleAndOffset))
+  }, [newsArticles, offset])
 
 /*  useEffect(() => {
     const articles = fetcher(`${baseUrl}/wp-json/wp/v2/posts?per_page=${perPage}&categories=${props.category.id}`)
@@ -129,7 +160,15 @@ export async function getStaticPaths() {
 export async function getStaticProps({params, preview = false, previewData}) {
   try {
     const categories = await fetcher(`${baseUrl}/wp-json/wp/v2/categories?slug=${params.slug}`)
-    const articles = await fetcher(`${baseUrl}/wp-json/wp/v2/posts?per_page=10&categories=${categories[0].id}`)
+    const sessionCatID = "category-"+categories[0].id
+    let articles
+    if(sessionStorage.getItem(sessionCatID)){
+      articles = JSON.parse(sessionStorage.getItem(sessionCatID)).articles
+    }
+    else {
+      articles = await fetcher(`${baseUrl}/wp-json/wp/v2/posts?per_page=10&categories=${categories[0].id}`)
+    }
+
 
 
     return {
