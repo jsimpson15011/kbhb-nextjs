@@ -7,7 +7,7 @@ import '../styles/audio-player.scss'
 import { RouterScrollProvider } from "@moxy/next-router-scroll"
 
 function MyApp({Component, pageProps}) {
-  return <RouterScrollProvider disableNextLinkScroll={false}>
+  return <RouterScrollProvider>
     <Component {...pageProps} />
   </RouterScrollProvider>
 }
