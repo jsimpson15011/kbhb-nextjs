@@ -106,6 +106,7 @@ const Category = props => {
     }
   }
 
+  updateScroll()
   return (
     <MainLayout>
       <Head>
