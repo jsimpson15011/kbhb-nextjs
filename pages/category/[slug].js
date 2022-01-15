@@ -35,6 +35,8 @@ const Category = props => {
 
   const sessionCatID = "category-"+props.category.id
 
+  updateScroll()
+
   useEffect(() => {
     if(sessionStorage.getItem(sessionCatID)){
       const articleAndOffset = JSON.parse(sessionStorage.getItem(sessionCatID))
@@ -106,7 +108,6 @@ const Category = props => {
     }
   }
 
-  updateScroll()
   return (
     <MainLayout>
       <Head>
