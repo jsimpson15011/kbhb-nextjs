@@ -11,10 +11,10 @@ import BannerAd from "./BannerAd"
 import ClosureNotification from "./ClosureNotification"
 
 const HeaderLogoContainer = () => {
-/*  useEffect(() => {
-    mutate("https://psa.homesliceweb.com/wp-json/wp/v2/closures").then(test => {
-    })
-  }, [])*/
+  /*  useEffect(() => {
+      mutate("https://psa.homesliceweb.com/wp-json/wp/v2/closures").then(test => {
+      })
+    }, [])*/
 
   return (
     <div className="header-logo">
@@ -84,7 +84,7 @@ const HeaderLogoContainer = () => {
 const Header = ({menuItems}) => {
 
   return (
-    <div className='main-header'>
+    <div className="main-header">
       <Nav navItems={menuItems ? menuItems.items : null}/>
       <h1 className="tiny-logo hide-on-desktop">
         <Link href="/">
@@ -174,20 +174,22 @@ const Header = ({menuItems}) => {
             margin-top: 7px;
             white-space: nowrap;
           }
-          .auction-button{
-          color: white;
+
+          .auction-button {
+            color: white;
             margin-bottom: .5rem;
             padding: .5rem;
             border-radius: .5rem;
             font-size: 1.5rem;
-            background: rgb(58,123,185);
-background: -moz-radial-gradient(circle, rgba(58,123,185,1) 0%, rgba(29,45,99,1) 100%);
-background: -webkit-radial-gradient(circle, rgba(58,123,185,1) 0%, rgba(29,45,99,1) 100%);
-background: radial-gradient(circle, rgba(58,123,185,1) 0%, rgba(29,45,99,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3a7bb9",endColorstr="#1d2d63",GradientType=1);
-transition: color .2s, background-color .2s;
+            background: rgb(58, 123, 185);
+            background: -moz-radial-gradient(circle, rgba(58, 123, 185, 1) 0%, rgba(29, 45, 99, 1) 100%);
+            background: -webkit-radial-gradient(circle, rgba(58, 123, 185, 1) 0%, rgba(29, 45, 99, 1) 100%);
+            background: radial-gradient(circle, rgba(58, 123, 185, 1) 0%, rgba(29, 45, 99, 1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3a7bb9",endColorstr="#1d2d63",GradientType=1);
+            transition: color .2s, background-color .2s;
           }
-          .auction-button:hover{
+
+          .auction-button:hover {
             background: white;
             color: #2F629B;
           }
@@ -359,13 +361,17 @@ transition: color .2s, background-color .2s;
             quotes: none;
           }
 
+          a {
+            overflow-wrap: break-word;
+          }
+
           blockquote:before, blockquote:after,
           q:before, q:after {
             content: none;
           }
-          
-          .wp-caption{
-           max-width: 100%;
+
+          .wp-caption {
+            max-width: 100%;
           }
 
           table {
@@ -378,8 +384,8 @@ transition: color .2s, background-color .2s;
             max-width: 100%;
             height: auto;
           }
-          
-          iframe{
+
+          iframe {
             max-width: 100%;
           }
 
