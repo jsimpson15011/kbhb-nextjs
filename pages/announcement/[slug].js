@@ -1,9 +1,8 @@
 import React from 'react'
 import MainLayout from "../../components/MainLayout"
-import Head from "next/dist/next-server/lib/head"
+import Head from "next/head"
 import DynamicContent from "../../components/DynamicContent"
-import {baseUrl, siteTitle} from "../../site-settings"
-import {useSelector} from "react-redux"
+import {siteTitle} from "../../site-settings"
 import {fetcher} from "../../utils/cachedData"
 
 const Announcement = props => {

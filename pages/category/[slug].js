@@ -1,16 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import MainLayout from "../../components/MainLayout"
-import Head from "next/dist/next-server/lib/head"
+import Head from "next/head"
 import {baseUrl, siteTitle} from "../../site-settings"
 import {fetcher, useArticles} from "../../utils/cachedData"
 import NewsArticle from "../../components/NewsArticle"
 import {categoryColor} from "../../utils/articleFunctions"
 import sessionStorage from "sessionstorage"
-import { useRouterScroll } from "@moxy/next-router-scroll"
 
 
 const Category = props => {
-  const { updateScroll } = useRouterScroll()
 
   if (!props.articles || !props.category) {
     return (
@@ -50,7 +48,6 @@ const Category = props => {
 
       sessionStorage.setItem(sessionCatID, JSON.stringify(articleAndOffset))
     }
-    updateScroll()
   }, [])
 
   useEffect(() => {

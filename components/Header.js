@@ -185,7 +185,6 @@ const Header = ({menuItems}) => {
             background: -moz-radial-gradient(circle, rgba(58, 123, 185, 1) 0%, rgba(29, 45, 99, 1) 100%);
             background: -webkit-radial-gradient(circle, rgba(58, 123, 185, 1) 0%, rgba(29, 45, 99, 1) 100%);
             background: radial-gradient(circle, rgba(58, 123, 185, 1) 0%, rgba(29, 45, 99, 1) 100%);
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3a7bb9",endColorstr="#1d2d63",GradientType=1);
             transition: color .2s, background-color .2s;
           }
 

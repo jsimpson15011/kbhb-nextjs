@@ -91,7 +91,6 @@ const Menu = ({links}) => {
         background: -moz-linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(4,8,17,1) 100%);
         background: -webkit-linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(4,8,17,1) 100%);
         background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(4,8,17,1) 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#040811",GradientType=1);
       }
       @media all and (min-width: ${mainTheme.menuBreakPoint}){
         nav{
