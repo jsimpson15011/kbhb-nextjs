@@ -1,6 +1,6 @@
 import React from 'react'
 import MainLayout from "../../components/MainLayout"
-import Head from "next/head"
+import Head from "next/dist/next-server/lib/head"
 import { siteTitle} from "../../site-settings"
 import Weather from "../../components/Weather"
 

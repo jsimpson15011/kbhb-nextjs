@@ -1,7 +1,7 @@
 import React from 'react'
 import fetch from "isomorphic-unfetch"
 import MainLayout from "../../components/MainLayout"
-import Head from "next/head"
+import Head from "next/dist/next-server/lib/head"
 import DynamicContent from "../../components/DynamicContent"
 import {baseUrl, siteTitle} from "../../site-settings"
 import {fetcher} from "../../utils/cachedData"

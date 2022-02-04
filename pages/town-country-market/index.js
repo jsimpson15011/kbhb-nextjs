@@ -1,6 +1,6 @@
 import React from 'react'
 import MainLayout from "../../components/MainLayout"
-import Head from "next/head"
+import Head from "next/dist/next-server/lib/head"
 import {baseUrl, siteTitle} from "../../site-settings"
 import {fetcher} from "../../utils/cachedData"
 import Image from "next/image"

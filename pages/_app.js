@@ -4,9 +4,12 @@ import "../styles/hamburger.css"
 import "slick-carousel/slick/slick.css"
 import '../styles/slick-theme.css'
 import '../styles/audio-player.scss'
+import { RouterScrollProvider } from "@moxy/next-router-scroll"
 
 function MyApp({Component, pageProps}) {
-  return <Component {...pageProps} />
+  return <RouterScrollProvider disableNextLinkScroll={false}>
+    <Component {...pageProps} />
+  </RouterScrollProvider>
 }
 
 /*MyApp.getInitialProps = async ({reduxStore, Component, ctx}) => {

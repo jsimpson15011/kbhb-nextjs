@@ -15,6 +15,7 @@ import {categoryColor} from "../utils/articleFunctions"
 import {belowSlidesMessage, listenLiveUrl} from "../site-settings"
 import mainTheme from "../styles/katTheme"
 import Button from "../components/Button"
+import {useRouterScroll} from "@moxy/next-router-scroll"
 
 const StationMessage = () => {
   return (
@@ -71,6 +72,7 @@ const StationMessage = () => {
 }
 
 const Home = props => {
+  const { updateScroll } = useRouterScroll()
   const categories = props.categories
   const articles = props.articles
   /*  const {articles, isLoading, isError} = useArticles({
@@ -226,6 +228,7 @@ const Home = props => {
     })
   }
 
+  updateScroll()
   return (
     <div>
       <Head>
