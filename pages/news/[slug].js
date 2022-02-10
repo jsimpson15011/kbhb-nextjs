@@ -57,6 +57,7 @@ const NewsPage = props => {
               "isAccessibleForFree": true,
               "author": {
                 "name": articles[0].meta_box.news_source,
+                "type": sourceHasUrl ? "person" : "thing",
                 "url": sourceHasUrl ? isGary ? 'https://kbhbradio.com/airstaff/gary-matthews' : 'https://kbhbradio.com/airstaff/francie-ganje' : ''
               },
               "publisher": {
