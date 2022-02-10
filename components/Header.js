@@ -348,6 +348,12 @@ const Header = ({menuItems}) => {
           footer, header, hgroup, menu, section {
             display: block;
           }
+          video{
+            max-width: 100%;
+          }
+          .wp-video{
+            max-width: 100%;
+          }
 
           body {
             line-height: 1;
