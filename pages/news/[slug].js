@@ -37,6 +37,10 @@ const NewsPage = props => {
     return tag.name
   })*/
 
+  const sourceHasUrl = articles[0].meta_box.news_source === 'Gary Matthews' || articles[0].meta_box.news_source === 'F.Ganje'
+  const isGary = articles[0].meta_box.news_source === 'Gary Matthews'
+  //const isFrancie = articles[0].meta_box.news_source === 'F.Ganje'
+
   return (
     <MainLayout menuItems={props.menuItems} width={"850px"}>
       <Head>
@@ -50,8 +54,10 @@ const NewsPage = props => {
               "datePublished": articles[0]["date_gmt"],
               "headline": articles[0].title.rendered,
               "image": articles[0].images[0] ? articles[0].images[0].news_photo_full[0] : "/img/logo.png",
+              "isAccessibleForFree": true,
               "author": {
-                "name": articles[0].meta_box.news_source
+                "name": articles[0].meta_box.news_source,
+                "url": sourceHasUrl ? isGary ? 'https://kbhbradio.com/airstaff/gary-matthews' : 'https://kbhbradio.com/airstaff/francie-ganje' : ''
               },
               "publisher": {
                 "@type": "Organization",

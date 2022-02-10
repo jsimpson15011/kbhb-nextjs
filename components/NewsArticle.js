@@ -5,6 +5,35 @@ import {articleDate, categoryColor} from "../utils/articleFunctions"
 
 const NewsArticle = (props) => {
 
+  let source = <span className="source">{props.article.meta_box.news_source}
+    <style jsx>            {`.source {
+      font-size: 1.1rem;
+      color: #676767;
+      display: block;
+    }`}</style></span>
+  if (props.article.meta_box.news_source === 'Gary Matthews') {
+    source = <><Link href="/airstaff/gary-matthews"><a className="source"><span
+      className="source">{props.article.meta_box.news_source}</span></a>
+    </Link>
+      <style jsx>            {`.source {
+        font-size: 1.1rem;
+        color: #676767;
+        display: block;
+      }`}</style>
+    </>
+  }
+  if (props.article.meta_box.news_source === 'F.Ganje') {
+    source = <><Link href="/airstaff/francie-ganje"><a className="source"><span
+      className="source">{props.article.meta_box.news_source}</span></a>
+    </Link>
+      <style jsx>            {`.source {
+        font-size: 1.1rem;
+        color: #676767;
+        display: block;
+      }`}</style>
+    </>
+  }
+
   if (props.topStory) {
     const mainImg = props.article.images[0] ? props.article.images[0].news_photo_large : false
     return (
@@ -206,8 +235,8 @@ const NewsArticle = (props) => {
               align-items: flex-start;
               flex-wrap: wrap;
             }
-            
-            .image-container{
+
+            .image-container {
               width: 450px;
             }
 
@@ -292,7 +321,7 @@ const NewsArticle = (props) => {
               display: flex;
               flex-wrap: wrap;
               width: 100%;
-             //font-size: 1.2rem;
+              //font-size: 1.2rem;
             }
 
             a {
@@ -346,8 +375,7 @@ const NewsArticle = (props) => {
         </style>
       </>
     )
-  }
-  else {//the default article
+  } else {//the default article
     const images = props.article.images ? props.article.images.map(image => {
       const fileInfo = image.news_photo_full
 
@@ -427,7 +455,7 @@ const NewsArticle = (props) => {
           <div className="image-col">
             <h1 dangerouslySetInnerHTML={{__html: props.article.title.rendered}}/>
             <div className="date-headline">
-              <span className="source">{props.article.meta_box.news_source}</span>
+              {source}
               <span className="date">{articleDate(props.article.date)}</span>
               <Link href={`/category/${props.category === "Uncategorized" ? "News" : props.category}`}>
                 <a>
