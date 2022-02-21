@@ -2,7 +2,7 @@ import React from 'react'
 import MainLayout from "../../components/MainLayout"
 import Head from "next/dist/next-server/lib/head"
 import {baseUrl, siteTitle} from "../../site-settings"
-import {fetcher, useArticles} from "../../utils/cachedData"
+import {fetcher} from "../../utils/cachedData"
 import NewsArticle from "../../components/NewsArticle"
 import {useRouter} from "next/router"
 import sanitizeHtml from 'sanitize-html'
@@ -16,7 +16,8 @@ const NewsPage = props => {
       <h2>Loading...</h2>
     )
   }
-  const {articles, isLoading, isError} = useArticles({
+  const articles = props.articles
+/*  const {articles, isLoading, isError} = useArticles({
     url: `${baseUrl}/wp-json/wp/v2/posts?slug=${router.query.slug}`,
     initialData: props.articles
   })
@@ -25,7 +26,7 @@ const NewsPage = props => {
     return (
       <h2>Loading...</h2>
     )
-  }
+  }*/
 
   const storyCat = props.categories.filter(category => {
     return category.id === articles[0].categories[0]

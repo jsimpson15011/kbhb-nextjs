@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import MainLayout from "../../components/MainLayout"
 import Head from "next/dist/next-server/lib/head"
 import {baseUrl, siteTitle} from "../../site-settings"
-import {fetcher, useArticles} from "../../utils/cachedData"
+import {fetcher} from "../../utils/cachedData"
 import NewsArticle from "../../components/NewsArticle"
 import {categoryColor} from "../../utils/articleFunctions"
 import sessionStorage from "sessionstorage"
@@ -18,13 +18,15 @@ const Category = props => {
     )
   }
 
-  const {articles, isLoading, isError} = useArticles({url: `${baseUrl}/wp-json/wp/v2/posts?per_page=10&categories=${props.category.id}`,initialData: props.articles})
+  const articles = props.articles
+
+/*  const {articles, isLoading, isError} = useArticles({url: `${baseUrl}/wp-json/wp/v2/posts?per_page=10&categories=${props.category.id}`,initialData: props.articles})
 
   if (isLoading){
     return (
       <h2>Loading...</h2>
     )
-  }
+  }*/
 
   //const articles = props.articles
 
