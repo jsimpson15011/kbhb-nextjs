@@ -13,6 +13,7 @@ const Category = props => {
   const { updateScroll } = useRouterScroll()
 
   if (!props.articles || !props.category) {
+    console.log(props)
     return (
       <h2>Loading...</h2>
     )

@@ -12,6 +12,7 @@ const NewsPage = props => {
 
 
   if (!props.articles) {
+    console.log(props)
     return (
       <h2>Loading...</h2>
     )
@@ -136,7 +137,7 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({params, preview = false, previewData}) {
+export async function getStaticProps({params}) {
   try {
     const [categories, articles, menuItems] = await Promise.all([
       fetcher(`${baseUrl}/wp-json/wp/v2/categories`),
