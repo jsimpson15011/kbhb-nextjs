@@ -162,7 +162,6 @@ export async function getStaticProps({params}) {
     }
   } catch (e) {
     console.log(e)
-    return {props: {}}
   }
 }
 

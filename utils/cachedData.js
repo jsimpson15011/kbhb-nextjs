@@ -1,8 +1,15 @@
 import useSWR from "swr"
 import {baseUrl} from "../site-settings"
 import moment from "moment"
+import axiosRetry from "axios-retry"
+import axios from "axios"
 
-export const fetcher = (...args) => fetch(...args).then(res => res.json())
+axiosRetry(axios, { retries: 5 })
+
+export const fetcher = (...args) => axios.get(...args).then(res => {
+  return res.data
+})
+
 const scheduleFetcher = (...args) => {
   return(
     fetch(...args).then(res => res.json().then(schedule => {

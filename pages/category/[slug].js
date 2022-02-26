@@ -184,7 +184,6 @@ export async function getStaticProps({params, preview = false, previewData}) {
     }
   } catch (e) {
     console.log(e)
-    return {props: {}}
   }
 }
 
